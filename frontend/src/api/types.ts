@@ -221,11 +221,27 @@ export interface PromiseCheck {
   best_similarity: number | null;
 }
 
+/** One promise made in the title or opening, and when (or whether) it pays off. */
+export interface PromiseItem {
+  text: string;
+  source: "title" | "intro";
+  made_at: number;
+  made_end: number;
+  payoff_at: number | null;
+  payoff_end: number | null;
+  payoff_text: string | null;
+  similarity: number | null;
+  delay_s: number | null;
+  /** kept = on time, late = paid off late, open = never paid off (open loop) */
+  status: "kept" | "late" | "open";
+}
+
 export interface FlagsResponse extends MockMarker {
   project_id?: string;
   model_version?: string;
   rules_version?: string;
   promise?: PromiseCheck;
+  ledger?: PromiseItem[];
   flags: Flag[];
   edits: Edit[];
 }

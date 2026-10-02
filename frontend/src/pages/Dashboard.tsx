@@ -2,11 +2,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/client";
 import { isNotFound } from "../api/errors";
-import { useFlags, usePrediction, useProject, useProjects, useSegments, useTextFeatures, useTranscript } from "../api/hooks";
+import { useFlags, usePrediction, useProject, useProjects, useScores, useSegments, useTextFeatures, useTranscript } from "../api/hooks";
 import type { Flag } from "../api/types";
 import AnalysisPanel from "../components/dashboard/AnalysisPanel";
 import BackgroundStage from "../components/dashboard/BackgroundStage";
 import EditPlan from "../components/dashboard/EditPlan";
+import PromiseLedger from "../components/dashboard/PromiseLedger";
 import FlagsList from "../components/dashboard/FlagsList";
 import PlaybackCapsule from "../components/dashboard/PlaybackCapsule";
 import RetentionChart from "../components/dashboard/RetentionChart";
@@ -26,7 +27,7 @@ import { mmss } from "../lib/format";
 
 const ZOOMS = [1, 2, 4];
 const SKIPPABLE = new Set(["CUT", "SHORTEN"]);
-const SHELF_BODY = "h-[208px]";
+
 
 export default function Dashboard() {
   const { id = "" } = useParams();
@@ -47,7 +48,8 @@ export default function Dashboard() {
   const [acceptedEditIds, setAcceptedEditIds] = useState<string[]>([]);
   const [customCuts, setCustomCuts] = useState<CustomCut[]>([]);
   const [previewEdited, setPreviewEditedState] = useState(false);
-  const [shelfTab, setShelfTab] = useState<"timeline" | "edits">("timeline");
+  const [shelfTab, setShelfTab] = useState<"timeline" | "edits" | "promises">("timeline");
+  const [laneMode, setLaneMode] = useState<"structure" | "scores">("structure");
   const [localVideo, setLocalVideo] = useState<string | null>(null);
   // Dev only: ?demoVideo=/demo/clip.mp4 plays a sample file from public/ (never in production builds).
   const [demoVideo] = useState(() => (import.meta.env.DEV ? new URLSearchParams(location.search).get("demoVideo") : null));
@@ -63,6 +65,9 @@ export default function Dashboard() {
   const flags = useMemo(() => flagsQ.data?.flags ?? [], [flagsQ.data]);
   const edits = useMemo(() => flagsQ.data?.edits ?? [], [flagsQ.data]);
   const selectedFlag = flags.find((f) => f.id === selectedFlagId) ?? null;
+  const brokenPromises = (flagsQ.data?.ledger ?? []).filter((x) => x.status !== "kept").length;
+  const scoresQ = useScores(id);
+  const hasScores = !!scoresQ.data;
 
   // Ranges skipped when previewing the edit plan: accepted CUT/SHORTEN edits plus custom cuts.
   const skipRanges = useMemo(() => {
@@ -323,6 +328,7 @@ export default function Dashboard() {
                 options={[
                   { value: "timeline", label: "Timeline" },
                   { value: "edits", label: `Edit plan${acceptedEditIds.length + customCuts.length ? ` (${acceptedEditIds.length + customCuts.length})` : ""}` },
+                  { value: "promises", label: `Promises${brokenPromises ? ` (${brokenPromises})` : ""}` },
                 ]}
               />
               {shelfTab === "timeline" ? (
@@ -332,8 +338,28 @@ export default function Dashboard() {
                     <span className="inline-flex items-center gap-1.5"><i className="h-2.5 w-4 rounded-sm bg-pred/25" />Range</span>
                     <span className="inline-flex items-center gap-1.5"><i className="size-2 rounded-full bg-high" />High</span>
                     <span className="inline-flex items-center gap-1.5"><i className="size-2 rounded-full bg-med" />Medium</span>
+                    {scoresQ.data && laneMode === "scores" && (
+                      <span className="inline-flex items-center gap-1.5 border-l border-line pl-3" title={scoresQ.data.label}>
+                        Scores
+                        <i className="h-2 w-3 rounded-sm bg-ok/70" />good
+                        <i className="h-2 w-3 rounded-sm bg-med/70" />fair
+                        <i className="h-2 w-3 rounded-sm bg-high/70" />weak
+                        <span className="text-ink-3">(internal)</span>
+                      </span>
+                    )}
                   </div>
                   <div className="ml-auto flex items-center gap-2">
+                    {hasScores && (
+                      <Segmented
+                        label="Lanes"
+                        value={laneMode}
+                        onChange={setLaneMode}
+                        options={[
+                          { value: "structure", label: "Structure" },
+                          { value: "scores", label: "Scores" },
+                        ]}
+                      />
+                    )}
                     <span className="text-xs text-ink-3 tabular-nums">{zoom}×</span>
                     <div className="flex rounded-full bg-white/[0.06] p-1">
                       <button type="button" aria-label="Zoom out" disabled={zoom === ZOOMS[0]} onClick={() => setZoom(ZOOMS[Math.max(0, ZOOMS.indexOf(zoom) - 1)])} className="grid size-8 place-items-center rounded-full text-ink-2 hover:text-ink disabled:opacity-30">
@@ -345,12 +371,14 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : shelfTab === "edits" ? (
                 <p className="text-xs text-ink-3">Accept suggestions or mark your own cuts. This is an edit plan; your original file is never changed.</p>
+              ) : (
+                <p className="text-xs text-ink-3">Promises made in the title and opening, and when they pay off. Late or never-kept promises are flagged.</p>
               )}
             </div>
 
-            <div className={`mt-1.5 ${SHELF_BODY}`}>
+            <div className="mt-1.5 h-[208px]">
               {shelfTab === "timeline" ? (
                 <div className="flex h-full flex-col">
                   {prediction.isPending && <div className="grid h-[100px] place-items-center"><Spinner label="Loading prediction" /></div>}
@@ -365,7 +393,7 @@ export default function Dashboard() {
                   {prediction.data && <RetentionChart prediction={prediction.data} flags={flags} onPickFlag={pickFlag} height={100} />}
                   <div className="mt-1">
                     {segments.data ? (
-                      <Tracks segments={segments.data} prediction={prediction.data ?? null} topics={features.data?.topics ?? []} flags={flags} edits={edits} onPickFlag={pickFlag} />
+                      <Tracks segments={segments.data} prediction={prediction.data ?? null} topics={features.data?.topics ?? []} flags={flags} edits={edits} onPickFlag={pickFlag} lanes={hasScores ? laneMode : "structure"} />
                     ) : segments.isError ? (
                       <ErrorBox error={segments.error} title="Couldn't load segments" />
                     ) : (
@@ -382,8 +410,10 @@ export default function Dashboard() {
                     </p>
                   )}
                 </div>
-              ) : (
+              ) : shelfTab === "edits" ? (
                 <EditPlan project={p} edits={edits} />
+              ) : (
+                <PromiseLedger ledger={flagsQ.data?.ledger} flags={flags} />
               )}
             </div>
           </section>

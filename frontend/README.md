@@ -48,6 +48,14 @@ segment bar and transcript) → **Simulate fix** → original vs simulated → r
   show a teleprompter of the current line instead.
 - **Transport:** restart · −10 s · play/pause · +10 s · ✂ edited preview. Clicking the video also
   toggles play/pause.
+- **Promises** (shelf tab): the promise ledger from `flags.ledger`: each promise made in the title or
+  opening, when it pays off, the wait, and its status (kept on time / kept late / open loop). Rows
+  seek the timeline; *See fix* opens the matching payoff-delay flag.
+- **Lanes: Structure / Scores** (timeline header, shown when `/scores` returns data): Structure shows
+  risk, topics and edits; Scores shows risk plus four thin pace / content / visual / audio lanes
+  (DROPZERO internal scores; hover a block for its inputs).
+- The recorded mocks predate the ledger and score lanes. Re-run `python scripts/export_api_samples.py`
+  (needs the full backend environment) to include them in mock mode.
 - **Edit plan** (shelf tab, or "Add to edit plan" in the drawer): accept suggested edits, **Mark in /
   Mark out** your own cuts at the playhead, **Preview with cuts** (playback skips accepted CUT/SHORTEN
   ranges and your cuts; skipped transcript lines are struck through), **Simulate accepted edits**,
