@@ -1,0 +1,2224 @@
+{
+ "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+ "language_declared": "hinglish",
+ "language_detected": null,
+ "language_prob": null,
+ "timing_source": "estimated",
+ "asr_model": null,
+ "asr_config_hash": null,
+ "duration_s": 131.25,
+ "words": [
+  {
+   "text": "15000",
+   "start": 0.0,
+   "end": 0.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ke",
+   "start": 0.417,
+   "end": 0.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "under",
+   "start": 0.833,
+   "end": 1.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "best",
+   "start": 1.25,
+   "end": 1.667,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "camera",
+   "start": 1.667,
+   "end": 2.083,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone?",
+   "start": 2.083,
+   "end": 2.5,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Hello",
+   "start": 3.3,
+   "end": 3.717,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "doston,",
+   "start": 3.717,
+   "end": 4.133,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kaise",
+   "start": 4.133,
+   "end": 4.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ho",
+   "start": 4.55,
+   "end": 4.967,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aap",
+   "start": 4.967,
+   "end": 5.383,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sab.",
+   "start": 5.383,
+   "end": 5.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Aaj",
+   "start": 6.15,
+   "end": 6.567,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ka",
+   "start": 6.567,
+   "end": 6.983,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 6.983,
+   "end": 7.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "thoda",
+   "start": 7.4,
+   "end": 7.817,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "alag",
+   "start": 7.817,
+   "end": 8.233,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 8.233,
+   "end": 8.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Toh",
+   "start": 9.0,
+   "end": 9.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "basically",
+   "start": 9.417,
+   "end": 9.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "maine",
+   "start": 9.833,
+   "end": 10.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teen",
+   "start": 10.25,
+   "end": 10.667,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "budget",
+   "start": 10.667,
+   "end": 11.083,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 11.083,
+   "end": 11.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ek",
+   "start": 11.5,
+   "end": 11.917,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mahine",
+   "start": 11.917,
+   "end": 12.333,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tak",
+   "start": 12.333,
+   "end": 12.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "use",
+   "start": 12.75,
+   "end": 13.167,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kiye,",
+   "start": 13.167,
+   "end": 13.583,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sirf",
+   "start": 13.583,
+   "end": 14.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "camera",
+   "start": 14.0,
+   "end": 14.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "test",
+   "start": 14.417,
+   "end": 14.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ke",
+   "start": 14.833,
+   "end": 15.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "liye.",
+   "start": 15.25,
+   "end": 15.667,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Video",
+   "start": 16.467,
+   "end": 16.883,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ke",
+   "start": 16.883,
+   "end": 17.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "end",
+   "start": 17.3,
+   "end": 17.717,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 17.717,
+   "end": 18.133,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "main",
+   "start": 18.133,
+   "end": 18.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aapko",
+   "start": 18.55,
+   "end": 18.967,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bataunga",
+   "start": 18.967,
+   "end": 19.383,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 19.383,
+   "end": 19.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "15000",
+   "start": 19.8,
+   "end": 20.217,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ke",
+   "start": 20.217,
+   "end": 20.633,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "under",
+   "start": 20.633,
+   "end": 21.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kaunsa",
+   "start": 21.05,
+   "end": 21.467,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 21.467,
+   "end": 21.883,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sabse",
+   "start": 21.883,
+   "end": 22.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "best",
+   "start": 22.3,
+   "end": 22.717,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photos",
+   "start": 22.717,
+   "end": 23.133,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "leta",
+   "start": 23.133,
+   "end": 23.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai,",
+   "start": 23.55,
+   "end": 23.967,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 23.967,
+   "end": 24.383,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "result",
+   "start": 24.383,
+   "end": 24.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "shayad",
+   "start": 24.8,
+   "end": 25.217,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aapko",
+   "start": 25.217,
+   "end": 25.633,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "surprise",
+   "start": 25.633,
+   "end": 26.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "karega.",
+   "start": 26.05,
+   "end": 26.467,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Pehle",
+   "start": 27.267,
+   "end": 27.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "baat",
+   "start": 27.683,
+   "end": 28.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "karte",
+   "start": 28.1,
+   "end": 28.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain",
+   "start": 28.517,
+   "end": 28.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "daylight",
+   "start": 28.933,
+   "end": 29.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photos",
+   "start": 29.35,
+   "end": 29.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki.",
+   "start": 29.767,
+   "end": 30.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Din",
+   "start": 30.533,
+   "end": 30.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 30.95,
+   "end": 31.367,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "roshni",
+   "start": 31.367,
+   "end": 31.783,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 31.783,
+   "end": 32.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teeno",
+   "start": 32.2,
+   "end": 32.617,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 32.617,
+   "end": 33.033,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 33.033,
+   "end": 33.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photos",
+   "start": 33.45,
+   "end": 33.867,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kaafi",
+   "start": 33.867,
+   "end": 34.283,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "achhi",
+   "start": 34.283,
+   "end": 34.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aati",
+   "start": 34.7,
+   "end": 35.117,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain.",
+   "start": 35.117,
+   "end": 35.533,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Colors",
+   "start": 35.883,
+   "end": 36.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "natural",
+   "start": 36.3,
+   "end": 36.717,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain",
+   "start": 36.717,
+   "end": 37.133,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 37.133,
+   "end": 37.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "details",
+   "start": 37.55,
+   "end": 37.967,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bhi",
+   "start": 37.967,
+   "end": 38.383,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "theek",
+   "start": 38.383,
+   "end": 38.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain.",
+   "start": 38.8,
+   "end": 39.217,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Lekin",
+   "start": 40.017,
+   "end": 40.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "asli",
+   "start": 40.433,
+   "end": 40.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "test",
+   "start": 40.85,
+   "end": 41.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hota",
+   "start": 41.267,
+   "end": 41.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai",
+   "start": 41.683,
+   "end": 42.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "low",
+   "start": 42.1,
+   "end": 42.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "light",
+   "start": 42.517,
+   "end": 42.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein.",
+   "start": 42.933,
+   "end": 43.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Raat",
+   "start": 43.7,
+   "end": 44.117,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ko",
+   "start": 44.117,
+   "end": 44.533,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "street",
+   "start": 44.533,
+   "end": 44.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "light",
+   "start": 44.95,
+   "end": 45.367,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ke",
+   "start": 45.367,
+   "end": 45.783,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "neeche",
+   "start": 45.783,
+   "end": 46.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "maine",
+   "start": 46.2,
+   "end": 46.617,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teeno",
+   "start": 46.617,
+   "end": 47.033,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 47.033,
+   "end": 47.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "se",
+   "start": 47.45,
+   "end": 47.867,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "same",
+   "start": 47.867,
+   "end": 48.283,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photo",
+   "start": 48.283,
+   "end": 48.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "li.",
+   "start": 48.7,
+   "end": 49.117,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Yahan",
+   "start": 49.467,
+   "end": 49.883,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "pe",
+   "start": 49.883,
+   "end": 50.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "difference",
+   "start": 50.3,
+   "end": 50.717,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "clearly",
+   "start": 50.717,
+   "end": 51.133,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dikhta",
+   "start": 51.133,
+   "end": 51.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 51.55,
+   "end": 51.967,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Pehle",
+   "start": 52.767,
+   "end": 53.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 53.183,
+   "end": 53.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 53.6,
+   "end": 54.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photo",
+   "start": 54.017,
+   "end": 54.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 54.433,
+   "end": 54.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bahut",
+   "start": 54.85,
+   "end": 55.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "zyada",
+   "start": 55.267,
+   "end": 55.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "noise",
+   "start": 55.683,
+   "end": 56.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai",
+   "start": 56.1,
+   "end": 56.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "matlab",
+   "start": 56.517,
+   "end": 56.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dots",
+   "start": 56.933,
+   "end": 57.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dots",
+   "start": 57.35,
+   "end": 57.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dikh",
+   "start": 57.767,
+   "end": 58.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "rahe",
+   "start": 58.183,
+   "end": 58.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain.",
+   "start": 58.6,
+   "end": 59.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Doosre",
+   "start": 59.367,
+   "end": 59.783,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 59.783,
+   "end": 60.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ne",
+   "start": 60.2,
+   "end": 60.617,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "night",
+   "start": 60.617,
+   "end": 61.033,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mode",
+   "start": 61.033,
+   "end": 61.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "use",
+   "start": 61.45,
+   "end": 61.867,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kiya",
+   "start": 61.867,
+   "end": 62.283,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 62.283,
+   "end": 62.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photo",
+   "start": 62.7,
+   "end": 63.117,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bright",
+   "start": 63.117,
+   "end": 63.533,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aayi",
+   "start": 63.533,
+   "end": 63.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "lekin",
+   "start": 63.95,
+   "end": 64.367,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "thodi",
+   "start": 64.367,
+   "end": 64.783,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "blur",
+   "start": 64.783,
+   "end": 65.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 65.2,
+   "end": 65.617,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Teesre",
+   "start": 65.967,
+   "end": 66.383,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 66.383,
+   "end": 66.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 66.8,
+   "end": 67.217,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photo",
+   "start": 67.217,
+   "end": 67.633,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sabse",
+   "start": 67.633,
+   "end": 68.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "clean",
+   "start": 68.05,
+   "end": 68.467,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 68.467,
+   "end": 68.883,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Yaar",
+   "start": 69.683,
+   "end": 70.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dekho",
+   "start": 70.1,
+   "end": 70.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "daylight",
+   "start": 70.517,
+   "end": 70.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 70.933,
+   "end": 71.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teeno",
+   "start": 71.35,
+   "end": 71.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 71.767,
+   "end": 72.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 72.183,
+   "end": 72.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "photos",
+   "start": 72.6,
+   "end": 73.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "achhi",
+   "start": 73.017,
+   "end": 73.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aati",
+   "start": 73.433,
+   "end": 73.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain",
+   "start": 73.85,
+   "end": 74.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "colors",
+   "start": 74.267,
+   "end": 74.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "natural",
+   "start": 74.683,
+   "end": 75.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "lagte",
+   "start": 75.1,
+   "end": 75.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain",
+   "start": 75.517,
+   "end": 75.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 75.933,
+   "end": 76.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "detail",
+   "start": 76.35,
+   "end": 76.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bhi",
+   "start": 76.767,
+   "end": 77.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "theek",
+   "start": 77.183,
+   "end": 77.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "thaak",
+   "start": 77.6,
+   "end": 78.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai",
+   "start": 78.017,
+   "end": 78.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "toh",
+   "start": 78.433,
+   "end": 78.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "din",
+   "start": 78.85,
+   "end": 79.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 79.267,
+   "end": 79.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "koi",
+   "start": 79.683,
+   "end": 80.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bhi",
+   "start": 80.1,
+   "end": 80.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 80.517,
+   "end": 80.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "le",
+   "start": 80.933,
+   "end": 81.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "lo",
+   "start": 81.35,
+   "end": 81.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "farak",
+   "start": 81.767,
+   "end": 82.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "nahi",
+   "start": 82.183,
+   "end": 82.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "padega.",
+   "start": 82.6,
+   "end": 83.017,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Ab",
+   "start": 83.817,
+   "end": 84.233,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 84.233,
+   "end": 84.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "recording",
+   "start": 84.65,
+   "end": 85.067,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ki",
+   "start": 85.067,
+   "end": 85.483,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "baat",
+   "start": 85.483,
+   "end": 85.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "karte",
+   "start": 85.9,
+   "end": 86.317,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain.",
+   "start": 86.317,
+   "end": 86.733,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Kya",
+   "start": 87.083,
+   "end": 87.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ye",
+   "start": 87.5,
+   "end": 87.917,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 87.917,
+   "end": 88.333,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "4K",
+   "start": 88.333,
+   "end": 88.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "record",
+   "start": 88.75,
+   "end": 89.167,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kar",
+   "start": 89.167,
+   "end": 89.583,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sakte",
+   "start": 89.583,
+   "end": 90.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hain?",
+   "start": 90.0,
+   "end": 90.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Sirf",
+   "start": 90.767,
+   "end": 91.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ek",
+   "start": 91.183,
+   "end": 91.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 91.6,
+   "end": 92.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "4K",
+   "start": 92.017,
+   "end": 92.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "deta",
+   "start": 92.433,
+   "end": 92.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai,",
+   "start": 92.85,
+   "end": 93.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "baaki",
+   "start": 93.267,
+   "end": 93.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "do",
+   "start": 93.683,
+   "end": 94.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 94.1,
+   "end": 94.517,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "maximum",
+   "start": 94.517,
+   "end": 94.933,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "1080p",
+   "start": 94.933,
+   "end": 95.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 95.35,
+   "end": 95.767,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Stabilization",
+   "start": 96.567,
+   "end": 96.983,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bhi",
+   "start": 96.983,
+   "end": 97.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "important",
+   "start": 97.4,
+   "end": 97.817,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 97.817,
+   "end": 98.233,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Chalte",
+   "start": 98.583,
+   "end": 99.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hue",
+   "start": 99.0,
+   "end": 99.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 99.417,
+   "end": 99.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "banao",
+   "start": 99.833,
+   "end": 100.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "toh",
+   "start": 100.25,
+   "end": 100.667,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "pehle",
+   "start": 100.667,
+   "end": 101.083,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "do",
+   "start": 101.083,
+   "end": 101.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phones",
+   "start": 101.5,
+   "end": 101.917,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 101.917,
+   "end": 102.333,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 102.333,
+   "end": 102.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bahut",
+   "start": 102.75,
+   "end": 103.167,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hilta",
+   "start": 103.167,
+   "end": 103.583,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 103.583,
+   "end": 104.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Teesre",
+   "start": 104.35,
+   "end": 104.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 104.767,
+   "end": 105.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 105.183,
+   "end": 105.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "OIS",
+   "start": 105.6,
+   "end": 106.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai,",
+   "start": 106.017,
+   "end": 106.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "isliye",
+   "start": 106.433,
+   "end": 106.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 106.85,
+   "end": 107.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "smooth",
+   "start": 107.267,
+   "end": 107.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aata",
+   "start": 107.683,
+   "end": 108.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 108.1,
+   "end": 108.517,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Toh",
+   "start": 109.317,
+   "end": 109.733,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "final",
+   "start": 109.733,
+   "end": 110.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "result",
+   "start": 110.15,
+   "end": 110.567,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kya",
+   "start": 110.567,
+   "end": 110.983,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai?",
+   "start": 110.983,
+   "end": 111.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Agar",
+   "start": 111.75,
+   "end": 112.167,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aapka",
+   "start": 112.167,
+   "end": 112.583,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "budget",
+   "start": 112.583,
+   "end": 113.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "15000",
+   "start": 113.0,
+   "end": 113.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai",
+   "start": 113.417,
+   "end": 113.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 113.833,
+   "end": 114.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "camera",
+   "start": 114.25,
+   "end": 114.667,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aapki",
+   "start": 114.667,
+   "end": 115.083,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "priority",
+   "start": 115.083,
+   "end": 115.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai,",
+   "start": 115.5,
+   "end": 115.917,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "toh",
+   "start": 115.917,
+   "end": 116.333,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teesra",
+   "start": 116.333,
+   "end": 116.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 116.75,
+   "end": 117.167,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "lijiye.",
+   "start": 117.167,
+   "end": 117.583,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Low",
+   "start": 117.933,
+   "end": 118.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "light,",
+   "start": 118.35,
+   "end": 118.767,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "stabilization",
+   "start": 118.767,
+   "end": 119.183,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 119.183,
+   "end": 119.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "4K",
+   "start": 119.6,
+   "end": 120.017,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "teeno",
+   "start": 120.017,
+   "end": 120.433,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 120.433,
+   "end": 120.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ye",
+   "start": 120.85,
+   "end": 121.267,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aage",
+   "start": 121.267,
+   "end": 121.683,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hai.",
+   "start": 121.683,
+   "end": 122.1,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Comment",
+   "start": 122.9,
+   "end": 123.317,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "mein",
+   "start": 123.317,
+   "end": 123.733,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "batao",
+   "start": 123.733,
+   "end": 124.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aap",
+   "start": 124.15,
+   "end": 124.567,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kaunsa",
+   "start": 124.567,
+   "end": 124.983,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "phone",
+   "start": 124.983,
+   "end": 125.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "use",
+   "start": 125.4,
+   "end": 125.817,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "karte",
+   "start": 125.817,
+   "end": 126.233,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ho.",
+   "start": 126.233,
+   "end": 126.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Video",
+   "start": 127.0,
+   "end": 127.417,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "achha",
+   "start": 127.417,
+   "end": 127.833,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "laga",
+   "start": 127.833,
+   "end": 128.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "toh",
+   "start": 128.25,
+   "end": 128.667,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "like",
+   "start": 128.667,
+   "end": 129.083,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "aur",
+   "start": 129.083,
+   "end": 129.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "subscribe",
+   "start": 129.5,
+   "end": 129.917,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "zaroor",
+   "start": 129.917,
+   "end": 130.333,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "karna.",
+   "start": 130.333,
+   "end": 130.75,
+   "confidence": null,
+   "paragraph_break": true
+  }
+ ],
+ "sentences": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 2.5,
+   "text": "15000 ke under best camera phone?",
+   "word_start": 0,
+   "word_end": 6,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 1,
+   "start": 3.3,
+   "end": 5.8,
+   "text": "Hello doston, kaise ho aap sab.",
+   "word_start": 6,
+   "word_end": 12,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 2,
+   "start": 6.15,
+   "end": 8.65,
+   "text": "Aaj ka video thoda alag hai.",
+   "word_start": 12,
+   "word_end": 18,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 3,
+   "start": 9.0,
+   "end": 15.667,
+   "text": "Toh basically maine teen budget phones ek mahine tak use kiye, sirf camera test ke liye.",
+   "word_start": 18,
+   "word_end": 34,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 4,
+   "start": 16.467,
+   "end": 26.467,
+   "text": "Video ke end mein main aapko bataunga ki 15000 ke under kaunsa phone sabse best photos leta hai, aur result shayad aapko surprise karega.",
+   "word_start": 34,
+   "word_end": 58,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 5,
+   "start": 27.267,
+   "end": 30.183,
+   "text": "Pehle baat karte hain daylight photos ki.",
+   "word_start": 58,
+   "word_end": 65,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 6,
+   "start": 30.533,
+   "end": 35.533,
+   "text": "Din ki roshni mein teeno phones ki photos kaafi achhi aati hain.",
+   "word_start": 65,
+   "word_end": 77,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 7,
+   "start": 35.883,
+   "end": 39.217,
+   "text": "Colors natural hain aur details bhi theek hain.",
+   "word_start": 77,
+   "word_end": 85,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 8,
+   "start": 40.017,
+   "end": 43.35,
+   "text": "Lekin asli test hota hai low light mein.",
+   "word_start": 85,
+   "word_end": 93,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 9,
+   "start": 43.7,
+   "end": 49.117,
+   "text": "Raat ko street light ke neeche maine teeno phones se same photo li.",
+   "word_start": 93,
+   "word_end": 106,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 10,
+   "start": 49.467,
+   "end": 51.967,
+   "text": "Yahan pe difference clearly dikhta hai.",
+   "word_start": 106,
+   "word_end": 112,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 11,
+   "start": 52.767,
+   "end": 59.017,
+   "text": "Pehle phone ki photo mein bahut zyada noise hai matlab dots dots dikh rahe hain.",
+   "word_start": 112,
+   "word_end": 127,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 12,
+   "start": 59.367,
+   "end": 65.617,
+   "text": "Doosre phone ne night mode use kiya aur photo bright aayi lekin thodi blur hai.",
+   "word_start": 127,
+   "word_end": 142,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 13,
+   "start": 65.967,
+   "end": 68.883,
+   "text": "Teesre phone ki photo sabse clean hai.",
+   "word_start": 142,
+   "word_end": 149,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 14,
+   "start": 69.683,
+   "end": 83.017,
+   "text": "Yaar dekho daylight mein teeno phones ki photos achhi aati hain colors natural lagte hain aur detail bhi theek thaak hai toh din mein koi bhi phone le lo farak nahi padega.",
+   "word_start": 149,
+   "word_end": 181,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 15,
+   "start": 83.817,
+   "end": 86.733,
+   "text": "Ab video recording ki baat karte hain.",
+   "word_start": 181,
+   "word_end": 188,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 16,
+   "start": 87.083,
+   "end": 90.417,
+   "text": "Kya ye phones 4K record kar sakte hain?",
+   "word_start": 188,
+   "word_end": 196,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 17,
+   "start": 90.767,
+   "end": 95.767,
+   "text": "Sirf ek phone 4K deta hai, baaki do mein maximum 1080p hai.",
+   "word_start": 196,
+   "word_end": 208,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 18,
+   "start": 96.567,
+   "end": 98.233,
+   "text": "Stabilization bhi important hai.",
+   "word_start": 208,
+   "word_end": 212,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 19,
+   "start": 98.583,
+   "end": 104.0,
+   "text": "Chalte hue video banao toh pehle do phones mein video bahut hilta hai.",
+   "word_start": 212,
+   "word_end": 225,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 20,
+   "start": 104.35,
+   "end": 108.517,
+   "text": "Teesre phone mein OIS hai, isliye video smooth aata hai.",
+   "word_start": 225,
+   "word_end": 235,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 21,
+   "start": 109.317,
+   "end": 111.4,
+   "text": "Toh final result kya hai?",
+   "word_start": 235,
+   "word_end": 240,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 22,
+   "start": 111.75,
+   "end": 117.583,
+   "text": "Agar aapka budget 15000 hai aur camera aapki priority hai, toh teesra phone lijiye.",
+   "word_start": 240,
+   "word_end": 254,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 23,
+   "start": 117.933,
+   "end": 122.1,
+   "text": "Low light, stabilization aur 4K teeno mein ye aage hai.",
+   "word_start": 254,
+   "word_end": 264,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 24,
+   "start": 122.9,
+   "end": 126.65,
+   "text": "Comment mein batao aap kaunsa phone use karte ho.",
+   "word_start": 264,
+   "word_end": 273,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 25,
+   "start": 127.0,
+   "end": 130.75,
+   "text": "Video achha laga toh like aur subscribe zaroor karna.",
+   "word_start": 273,
+   "word_end": 282,
+   "end_reason": "end"
+  }
+ ],
+ "mean_confidence": null,
+ "transcript_schema_version": "1.0"
+}

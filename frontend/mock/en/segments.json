@@ -1,0 +1,324 @@
+[
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0000",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 0,
+  "kind": "speech",
+  "start": 0.0,
+  "end": 14.125,
+  "speech_start": 0.0,
+  "speech_end": 13.95,
+  "text": "I Built an AI Agent in 24 Hours Hey everyone, welcome back to the channel. Before we start, make sure you subscribe and hit the bell icon, because we post every week.",
+  "sentence_ids": [
+   0,
+   1,
+   2
+  ],
+  "word_start": 0,
+  "word_end": 32,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0001",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 1,
+  "kind": "speech",
+  "start": 14.125,
+  "end": 27.45,
+  "speech_start": 14.3,
+  "speech_end": 27.05,
+  "text": "So today is a special one. Um, I have been wanting to make this video for a really long time, and honestly it took way longer to edit than I expected.",
+  "sentence_ids": [
+   3,
+   4
+  ],
+  "word_start": 32,
+  "word_end": 63,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0002",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 2,
+  "kind": "speech",
+  "start": 27.45,
+  "end": 39.4,
+  "speech_start": 27.85,
+  "speech_end": 39.0,
+  "text": "By the end of this video you will see the agent book a real dinner reservation on its own. That is the demo, and it actually works.",
+  "sentence_ids": [
+   5,
+   6
+  ],
+  "word_start": 63,
+  "word_end": 90,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0003",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 3,
+  "kind": "speech",
+  "start": 39.4,
+  "end": 49.35,
+  "speech_start": 39.8,
+  "speech_end": 49.35,
+  "text": "So what is an AI agent? An agent is a program that uses a language model to decide what to do next, calls",
+  "sentence_ids": [
+   7,
+   8
+  ],
+  "word_start": 90,
+  "word_end": 113,
+  "boundary": "forced_split",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0004",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 4,
+  "kind": "speech",
+  "start": 49.35,
+  "end": 63.475,
+  "speech_start": 49.35,
+  "speech_end": 63.3,
+  "text": "tools like a browser or a calendar, looks at the result, and then decides the next step. It keeps looping until the task is done. I started at 9 AM on Saturday.",
+  "sentence_ids": [
+   8,
+   9,
+   10
+  ],
+  "word_start": 113,
+  "word_end": 145,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0005",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 5,
+  "kind": "speech",
+  "start": 63.475,
+  "end": 76.4,
+  "speech_start": 63.65,
+  "speech_end": 76.0,
+  "text": "The first 3 hours went into picking a framework. I tried two different libraries and threw both away, because they hid too much of what the model was actually doing.",
+  "sentence_ids": [
+   11,
+   12
+  ],
+  "word_start": 145,
+  "word_end": 175,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0006",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 6,
+  "kind": "speech",
+  "start": 76.4,
+  "end": 89.725,
+  "speech_start": 76.8,
+  "speech_end": 89.55,
+  "text": "In the end I wrote the loop myself in about 150 lines of Python. The model gets the goal, a list of tools, and the history of what happened so far.",
+  "sentence_ids": [
+   13,
+   14
+  ],
+  "word_start": 175,
+  "word_end": 206,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0007",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 7,
+  "kind": "speech",
+  "start": 89.725,
+  "end": 98.475,
+  "speech_start": 89.9,
+  "speech_end": 98.3,
+  "text": "Then it picks one tool call at a time. Now, you know, the tricky part was the browser tool.",
+  "sentence_ids": [
+   15,
+   16
+  ],
+  "word_start": 206,
+  "word_end": 225,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0008",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 8,
+  "kind": "speech",
+  "start": 98.475,
+  "end": 112.6,
+  "speech_start": 98.65,
+  "speech_end": 112.2,
+  "text": "Websites change their layout all the time, and the agent kept clicking the wrong buttons. I fixed that by giving it the page as plain text with numbered links instead of raw HTML.",
+  "sentence_ids": [
+   17,
+   18
+  ],
+  "word_start": 225,
+  "word_end": 258,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0009",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 9,
+  "kind": "speech",
+  "start": 112.6,
+  "end": 127.175,
+  "speech_start": 113.0,
+  "speech_end": 127.0,
+  "text": "Basically, an agent is just a language model that chooses the next action, uses a tool such as a browser or calendar, checks what came back, and repeats that loop until the job is finished.",
+  "sentence_ids": [
+   19
+  ],
+  "word_start": 258,
+  "word_end": 293,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0010",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 10,
+  "kind": "speech",
+  "start": 127.175,
+  "end": 139.525,
+  "speech_start": 127.35,
+  "speech_end": 139.35,
+  "text": "That is really all an agent is. By hour 16 the agent could search for restaurants, but it failed 7 out of 10 times at the booking form.",
+  "sentence_ids": [
+   20,
+   21
+  ],
+  "word_start": 293,
+  "word_end": 321,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0011",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 11,
+  "kind": "speech",
+  "start": 139.525,
+  "end": 148.85,
+  "speech_start": 139.7,
+  "speech_end": 148.45,
+  "text": "Why was it failing? The form had a date picker, and the model kept typing the date in the wrong format.",
+  "sentence_ids": [
+   22,
+   23
+  ],
+  "word_start": 321,
+  "word_end": 342,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0012",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 12,
+  "kind": "speech",
+  "start": 148.85,
+  "end": 160.625,
+  "speech_start": 149.25,
+  "speech_end": 160.45,
+  "text": "I added one rule to the prompt that shows the exact date format, and the success rate went from 3 out of 10 to 9 out of 10.",
+  "sentence_ids": [
+   24
+  ],
+  "word_start": 342,
+  "word_end": 370,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0013",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 13,
+  "kind": "speech",
+  "start": 160.625,
+  "end": 174.925,
+  "speech_start": 160.8,
+  "speech_end": 174.75,
+  "text": "That single line made the biggest difference of the whole project. Here is the demo. I type: book a table for two at an Italian place near me tomorrow at 8 PM.",
+  "sentence_ids": [
+   25,
+   26,
+   27
+  ],
+  "word_start": 370,
+  "word_end": 402,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0014",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 14,
+  "kind": "speech",
+  "start": 174.925,
+  "end": 189.625,
+  "speech_start": 175.1,
+  "speech_end": 189.45,
+  "text": "The agent opens the browser, searches, compares three restaurants by rating, and fills the booking form. And there is the confirmation email. So that was 24 hours, one agent, and one dinner reservation.",
+  "sentence_ids": [
+   28,
+   29,
+   30
+  ],
+  "word_start": 402,
+  "word_end": 435,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZD368RXTS4B9MBGERA08K:0015",
+  "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+  "index": 15,
+  "kind": "speech",
+  "start": 189.625,
+  "end": 199.45,
+  "speech_start": 189.8,
+  "speech_end": 198.95,
+  "text": "If you want the code, it is linked in the description. Let me know in the comments what I should automate next.",
+  "sentence_ids": [
+   31,
+   32
+  ],
+  "word_start": 435,
+  "word_end": 457,
+  "boundary": "end",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ }
+]

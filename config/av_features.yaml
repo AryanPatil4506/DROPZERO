@@ -1,0 +1,26 @@
+# Phase 4 audio + visual features. Changes to definitions must bump AV_FEATURE_SCHEMA_VERSION.
+
+visual:
+  # Frames are sampled by ffmpeg as tiny grayscale images: cheap, deterministic, enough to see
+  # cuts and motion. Not enough for content understanding (that is a later phase).
+  sample_fps: 2.0
+  width: 64
+  height: 36
+  # A scene cut: mean absolute frame difference (0..1) above cut_threshold AND at least
+  # cut_vs_local_median times the median difference of the surrounding window (so steady camera
+  # motion is not counted as a cut).
+  cut_threshold: 0.12
+  cut_vs_local_median: 3.0
+  local_window_s: 5.0
+  min_cut_gap_s: 1.0
+  # Below this mean frame difference the picture counts as static (talking head on a tripod,
+  # slide held on screen).
+  static_threshold: 0.012
+
+audio:
+  frame_ms: 25
+  hop_ms: 10
+  # Silence = frame energy more than this many dB below the video's 95th-percentile frame energy,
+  # i.e. relative to this video's own loudness, not an absolute level.
+  silence_db_below_p95: 35.0
+  # Energy is supporting evidence only: low energy is not "boring".

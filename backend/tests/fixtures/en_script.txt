@@ -1,0 +1,23 @@
+# I Built an AI Agent in 24 Hours
+
+Hey everyone, welcome back to the channel. Before we start, make sure you subscribe and hit the bell icon, because we post every week. So today is a special one. Um, I have been wanting to make this video for a really long time, and honestly it took way longer to edit than I expected.
+
+By the end of this video you will see the agent book a real dinner reservation on its own. That is the demo, and it actually works.
+
+So what is an AI agent? An agent is a program that uses a language model to decide what to do next, calls tools like a browser or a calendar, looks at the result, and then decides the next step. It keeps looping until the task is done.
+
+I started at 9 AM on Saturday. The first 3 hours went into picking a framework. I tried two different libraries and threw both away, because they hid too much of what the model was actually doing.
+
+In the end I wrote the loop myself in about 150 lines of Python. The model gets the goal, a list of tools, and the history of what happened so far. Then it picks one tool call at a time.
+
+Now, you know, the tricky part was the browser tool. Websites change their layout all the time, and the agent kept clicking the wrong buttons. I fixed that by giving it the page as plain text with numbered links instead of raw HTML.
+
+Basically, an agent is just a language model that chooses the next action, uses a tool such as a browser or calendar, checks what came back, and repeats that loop until the job is finished. That is really all an agent is.
+
+By hour 16 the agent could search for restaurants, but it failed 7 out of 10 times at the booking form. Why was it failing? The form had a date picker, and the model kept typing the date in the wrong format.
+
+I added one rule to the prompt that shows the exact date format, and the success rate went from 3 out of 10 to 9 out of 10. That single line made the biggest difference of the whole project.
+
+Here is the demo. I type: book a table for two at an Italian place near me tomorrow at 8 PM. The agent opens the browser, searches, compares three restaurants by rating, and fills the booking form. And there is the confirmation email.
+
+So that was 24 hours, one agent, and one dinner reservation. If you want the code, it is linked in the description. Let me know in the comments what I should automate next.

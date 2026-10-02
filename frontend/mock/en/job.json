@@ -1,0 +1,15 @@
+{
+ "id": "01M3YZD37R86PRZCH9SWXJFP0W",
+ "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+ "status": "done",
+ "stages": [
+  "estimate_timing",
+  "segment",
+  "text_features"
+ ],
+ "stage": null,
+ "progress": 1.0,
+ "error": null,
+ "created_at": "2026-10-02T18:53:08.728401Z",
+ "finished_at": "2026-10-02T18:53:26.768944Z"
+}

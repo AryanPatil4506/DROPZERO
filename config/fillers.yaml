@@ -1,0 +1,22 @@
+# Filler dictionaries. All lists are applied to every transcript,
+# whatever the declared language, because Hinglish speakers code-switch mid-sentence.
+# Matching is case-insensitive on whitespace tokens with surrounding punctuation stripped.
+
+# Always fillers.
+words:
+  en: [um, umm, uh, uhh, uhm, erm, hmm, mm, mhm, basically, literally, actually, honestly]
+  hi: [अं, उम्म, हम्म, मतलब, यार]
+  hinglish: [matlab, yaar, yar, basically, actually, literally]
+
+# Multi-word fillers, matched before single words.
+phrases:
+  en: ["you know", "i mean", "kind of", "sort of", "you know what i mean"]
+  hi: ["क्या कहते हैं", "क्या बोलते हैं", "है ना"]
+  hinglish: ["kya kehte hain", "kya bolte hain", "hai na", "kya bolu"]
+
+# Words that are fillers only when they open a sentence ("So, ...", "Toh ...").
+# Mid-sentence they are usually grammatical ("agar ... toh ...") and are not counted.
+sentence_initial:
+  en: [so, okay, ok, well, right, alright]
+  hi: [तो, अच्छा, देखो, चलो]
+  hinglish: [toh, achha, acha, accha, dekho, chalo, okay, ok, so]

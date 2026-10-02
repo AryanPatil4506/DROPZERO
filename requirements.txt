@@ -1,0 +1,25 @@
+# Runtime (all open source, all models run locally)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pydantic-settings>=2.3
+sqlalchemy>=2.0
+python-multipart>=0.0.9
+cryptography>=42
+pyyaml>=6
+numpy>=1.26
+faster-whisper==1.2.1
+# PyAV >=17 breaks faster-whisper 1.2.1. We never use PyAV for decoding
+# (ffmpeg produces 16 kHz WAV, which we load ourselves), but it must import.
+av<17
+# CUDA math libraries for CTranslate2 (loaded by backend/app/gpu.py, no env vars needed)
+nvidia-cublas-cu12; platform_system != "Darwin"
+nvidia-cudnn-cu12>=9,<10; platform_system != "Darwin"
+sentence-transformers>=3
+# torch: install the CUDA build separately, see README.md
+
+# Dev
+pytest>=8
+httpx>=0.27
+ruff>=0.5
+black>=24

@@ -1,0 +1,210 @@
+{
+ "_mock": "MOCK DATA: shape only, numbers are placeholders. Do not present.",
+ "label": "Simulated: model-estimated effect of these edits, not a guaranteed outcome",
+ "applied_edit_ids": [
+  "e1",
+  "e2"
+ ],
+ "original": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 14.125,
+   "retention": 0.91,
+   "lower": 0.8967,
+   "upper": 0.9233
+  },
+  {
+   "t": 27.45,
+   "retention": 0.8645,
+   "lower": 0.8456,
+   "upper": 0.8834
+  },
+  {
+   "t": 39.4,
+   "retention": 0.8386,
+   "lower": 0.8155,
+   "upper": 0.8617
+  },
+  {
+   "t": 49.35,
+   "retention": 0.8134,
+   "lower": 0.7867,
+   "upper": 0.8401
+  },
+  {
+   "t": 63.475,
+   "retention": 0.789,
+   "lower": 0.7592,
+   "upper": 0.8188
+  },
+  {
+   "t": 76.4,
+   "retention": 0.7653,
+   "lower": 0.7327,
+   "upper": 0.798
+  },
+  {
+   "t": 89.725,
+   "retention": 0.7424,
+   "lower": 0.7071,
+   "upper": 0.7777
+  },
+  {
+   "t": 98.475,
+   "retention": 0.7201,
+   "lower": 0.6824,
+   "upper": 0.7578
+  },
+  {
+   "t": 112.6,
+   "retention": 0.6985,
+   "lower": 0.6585,
+   "upper": 0.7385
+  },
+  {
+   "t": 127.175,
+   "retention": 0.6461,
+   "lower": 0.6039,
+   "upper": 0.6883
+  },
+  {
+   "t": 139.525,
+   "retention": 0.6267,
+   "lower": 0.5825,
+   "upper": 0.671
+  },
+  {
+   "t": 148.85,
+   "retention": 0.6079,
+   "lower": 0.5617,
+   "upper": 0.6541
+  },
+  {
+   "t": 160.625,
+   "retention": 0.5897,
+   "lower": 0.5416,
+   "upper": 0.6378
+  },
+  {
+   "t": 174.925,
+   "retention": 0.572,
+   "lower": 0.5221,
+   "upper": 0.6219
+  },
+  {
+   "t": 189.625,
+   "retention": 0.5548,
+   "lower": 0.5032,
+   "upper": 0.6065
+  },
+  {
+   "t": 199.45,
+   "retention": 0.5382,
+   "lower": 0.4849,
+   "upper": 0.5915
+  }
+ ],
+ "simulated": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 13.325,
+   "retention": 0.955,
+   "lower": 0.9417,
+   "upper": 0.9683
+  },
+  {
+   "t": 25.275,
+   "retention": 0.9311,
+   "lower": 0.9123,
+   "upper": 0.95
+  },
+  {
+   "t": 35.225,
+   "retention": 0.9078,
+   "lower": 0.8848,
+   "upper": 0.9309
+  },
+  {
+   "t": 49.35,
+   "retention": 0.8852,
+   "lower": 0.8585,
+   "upper": 0.9118
+  },
+  {
+   "t": 62.275000000000006,
+   "retention": 0.863,
+   "lower": 0.8332,
+   "upper": 0.8928
+  },
+  {
+   "t": 75.6,
+   "retention": 0.8414,
+   "lower": 0.8088,
+   "upper": 0.8741
+  },
+  {
+   "t": 84.35,
+   "retention": 0.8204,
+   "lower": 0.7851,
+   "upper": 0.8557
+  },
+  {
+   "t": 98.475,
+   "retention": 0.7999,
+   "lower": 0.7622,
+   "upper": 0.8376
+  },
+  {
+   "t": 110.825,
+   "retention": 0.7799,
+   "lower": 0.7399,
+   "upper": 0.8199
+  },
+  {
+   "t": 120.14999999999999,
+   "retention": 0.7604,
+   "lower": 0.7182,
+   "upper": 0.8026
+  },
+  {
+   "t": 131.925,
+   "retention": 0.7414,
+   "lower": 0.6972,
+   "upper": 0.7856
+  },
+  {
+   "t": 146.22500000000002,
+   "retention": 0.7229,
+   "lower": 0.6767,
+   "upper": 0.769
+  },
+  {
+   "t": 160.925,
+   "retention": 0.7048,
+   "lower": 0.6567,
+   "upper": 0.7529
+  },
+  {
+   "t": 170.75,
+   "retention": 0.6872,
+   "lower": 0.6373,
+   "upper": 0.7371
+  }
+ ],
+ "original_duration_s": 199.45,
+ "simulated_duration_s": 170.75,
+ "delta": {
+  "end_retention_pp": 6.1,
+  "avg_retention_pp": 4.3
+ }
+}

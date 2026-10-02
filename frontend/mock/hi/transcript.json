@@ -1,0 +1,1975 @@
+{
+ "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+ "language_declared": "hi",
+ "language_detected": null,
+ "language_prob": null,
+ "timing_source": "estimated",
+ "asr_model": null,
+ "asr_config_hash": null,
+ "duration_s": 126.232,
+ "words": [
+  {
+   "text": "घर",
+   "start": 0.0,
+   "end": 0.455,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पर",
+   "start": 0.455,
+   "end": 0.909,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गाढ़ा",
+   "start": 0.909,
+   "end": 1.364,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 1.364,
+   "end": 1.818,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कैसे",
+   "start": 1.818,
+   "end": 2.273,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जमाएं",
+   "start": 2.273,
+   "end": 2.727,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "नमस्ते",
+   "start": 3.527,
+   "end": 3.982,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दोस्तों,",
+   "start": 3.982,
+   "end": 4.436,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "चैनल",
+   "start": 4.436,
+   "end": 4.891,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पर",
+   "start": 4.891,
+   "end": 5.345,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आपका",
+   "start": 5.345,
+   "end": 5.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "स्वागत",
+   "start": 5.8,
+   "end": 6.255,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 6.255,
+   "end": 6.709,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तो",
+   "start": 7.059,
+   "end": 7.514,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आज",
+   "start": 7.514,
+   "end": 7.968,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हम",
+   "start": 7.968,
+   "end": 8.423,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बात",
+   "start": 8.423,
+   "end": 8.877,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "करेंगे",
+   "start": 8.877,
+   "end": 9.332,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 9.332,
+   "end": 9.786,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 9.786,
+   "end": 10.241,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बारे",
+   "start": 10.241,
+   "end": 10.695,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में।",
+   "start": 10.695,
+   "end": 11.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मतलब,",
+   "start": 11.5,
+   "end": 11.955,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बहुत",
+   "start": 11.955,
+   "end": 12.409,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लोग",
+   "start": 12.409,
+   "end": 12.864,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पूछते",
+   "start": 12.864,
+   "end": 13.318,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हैं",
+   "start": 13.318,
+   "end": 13.773,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कि",
+   "start": 13.773,
+   "end": 14.227,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उनका",
+   "start": 14.227,
+   "end": 14.682,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 14.682,
+   "end": 15.136,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पतला",
+   "start": 15.136,
+   "end": 15.591,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "क्यों",
+   "start": 15.591,
+   "end": 16.045,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जमता",
+   "start": 16.045,
+   "end": 16.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 16.5,
+   "end": 16.955,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "इस",
+   "start": 17.755,
+   "end": 18.209,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "वीडियो",
+   "start": 18.209,
+   "end": 18.664,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 18.664,
+   "end": 19.118,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आखिर",
+   "start": 19.118,
+   "end": 19.573,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 19.573,
+   "end": 20.027,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मैं",
+   "start": 20.027,
+   "end": 20.482,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आपको",
+   "start": 20.482,
+   "end": 20.936,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दिखाऊंगी",
+   "start": 20.936,
+   "end": 21.391,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कि",
+   "start": 21.391,
+   "end": 21.845,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सिर्फ",
+   "start": 21.845,
+   "end": 22.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आठ",
+   "start": 22.3,
+   "end": 22.755,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "घंटे",
+   "start": 22.755,
+   "end": 23.209,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 23.209,
+   "end": 23.664,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बाज़ार",
+   "start": 23.664,
+   "end": 24.118,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जैसा",
+   "start": 24.118,
+   "end": 24.573,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गाढ़ा",
+   "start": 24.573,
+   "end": 25.027,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 25.027,
+   "end": 25.482,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कैसे",
+   "start": 25.482,
+   "end": 25.936,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जमता",
+   "start": 25.936,
+   "end": 26.391,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 26.391,
+   "end": 26.845,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "सबसे",
+   "start": 27.645,
+   "end": 28.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पहले",
+   "start": 28.1,
+   "end": 28.555,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 28.555,
+   "end": 29.009,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "को",
+   "start": 29.009,
+   "end": 29.464,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "अच्छी",
+   "start": 29.464,
+   "end": 29.918,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तरह",
+   "start": 29.918,
+   "end": 30.373,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उबाल",
+   "start": 30.373,
+   "end": 30.827,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लीजिए।",
+   "start": 30.827,
+   "end": 31.282,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उबालने",
+   "start": 31.632,
+   "end": 32.086,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "से",
+   "start": 32.086,
+   "end": 32.541,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 32.541,
+   "end": 32.995,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 32.995,
+   "end": 33.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बैक्टीरिया",
+   "start": 33.45,
+   "end": 33.905,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मर",
+   "start": 33.905,
+   "end": 34.359,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जाते",
+   "start": 34.359,
+   "end": 34.814,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हैं",
+   "start": 34.814,
+   "end": 35.268,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "और",
+   "start": 35.268,
+   "end": 35.723,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 35.723,
+   "end": 36.177,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "थोड़ा",
+   "start": 36.177,
+   "end": 36.632,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गाढ़ा",
+   "start": 36.632,
+   "end": 37.086,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "भी",
+   "start": 37.086,
+   "end": 37.541,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हो",
+   "start": 37.541,
+   "end": 37.995,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जाता",
+   "start": 37.995,
+   "end": 38.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 38.45,
+   "end": 38.905,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "अब",
+   "start": 39.705,
+   "end": 40.159,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 40.159,
+   "end": 40.614,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "को",
+   "start": 40.614,
+   "end": 41.068,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ठंडा",
+   "start": 41.068,
+   "end": 41.523,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "होने",
+   "start": 41.523,
+   "end": 41.977,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दीजिए।",
+   "start": 41.977,
+   "end": 42.432,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 42.782,
+   "end": 43.236,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "इतना",
+   "start": 43.236,
+   "end": 43.691,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गुनगुना",
+   "start": 43.691,
+   "end": 44.145,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "होना",
+   "start": 44.145,
+   "end": 44.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "चाहिए",
+   "start": 44.6,
+   "end": 45.055,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कि",
+   "start": 45.055,
+   "end": 45.509,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आपकी",
+   "start": 45.509,
+   "end": 45.964,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उंगली",
+   "start": 45.964,
+   "end": 46.418,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दस",
+   "start": 46.418,
+   "end": 46.873,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सेकंड",
+   "start": 46.873,
+   "end": 47.327,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तक",
+   "start": 47.327,
+   "end": 47.782,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उसमें",
+   "start": 47.782,
+   "end": 48.236,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आराम",
+   "start": 48.236,
+   "end": 48.691,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "से",
+   "start": 48.691,
+   "end": 49.145,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रह",
+   "start": 49.145,
+   "end": 49.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सके।",
+   "start": 49.6,
+   "end": 50.055,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "अगर",
+   "start": 50.405,
+   "end": 50.859,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 50.859,
+   "end": 51.314,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बहुत",
+   "start": 51.314,
+   "end": 51.768,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गरम",
+   "start": 51.768,
+   "end": 52.223,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "होगा",
+   "start": 52.223,
+   "end": 52.677,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तो",
+   "start": 52.677,
+   "end": 53.132,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जामन",
+   "start": 53.132,
+   "end": 53.586,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 53.586,
+   "end": 54.041,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बैक्टीरिया",
+   "start": 54.041,
+   "end": 54.495,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मर",
+   "start": 54.495,
+   "end": 54.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जाएंगे।",
+   "start": 54.95,
+   "end": 55.405,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "एक",
+   "start": 56.205,
+   "end": 56.659,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लीटर",
+   "start": 56.659,
+   "end": 57.114,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 57.114,
+   "end": 57.568,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 57.568,
+   "end": 58.023,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दो",
+   "start": 58.023,
+   "end": 58.477,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "चम्मच",
+   "start": 58.477,
+   "end": 58.932,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जामन",
+   "start": 58.932,
+   "end": 59.386,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "डालिए।",
+   "start": 59.386,
+   "end": 59.841,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जामन",
+   "start": 60.191,
+   "end": 60.645,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मतलब",
+   "start": 60.645,
+   "end": 61.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पिछले",
+   "start": 61.1,
+   "end": 61.555,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दिन",
+   "start": 61.555,
+   "end": 62.009,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "का",
+   "start": 62.009,
+   "end": 62.464,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "थोड़ा",
+   "start": 62.464,
+   "end": 62.918,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सा",
+   "start": 62.918,
+   "end": 63.373,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही।",
+   "start": 63.373,
+   "end": 63.827,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "इसे",
+   "start": 64.177,
+   "end": 64.632,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "अच्छी",
+   "start": 64.632,
+   "end": 65.086,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तरह",
+   "start": 65.086,
+   "end": 65.541,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "मिला",
+   "start": 65.541,
+   "end": 65.995,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दीजिए।",
+   "start": 65.995,
+   "end": 66.45,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "अच्छा,",
+   "start": 67.25,
+   "end": 67.705,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "एक",
+   "start": 67.705,
+   "end": 68.159,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बात",
+   "start": 68.159,
+   "end": 68.614,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "फिर",
+   "start": 68.614,
+   "end": 69.068,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "से",
+   "start": 69.068,
+   "end": 69.523,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "समझ",
+   "start": 69.523,
+   "end": 69.977,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लीजिए।",
+   "start": 69.977,
+   "end": 70.432,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 70.782,
+   "end": 71.236,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "को",
+   "start": 71.236,
+   "end": 71.691,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पहले",
+   "start": 71.691,
+   "end": 72.145,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उबालना",
+   "start": 72.145,
+   "end": 72.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ज़रूरी",
+   "start": 72.6,
+   "end": 73.055,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है,",
+   "start": 73.055,
+   "end": 73.509,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "क्योंकि",
+   "start": 73.509,
+   "end": 73.964,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उबालने",
+   "start": 73.964,
+   "end": 74.418,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "से",
+   "start": 74.418,
+   "end": 74.873,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उसके",
+   "start": 74.873,
+   "end": 75.327,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बैक्टीरिया",
+   "start": 75.327,
+   "end": 75.782,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "खत्म",
+   "start": 75.782,
+   "end": 76.236,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हो",
+   "start": 76.236,
+   "end": 76.691,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जाते",
+   "start": 76.691,
+   "end": 77.145,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हैं",
+   "start": 77.145,
+   "end": 77.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "और",
+   "start": 77.6,
+   "end": 78.055,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दूध",
+   "start": 78.055,
+   "end": 78.509,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गाढ़ा",
+   "start": 78.509,
+   "end": 78.964,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हो",
+   "start": 78.964,
+   "end": 79.418,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जाता",
+   "start": 79.418,
+   "end": 79.873,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 79.873,
+   "end": 80.327,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "अब",
+   "start": 81.127,
+   "end": 81.582,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बर्तन",
+   "start": 81.582,
+   "end": 82.036,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "को",
+   "start": 82.036,
+   "end": 82.491,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ढककर",
+   "start": 82.491,
+   "end": 82.945,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "किसी",
+   "start": 82.945,
+   "end": 83.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गरम",
+   "start": 83.4,
+   "end": 83.855,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जगह",
+   "start": 83.855,
+   "end": 84.309,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पर",
+   "start": 84.309,
+   "end": 84.764,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रख",
+   "start": 84.764,
+   "end": 85.218,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दीजिए।",
+   "start": 85.218,
+   "end": 85.673,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सर्दियों",
+   "start": 86.023,
+   "end": 86.477,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 86.477,
+   "end": 86.932,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आप",
+   "start": 86.932,
+   "end": 87.386,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "इसे",
+   "start": 87.386,
+   "end": 87.841,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कैसरोल",
+   "start": 87.841,
+   "end": 88.295,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 88.295,
+   "end": 88.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "या",
+   "start": 88.75,
+   "end": 89.205,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आटे",
+   "start": 89.205,
+   "end": 89.659,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 89.659,
+   "end": 90.114,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "डिब्बे",
+   "start": 90.114,
+   "end": 90.568,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 90.568,
+   "end": 91.023,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रख",
+   "start": 91.023,
+   "end": 91.477,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सकते",
+   "start": 91.477,
+   "end": 91.932,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हैं।",
+   "start": 91.932,
+   "end": 92.386,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "दही",
+   "start": 93.186,
+   "end": 93.641,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कितनी",
+   "start": 93.641,
+   "end": 94.095,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "देर",
+   "start": 94.095,
+   "end": 94.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 94.55,
+   "end": 95.005,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "जमता",
+   "start": 95.005,
+   "end": 95.459,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है?",
+   "start": 95.459,
+   "end": 95.914,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गर्मियों",
+   "start": 96.264,
+   "end": 96.718,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 96.718,
+   "end": 97.173,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लगभग",
+   "start": 97.173,
+   "end": 97.627,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "छह",
+   "start": 97.627,
+   "end": 98.082,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "घंटे",
+   "start": 98.082,
+   "end": 98.536,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "और",
+   "start": 98.536,
+   "end": 98.991,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सर्दियों",
+   "start": 98.991,
+   "end": 99.445,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 99.445,
+   "end": 99.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आठ",
+   "start": 99.9,
+   "end": 100.355,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "से",
+   "start": 100.355,
+   "end": 100.809,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दस",
+   "start": 100.809,
+   "end": 101.264,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "घंटे",
+   "start": 101.264,
+   "end": 101.718,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लगते",
+   "start": 101.718,
+   "end": 102.173,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हैं।",
+   "start": 102.173,
+   "end": 102.627,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "जमने",
+   "start": 103.427,
+   "end": 103.882,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "के",
+   "start": 103.882,
+   "end": 104.336,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बाद",
+   "start": 104.336,
+   "end": 104.791,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 104.791,
+   "end": 105.245,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "को",
+   "start": 105.245,
+   "end": 105.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तुरंत",
+   "start": 105.7,
+   "end": 106.155,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "फ्रिज",
+   "start": 106.155,
+   "end": 106.609,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "में",
+   "start": 106.609,
+   "end": 107.064,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रख",
+   "start": 107.064,
+   "end": 107.518,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दीजिए।",
+   "start": 107.518,
+   "end": 107.973,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "इससे",
+   "start": 108.323,
+   "end": 108.777,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही",
+   "start": 108.777,
+   "end": 109.232,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ज़्यादा",
+   "start": 109.232,
+   "end": 109.686,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "खट्टा",
+   "start": 109.686,
+   "end": 110.141,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "नहीं",
+   "start": 110.141,
+   "end": 110.595,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "होगा।",
+   "start": 110.595,
+   "end": 111.05,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "तो",
+   "start": 111.85,
+   "end": 112.305,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ये",
+   "start": 112.305,
+   "end": 112.759,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रहा",
+   "start": 112.759,
+   "end": 113.214,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हमारा",
+   "start": 113.214,
+   "end": 113.668,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गाढ़ा",
+   "start": 113.668,
+   "end": 114.123,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "दही।",
+   "start": 114.123,
+   "end": 114.577,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "चम्मच",
+   "start": 114.927,
+   "end": 115.382,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "उल्टा",
+   "start": 115.382,
+   "end": 115.836,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "करने",
+   "start": 115.836,
+   "end": 116.291,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पर",
+   "start": 116.291,
+   "end": 116.745,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "भी",
+   "start": 116.745,
+   "end": 117.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "ये",
+   "start": 117.2,
+   "end": 117.655,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "गिरता",
+   "start": 117.655,
+   "end": 118.109,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "नहीं",
+   "start": 118.109,
+   "end": 118.564,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "है।",
+   "start": 118.564,
+   "end": 119.018,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "वीडियो",
+   "start": 119.368,
+   "end": 119.823,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "पसंद",
+   "start": 119.823,
+   "end": 120.277,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "आए",
+   "start": 120.277,
+   "end": 120.732,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "तो",
+   "start": 120.732,
+   "end": 121.186,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "लाइक",
+   "start": 121.186,
+   "end": 121.641,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कीजिए",
+   "start": 121.641,
+   "end": 122.095,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "और",
+   "start": 122.095,
+   "end": 122.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "बताइए",
+   "start": 122.55,
+   "end": 123.005,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कि",
+   "start": 123.005,
+   "end": 123.459,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "अगली",
+   "start": 123.459,
+   "end": 123.914,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "रेसिपी",
+   "start": 123.914,
+   "end": 124.368,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "कौन",
+   "start": 124.368,
+   "end": 124.823,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "सी",
+   "start": 124.823,
+   "end": 125.277,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "हो।",
+   "start": 125.277,
+   "end": 125.732,
+   "confidence": null,
+   "paragraph_break": true
+  }
+ ],
+ "sentences": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 2.727,
+   "text": "घर पर गाढ़ा दही कैसे जमाएं",
+   "word_start": 0,
+   "word_end": 6,
+   "end_reason": "pause"
+  },
+  {
+   "idx": 1,
+   "start": 3.527,
+   "end": 6.709,
+   "text": "नमस्ते दोस्तों, चैनल पर आपका स्वागत है।",
+   "word_start": 6,
+   "word_end": 13,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 2,
+   "start": 7.059,
+   "end": 11.15,
+   "text": "तो आज हम बात करेंगे दही के बारे में।",
+   "word_start": 13,
+   "word_end": 22,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 3,
+   "start": 11.5,
+   "end": 16.955,
+   "text": "मतलब, बहुत लोग पूछते हैं कि उनका दही पतला क्यों जमता है।",
+   "word_start": 22,
+   "word_end": 34,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 4,
+   "start": 17.755,
+   "end": 26.845,
+   "text": "इस वीडियो के आखिर में मैं आपको दिखाऊंगी कि सिर्फ आठ घंटे में बाज़ार जैसा गाढ़ा दही कैसे जमता है।",
+   "word_start": 34,
+   "word_end": 54,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 5,
+   "start": 27.645,
+   "end": 31.282,
+   "text": "सबसे पहले दूध को अच्छी तरह उबाल लीजिए।",
+   "word_start": 54,
+   "word_end": 62,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 6,
+   "start": 31.632,
+   "end": 38.905,
+   "text": "उबालने से दूध के बैक्टीरिया मर जाते हैं और दूध थोड़ा गाढ़ा भी हो जाता है।",
+   "word_start": 62,
+   "word_end": 78,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 7,
+   "start": 39.705,
+   "end": 42.432,
+   "text": "अब दूध को ठंडा होने दीजिए।",
+   "word_start": 78,
+   "word_end": 84,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 8,
+   "start": 42.782,
+   "end": 50.055,
+   "text": "दूध इतना गुनगुना होना चाहिए कि आपकी उंगली दस सेकंड तक उसमें आराम से रह सके।",
+   "word_start": 84,
+   "word_end": 100,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 9,
+   "start": 50.405,
+   "end": 55.405,
+   "text": "अगर दूध बहुत गरम होगा तो जामन के बैक्टीरिया मर जाएंगे।",
+   "word_start": 100,
+   "word_end": 111,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 10,
+   "start": 56.205,
+   "end": 59.841,
+   "text": "एक लीटर दूध में दो चम्मच जामन डालिए।",
+   "word_start": 111,
+   "word_end": 119,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 11,
+   "start": 60.191,
+   "end": 63.827,
+   "text": "जामन मतलब पिछले दिन का थोड़ा सा दही।",
+   "word_start": 119,
+   "word_end": 127,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 12,
+   "start": 64.177,
+   "end": 66.45,
+   "text": "इसे अच्छी तरह मिला दीजिए।",
+   "word_start": 127,
+   "word_end": 132,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 13,
+   "start": 67.25,
+   "end": 70.432,
+   "text": "अच्छा, एक बात फिर से समझ लीजिए।",
+   "word_start": 132,
+   "word_end": 139,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 14,
+   "start": 70.782,
+   "end": 80.327,
+   "text": "दूध को पहले उबालना ज़रूरी है, क्योंकि उबालने से उसके बैक्टीरिया खत्म हो जाते हैं और दूध गाढ़ा हो जाता है।",
+   "word_start": 139,
+   "word_end": 160,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 15,
+   "start": 81.127,
+   "end": 85.673,
+   "text": "अब बर्तन को ढककर किसी गरम जगह पर रख दीजिए।",
+   "word_start": 160,
+   "word_end": 170,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 16,
+   "start": 86.023,
+   "end": 92.386,
+   "text": "सर्दियों में आप इसे कैसरोल में या आटे के डिब्बे में रख सकते हैं।",
+   "word_start": 170,
+   "word_end": 184,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 17,
+   "start": 93.186,
+   "end": 95.914,
+   "text": "दही कितनी देर में जमता है?",
+   "word_start": 184,
+   "word_end": 190,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 18,
+   "start": 96.264,
+   "end": 102.627,
+   "text": "गर्मियों में लगभग छह घंटे और सर्दियों में आठ से दस घंटे लगते हैं।",
+   "word_start": 190,
+   "word_end": 204,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 19,
+   "start": 103.427,
+   "end": 107.973,
+   "text": "जमने के बाद दही को तुरंत फ्रिज में रख दीजिए।",
+   "word_start": 204,
+   "word_end": 214,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 20,
+   "start": 108.323,
+   "end": 111.05,
+   "text": "इससे दही ज़्यादा खट्टा नहीं होगा।",
+   "word_start": 214,
+   "word_end": 220,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 21,
+   "start": 111.85,
+   "end": 114.577,
+   "text": "तो ये रहा हमारा गाढ़ा दही।",
+   "word_start": 220,
+   "word_end": 226,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 22,
+   "start": 114.927,
+   "end": 119.018,
+   "text": "चम्मच उल्टा करने पर भी ये गिरता नहीं है।",
+   "word_start": 226,
+   "word_end": 235,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 23,
+   "start": 119.368,
+   "end": 125.732,
+   "text": "वीडियो पसंद आए तो लाइक कीजिए और बताइए कि अगली रेसिपी कौन सी हो।",
+   "word_start": 235,
+   "word_end": 249,
+   "end_reason": "end"
+  }
+ ],
+ "mean_confidence": null,
+ "transcript_schema_version": "1.0"
+}

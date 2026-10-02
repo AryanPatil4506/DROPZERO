@@ -1,0 +1,244 @@
+[
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0000",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 0,
+  "kind": "speech",
+  "start": 0.0,
+  "end": 8.825,
+  "speech_start": 0.0,
+  "speech_end": 8.65,
+  "text": "15000 ke under best camera phone? Hello doston, kaise ho aap sab. Aaj ka video thoda alag hai.",
+  "sentence_ids": [
+   0,
+   1,
+   2
+  ],
+  "word_start": 0,
+  "word_end": 18,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0001",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 1,
+  "kind": "speech",
+  "start": 8.825,
+  "end": 16.067,
+  "speech_start": 9.0,
+  "speech_end": 15.667,
+  "text": "Toh basically maine teen budget phones ek mahine tak use kiye, sirf camera test ke liye.",
+  "sentence_ids": [
+   3
+  ],
+  "word_start": 18,
+  "word_end": 34,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0002",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 2,
+  "kind": "speech",
+  "start": 16.067,
+  "end": 26.867,
+  "speech_start": 16.467,
+  "speech_end": 26.467,
+  "text": "Video ke end mein main aapko bataunga ki 15000 ke under kaunsa phone sabse best photos leta hai, aur result shayad aapko surprise karega.",
+  "sentence_ids": [
+   4
+  ],
+  "word_start": 34,
+  "word_end": 58,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0003",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 3,
+  "kind": "speech",
+  "start": 26.867,
+  "end": 39.617,
+  "speech_start": 27.267,
+  "speech_end": 39.217,
+  "text": "Pehle baat karte hain daylight photos ki. Din ki roshni mein teeno phones ki photos kaafi achhi aati hain. Colors natural hain aur details bhi theek hain.",
+  "sentence_ids": [
+   5,
+   6,
+   7
+  ],
+  "word_start": 58,
+  "word_end": 85,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0004",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 4,
+  "kind": "speech",
+  "start": 39.617,
+  "end": 49.292,
+  "speech_start": 40.017,
+  "speech_end": 49.117,
+  "text": "Lekin asli test hota hai low light mein. Raat ko street light ke neeche maine teeno phones se same photo li.",
+  "sentence_ids": [
+   8,
+   9
+  ],
+  "word_start": 85,
+  "word_end": 106,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0005",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 5,
+  "kind": "speech",
+  "start": 49.292,
+  "end": 59.192,
+  "speech_start": 49.467,
+  "speech_end": 59.017,
+  "text": "Yahan pe difference clearly dikhta hai. Pehle phone ki photo mein bahut zyada noise hai matlab dots dots dikh rahe hain.",
+  "sentence_ids": [
+   10,
+   11
+  ],
+  "word_start": 106,
+  "word_end": 127,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0006",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 6,
+  "kind": "speech",
+  "start": 59.192,
+  "end": 69.283,
+  "speech_start": 59.367,
+  "speech_end": 68.883,
+  "text": "Doosre phone ne night mode use kiya aur photo bright aayi lekin thodi blur hai. Teesre phone ki photo sabse clean hai.",
+  "sentence_ids": [
+   12,
+   13
+  ],
+  "word_start": 127,
+  "word_end": 149,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0007",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 7,
+  "kind": "speech",
+  "start": 69.283,
+  "end": 83.417,
+  "speech_start": 69.683,
+  "speech_end": 83.017,
+  "text": "Yaar dekho daylight mein teeno phones ki photos achhi aati hain colors natural lagte hain aur detail bhi theek thaak hai toh din mein koi bhi phone le lo farak nahi padega.",
+  "sentence_ids": [
+   14
+  ],
+  "word_start": 149,
+  "word_end": 181,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0008",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 8,
+  "kind": "speech",
+  "start": 83.417,
+  "end": 96.167,
+  "speech_start": 83.817,
+  "speech_end": 95.767,
+  "text": "Ab video recording ki baat karte hain. Kya ye phones 4K record kar sakte hain? Sirf ek phone 4K deta hai, baaki do mein maximum 1080p hai.",
+  "sentence_ids": [
+   15,
+   16,
+   17
+  ],
+  "word_start": 181,
+  "word_end": 208,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0009",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 9,
+  "kind": "speech",
+  "start": 96.167,
+  "end": 108.917,
+  "speech_start": 96.567,
+  "speech_end": 108.517,
+  "text": "Stabilization bhi important hai. Chalte hue video banao toh pehle do phones mein video bahut hilta hai. Teesre phone mein OIS hai, isliye video smooth aata hai.",
+  "sentence_ids": [
+   18,
+   19,
+   20
+  ],
+  "word_start": 208,
+  "word_end": 235,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0010",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 10,
+  "kind": "speech",
+  "start": 108.917,
+  "end": 117.758,
+  "speech_start": 109.317,
+  "speech_end": 117.583,
+  "text": "Toh final result kya hai? Agar aapka budget 15000 hai aur camera aapki priority hai, toh teesra phone lijiye.",
+  "sentence_ids": [
+   21,
+   22
+  ],
+  "word_start": 235,
+  "word_end": 254,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDN1ET3ZKV0XNZEEFNN6R:0011",
+  "project_id": "01M3YZDN1ET3ZKV0XNZEEFNN6R",
+  "index": 11,
+  "kind": "speech",
+  "start": 117.758,
+  "end": 131.25,
+  "speech_start": 117.933,
+  "speech_end": 130.75,
+  "text": "Low light, stabilization aur 4K teeno mein ye aage hai. Comment mein batao aap kaunsa phone use karte ho. Video achha laga toh like aur subscribe zaroor karna.",
+  "sentence_ids": [
+   23,
+   24,
+   25
+  ],
+  "word_start": 254,
+  "word_end": 282,
+  "boundary": "end",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ }
+]

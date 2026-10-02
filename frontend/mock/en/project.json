@@ -1,0 +1,20 @@
+{
+ "title": "I Built an AI Agent in 24 Hours",
+ "creator": null,
+ "category": "tech",
+ "language": "en",
+ "target_audience": null,
+ "id": "01M3YZD368RXTS4B9MBGERA08K",
+ "source_type": "script",
+ "duration_s": 199.45,
+ "thumbnail_ref": null,
+ "status": "ready",
+ "warnings": [
+  "Estimated spoken length 3.3 min is outside the tested 5–15 min range; results may be less reliable."
+ ],
+ "media": null,
+ "source_sha256": "a8065e7693b1eb775b6a4a2d4129307f098f361fb3a80746abb29b88f2714bbc",
+ "source_filename": "script.txt",
+ "created_at": "2026-10-02T18:53:08.680633Z",
+ "uploaded_at": "2026-10-02T18:53:08.719475Z"
+}

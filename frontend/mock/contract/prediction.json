@@ -1,0 +1,242 @@
+{
+ "_mock": "MOCK DATA: shape only, numbers are placeholders. Do not present.",
+ "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+ "model_version": "mock-0",
+ "feature_schema_version": "text-1.0",
+ "timing_source": "estimated",
+ "label": "Model-estimated retention (DROPZERO internal score, not YouTube analytics)",
+ "points": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 14.125,
+   "retention": 0.91,
+   "lower": 0.8967,
+   "upper": 0.9233
+  },
+  {
+   "t": 27.45,
+   "retention": 0.8645,
+   "lower": 0.8456,
+   "upper": 0.8834
+  },
+  {
+   "t": 39.4,
+   "retention": 0.8386,
+   "lower": 0.8155,
+   "upper": 0.8617
+  },
+  {
+   "t": 49.35,
+   "retention": 0.8134,
+   "lower": 0.7867,
+   "upper": 0.8401
+  },
+  {
+   "t": 63.475,
+   "retention": 0.789,
+   "lower": 0.7592,
+   "upper": 0.8188
+  },
+  {
+   "t": 76.4,
+   "retention": 0.7653,
+   "lower": 0.7327,
+   "upper": 0.798
+  },
+  {
+   "t": 89.725,
+   "retention": 0.7424,
+   "lower": 0.7071,
+   "upper": 0.7777
+  },
+  {
+   "t": 98.475,
+   "retention": 0.7201,
+   "lower": 0.6824,
+   "upper": 0.7578
+  },
+  {
+   "t": 112.6,
+   "retention": 0.6985,
+   "lower": 0.6585,
+   "upper": 0.7385
+  },
+  {
+   "t": 127.175,
+   "retention": 0.6461,
+   "lower": 0.6039,
+   "upper": 0.6883
+  },
+  {
+   "t": 139.525,
+   "retention": 0.6267,
+   "lower": 0.5825,
+   "upper": 0.671
+  },
+  {
+   "t": 148.85,
+   "retention": 0.6079,
+   "lower": 0.5617,
+   "upper": 0.6541
+  },
+  {
+   "t": 160.625,
+   "retention": 0.5897,
+   "lower": 0.5416,
+   "upper": 0.6378
+  },
+  {
+   "t": 174.925,
+   "retention": 0.572,
+   "lower": 0.5221,
+   "upper": 0.6219
+  },
+  {
+   "t": 189.625,
+   "retention": 0.5548,
+   "lower": 0.5032,
+   "upper": 0.6065
+  },
+  {
+   "t": 199.45,
+   "retention": 0.5382,
+   "lower": 0.4849,
+   "upper": 0.5915
+  }
+ ],
+ "segments": [
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0000",
+   "index": 0,
+   "start": 0.0,
+   "end": 14.125,
+   "p_drop": 0.09,
+   "risk": "high"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0001",
+   "index": 1,
+   "start": 14.125,
+   "end": 27.45,
+   "p_drop": 0.05,
+   "risk": "medium"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0002",
+   "index": 2,
+   "start": 27.45,
+   "end": 39.4,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0003",
+   "index": 3,
+   "start": 39.4,
+   "end": 49.35,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0004",
+   "index": 4,
+   "start": 49.35,
+   "end": 63.475,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0005",
+   "index": 5,
+   "start": 63.475,
+   "end": 76.4,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0006",
+   "index": 6,
+   "start": 76.4,
+   "end": 89.725,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0007",
+   "index": 7,
+   "start": 89.725,
+   "end": 98.475,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0008",
+   "index": 8,
+   "start": 98.475,
+   "end": 112.6,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0009",
+   "index": 9,
+   "start": 112.6,
+   "end": 127.175,
+   "p_drop": 0.075,
+   "risk": "high"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0010",
+   "index": 10,
+   "start": 127.175,
+   "end": 139.525,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0011",
+   "index": 11,
+   "start": 139.525,
+   "end": 148.85,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0012",
+   "index": 12,
+   "start": 148.85,
+   "end": 160.625,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0013",
+   "index": 13,
+   "start": 160.625,
+   "end": 174.925,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0014",
+   "index": 14,
+   "start": 174.925,
+   "end": 189.625,
+   "p_drop": 0.03,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3YZD368RXTS4B9MBGERA08K:0015",
+   "index": 15,
+   "start": 189.625,
+   "end": 199.45,
+   "p_drop": 0.03,
+   "risk": "low"
+  }
+ ]
+}

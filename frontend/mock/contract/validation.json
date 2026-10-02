@@ -1,0 +1,368 @@
+{
+ "_mock": "MOCK DATA: shape only, numbers are placeholders. Do not present.",
+ "dataset": "MOOCCubeX lecture viewing logs (real in-video drop-off; Chinese MOOC lectures, not YouTube)",
+ "model_version": "mock-0",
+ "n_videos_test": 120,
+ "split": "held out by video",
+ "metrics": {
+  "mae": 0.061,
+  "rmse": 0.083,
+  "pearson": 0.71,
+  "spearman": 0.68
+ },
+ "baseline": {
+  "name": "Category-average curve",
+  "mae": 0.094,
+  "rmse": 0.121,
+  "pearson": 0.52,
+  "spearman": 0.49
+ },
+ "detection": {
+  "tolerance_s": 10,
+  "precision": 0.64,
+  "recall": 0.58,
+  "f1": 0.61,
+  "detected": 41,
+  "total": 71
+ },
+ "examples": [
+  {
+   "video_id": "V_example",
+   "title": "Example lecture",
+   "actual": [
+    {
+     "t": 0,
+     "retention": 1.0
+    },
+    {
+     "t": 15,
+     "retention": 0.97
+    },
+    {
+     "t": 30,
+     "retention": 0.942
+    },
+    {
+     "t": 45,
+     "retention": 0.914
+    },
+    {
+     "t": 60,
+     "retention": 0.887
+    },
+    {
+     "t": 75,
+     "retention": 0.861
+    },
+    {
+     "t": 90,
+     "retention": 0.835
+    },
+    {
+     "t": 105,
+     "retention": 0.811
+    },
+    {
+     "t": 120,
+     "retention": 0.787
+    },
+    {
+     "t": 135,
+     "retention": 0.763
+    },
+    {
+     "t": 150,
+     "retention": 0.741
+    },
+    {
+     "t": 165,
+     "retention": 0.719
+    },
+    {
+     "t": 180,
+     "retention": 0.698
+    },
+    {
+     "t": 195,
+     "retention": 0.677
+    },
+    {
+     "t": 210,
+     "retention": 0.657
+    },
+    {
+     "t": 225,
+     "retention": 0.638
+    },
+    {
+     "t": 240,
+     "retention": 0.619
+    },
+    {
+     "t": 255,
+     "retention": 0.6
+    },
+    {
+     "t": 270,
+     "retention": 0.583
+    },
+    {
+     "t": 285,
+     "retention": 0.566
+    },
+    {
+     "t": 300,
+     "retention": 0.549
+    },
+    {
+     "t": 315,
+     "retention": 0.533
+    },
+    {
+     "t": 330,
+     "retention": 0.517
+    },
+    {
+     "t": 345,
+     "retention": 0.502
+    },
+    {
+     "t": 360,
+     "retention": 0.487
+    },
+    {
+     "t": 375,
+     "retention": 0.472
+    },
+    {
+     "t": 390,
+     "retention": 0.458
+    },
+    {
+     "t": 405,
+     "retention": 0.445
+    },
+    {
+     "t": 420,
+     "retention": 0.432
+    },
+    {
+     "t": 435,
+     "retention": 0.419
+    },
+    {
+     "t": 450,
+     "retention": 0.407
+    },
+    {
+     "t": 465,
+     "retention": 0.395
+    },
+    {
+     "t": 480,
+     "retention": 0.383
+    },
+    {
+     "t": 495,
+     "retention": 0.372
+    },
+    {
+     "t": 510,
+     "retention": 0.361
+    },
+    {
+     "t": 525,
+     "retention": 0.35
+    },
+    {
+     "t": 540,
+     "retention": 0.34
+    },
+    {
+     "t": 555,
+     "retention": 0.33
+    },
+    {
+     "t": 570,
+     "retention": 0.32
+    },
+    {
+     "t": 585,
+     "retention": 0.31
+    }
+   ],
+   "predicted": [
+    {
+     "t": 0,
+     "retention": 1.0
+    },
+    {
+     "t": 15,
+     "retention": 0.967
+    },
+    {
+     "t": 30,
+     "retention": 0.936
+    },
+    {
+     "t": 45,
+     "retention": 0.905
+    },
+    {
+     "t": 60,
+     "retention": 0.875
+    },
+    {
+     "t": 75,
+     "retention": 0.846
+    },
+    {
+     "t": 90,
+     "retention": 0.819
+    },
+    {
+     "t": 105,
+     "retention": 0.792
+    },
+    {
+     "t": 120,
+     "retention": 0.766
+    },
+    {
+     "t": 135,
+     "retention": 0.741
+    },
+    {
+     "t": 150,
+     "retention": 0.717
+    },
+    {
+     "t": 165,
+     "retention": 0.693
+    },
+    {
+     "t": 180,
+     "retention": 0.67
+    },
+    {
+     "t": 195,
+     "retention": 0.648
+    },
+    {
+     "t": 210,
+     "retention": 0.627
+    },
+    {
+     "t": 225,
+     "retention": 0.607
+    },
+    {
+     "t": 240,
+     "retention": 0.587
+    },
+    {
+     "t": 255,
+     "retention": 0.567
+    },
+    {
+     "t": 270,
+     "retention": 0.549
+    },
+    {
+     "t": 285,
+     "retention": 0.531
+    },
+    {
+     "t": 300,
+     "retention": 0.513
+    },
+    {
+     "t": 315,
+     "retention": 0.497
+    },
+    {
+     "t": 330,
+     "retention": 0.48
+    },
+    {
+     "t": 345,
+     "retention": 0.465
+    },
+    {
+     "t": 360,
+     "retention": 0.449
+    },
+    {
+     "t": 375,
+     "retention": 0.435
+    },
+    {
+     "t": 390,
+     "retention": 0.42
+    },
+    {
+     "t": 405,
+     "retention": 0.407
+    },
+    {
+     "t": 420,
+     "retention": 0.393
+    },
+    {
+     "t": 435,
+     "retention": 0.38
+    },
+    {
+     "t": 450,
+     "retention": 0.368
+    },
+    {
+     "t": 465,
+     "retention": 0.356
+    },
+    {
+     "t": 480,
+     "retention": 0.344
+    },
+    {
+     "t": 495,
+     "retention": 0.333
+    },
+    {
+     "t": 510,
+     "retention": 0.322
+    },
+    {
+     "t": 525,
+     "retention": 0.311
+    },
+    {
+     "t": 540,
+     "retention": 0.301
+    },
+    {
+     "t": 555,
+     "retention": 0.291
+    },
+    {
+     "t": 570,
+     "retention": 0.282
+    },
+    {
+     "t": 585,
+     "retention": 0.273
+    }
+   ],
+   "drops": [
+    {
+     "t": 120,
+     "detected": true
+    },
+    {
+     "t": 300,
+     "detected": false
+    }
+   ]
+  }
+ ]
+}

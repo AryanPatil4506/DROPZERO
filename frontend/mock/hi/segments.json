@@ -1,0 +1,224 @@
+[
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0000",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 0,
+  "kind": "speech",
+  "start": 0.0,
+  "end": 6.884,
+  "speech_start": 0.0,
+  "speech_end": 6.709,
+  "text": "घर पर गाढ़ा दही कैसे जमाएं नमस्ते दोस्तों, चैनल पर आपका स्वागत है।",
+  "sentence_ids": [
+   0,
+   1
+  ],
+  "word_start": 0,
+  "word_end": 13,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0001",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 1,
+  "kind": "speech",
+  "start": 6.884,
+  "end": 17.355,
+  "speech_start": 7.059,
+  "speech_end": 16.955,
+  "text": "तो आज हम बात करेंगे दही के बारे में। मतलब, बहुत लोग पूछते हैं कि उनका दही पतला क्यों जमता है।",
+  "sentence_ids": [
+   2,
+   3
+  ],
+  "word_start": 13,
+  "word_end": 34,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0002",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 2,
+  "kind": "speech",
+  "start": 17.355,
+  "end": 31.457,
+  "speech_start": 17.755,
+  "speech_end": 31.282,
+  "text": "इस वीडियो के आखिर में मैं आपको दिखाऊंगी कि सिर्फ आठ घंटे में बाज़ार जैसा गाढ़ा दही कैसे जमता है। सबसे पहले दूध को अच्छी तरह उबाल लीजिए।",
+  "sentence_ids": [
+   4,
+   5
+  ],
+  "word_start": 34,
+  "word_end": 62,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0003",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 3,
+  "kind": "speech",
+  "start": 31.457,
+  "end": 42.607,
+  "speech_start": 31.632,
+  "speech_end": 42.432,
+  "text": "उबालने से दूध के बैक्टीरिया मर जाते हैं और दूध थोड़ा गाढ़ा भी हो जाता है। अब दूध को ठंडा होने दीजिए।",
+  "sentence_ids": [
+   6,
+   7
+  ],
+  "word_start": 62,
+  "word_end": 84,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0004",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 4,
+  "kind": "speech",
+  "start": 42.607,
+  "end": 55.805,
+  "speech_start": 42.782,
+  "speech_end": 55.405,
+  "text": "दूध इतना गुनगुना होना चाहिए कि आपकी उंगली दस सेकंड तक उसमें आराम से रह सके। अगर दूध बहुत गरम होगा तो जामन के बैक्टीरिया मर जाएंगे।",
+  "sentence_ids": [
+   8,
+   9
+  ],
+  "word_start": 84,
+  "word_end": 111,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0005",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 5,
+  "kind": "speech",
+  "start": 55.805,
+  "end": 66.85,
+  "speech_start": 56.205,
+  "speech_end": 66.45,
+  "text": "एक लीटर दूध में दो चम्मच जामन डालिए। जामन मतलब पिछले दिन का थोड़ा सा दही। इसे अच्छी तरह मिला दीजिए।",
+  "sentence_ids": [
+   10,
+   11,
+   12
+  ],
+  "word_start": 111,
+  "word_end": 132,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0006",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 6,
+  "kind": "speech",
+  "start": 66.85,
+  "end": 80.727,
+  "speech_start": 67.25,
+  "speech_end": 80.327,
+  "text": "अच्छा, एक बात फिर से समझ लीजिए। दूध को पहले उबालना ज़रूरी है, क्योंकि उबालने से उसके बैक्टीरिया खत्म हो जाते हैं और दूध गाढ़ा हो जाता है।",
+  "sentence_ids": [
+   13,
+   14
+  ],
+  "word_start": 132,
+  "word_end": 160,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0007",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 7,
+  "kind": "speech",
+  "start": 80.727,
+  "end": 92.786,
+  "speech_start": 81.127,
+  "speech_end": 92.386,
+  "text": "अब बर्तन को ढककर किसी गरम जगह पर रख दीजिए। सर्दियों में आप इसे कैसरोल में या आटे के डिब्बे में रख सकते हैं।",
+  "sentence_ids": [
+   15,
+   16
+  ],
+  "word_start": 160,
+  "word_end": 184,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0008",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 8,
+  "kind": "speech",
+  "start": 92.786,
+  "end": 103.027,
+  "speech_start": 93.186,
+  "speech_end": 102.627,
+  "text": "दही कितनी देर में जमता है? गर्मियों में लगभग छह घंटे और सर्दियों में आठ से दस घंटे लगते हैं।",
+  "sentence_ids": [
+   17,
+   18
+  ],
+  "word_start": 184,
+  "word_end": 204,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0009",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 9,
+  "kind": "speech",
+  "start": 103.027,
+  "end": 114.752,
+  "speech_start": 103.427,
+  "speech_end": 114.577,
+  "text": "जमने के बाद दही को तुरंत फ्रिज में रख दीजिए। इससे दही ज़्यादा खट्टा नहीं होगा। तो ये रहा हमारा गाढ़ा दही।",
+  "sentence_ids": [
+   19,
+   20,
+   21
+  ],
+  "word_start": 204,
+  "word_end": 226,
+  "boundary": "sentence",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ },
+ {
+  "id": "01M3YZDMWK0D2Q2WYGVHAME1CE:0010",
+  "project_id": "01M3YZDMWK0D2Q2WYGVHAME1CE",
+  "index": 10,
+  "kind": "speech",
+  "start": 114.752,
+  "end": 126.232,
+  "speech_start": 114.927,
+  "speech_end": 125.732,
+  "text": "चम्मच उल्टा करने पर भी ये गिरता नहीं है। वीडियो पसंद आए तो लाइक कीजिए और बताइए कि अगली रेसिपी कौन सी हो।",
+  "sentence_ids": [
+   22,
+   23
+  ],
+  "word_start": 226,
+  "word_end": 249,
+  "boundary": "end",
+  "timing_source": "estimated",
+  "segmenter_version": "1.0"
+ }
+]

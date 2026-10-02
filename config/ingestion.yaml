@@ -1,0 +1,10 @@
+video_extensions: [".mp4", ".mov"]
+script_extensions: [".txt", ".md"]
+# Hard limits: rejected outside these.
+min_duration_s: 60
+max_duration_s: 1200
+# Tested range: accepted outside it, with a warning.
+recommended_min_s: 300
+recommended_max_s: 900
+max_upload_bytes: 4294967296   # 4 GiB
+max_script_bytes: 1048576      # 1 MiB

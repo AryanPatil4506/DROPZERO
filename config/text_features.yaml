@@ -1,0 +1,54 @@
+# Phase 3 text features. Any change here changes the feature config_hash stored with results;
+# changes to feature *definitions* must also bump FEATURE_SCHEMA_VERSION in backend/app/versions.py.
+
+embedding:
+  # Chosen by scripts/embedding_benchmark.py (results: docs/embedding_benchmark.md).
+  # LaBSE (Apache-2.0): AUC 0.932 repeat-vs-progress, within 0.01 of bge-m3 and smaller/faster.
+  model: sentence-transformers/LaBSE
+  prefix: ""
+  batch_size: 32
+  max_seq_length: 256
+
+repetition:
+  # Only compare against material that ended at least this long before; avoids flagging a
+  # sentence and its immediate paraphrase/clarification.
+  min_gap_s: 20.0
+  # Sentences shorter than this ("Okay.", "Let's go.") are not matched.
+  min_sentence_words: 4
+  # Cosine thresholds for the embedding model above. sentence_threshold is the benchmark's
+  # best-F1 cut (P 0.84 / R 0.80 on 40 hand-written items). Hindi same-topic pairs reach 0.605,
+  # so expect some false flags in Hindi. segment_threshold reuses it and is UNTESTED on real
+  # segments. Both provisional until checked against real transcripts.
+  sentence_threshold: 0.527
+  segment_threshold: 0.527
+  max_matches_per_segment: 3
+
+novelty:
+  # information_gain compares a segment with the centroid of the speech in this window before it.
+  context_window_s: 60.0
+
+topics:
+  block_size: 2          # segments per side when comparing blocks (TextTiling-style)
+  depth_std_k: 0.5       # boundary if depth >= mean + k*std of candidate depths ...
+  depth_abs_min: 0.02    # ... and at least this
+  min_section_s: 30.0
+
+questions:
+  # A sentence is a question if it ends with "?", or (when unpunctuated) starts with one of these
+  # or ends with one of the tag words.
+  interrogatives:
+    en: [what, why, how, when, where, who, which, whats, "what's", "how's", "why's", have, do, does, did, can, could, would, should, is, are, will]
+    hi: [क्या, क्यों, कैसे, कब, कहाँ, कहां, कौन, कितना, कितने, कितनी]
+    hinglish: [kya, kyun, kyu, kyon, kaise, kab, kahan, kaun, kitna, kitne, kitni]
+  tags:
+    en: [right]
+    hi: [ना, क्या]
+    hinglish: [na, kya]
+
+claims:
+  # A sentence counts toward claim_density if it contains a digit or one of these number words.
+  # "one"/"ek"/"एक" are excluded: they usually mean "a".
+  number_words:
+    en: [two, three, four, five, six, seven, eight, nine, ten, hundred, thousand, million, billion, percent, twice, double, half]
+    hi: [दो, तीन, चार, पांच, पाँच, छह, सात, आठ, नौ, दस, सौ, हज़ार, हजार, लाख, करोड़, प्रतिशत, आधा, दुगना]
+    hinglish: [teen, char, chaar, paanch, panch, chhe, saat, aath, nau, das, sau, hazaar, hazar, lakh, crore, percent, aadha, double]

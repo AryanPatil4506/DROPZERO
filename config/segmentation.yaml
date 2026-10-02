@@ -1,0 +1,34 @@
+sentences:
+  terminal_punctuation: [".", "?", "!", "।", "॥"]
+  # Tokens ending in "." that do not end a sentence.
+  abbreviations: ["mr.", "mrs.", "ms.", "dr.", "e.g.", "i.e.", "etc.", "vs.", "no.", "st."]
+  # Pause fallback for unpunctuated speech (common in Hinglish ASR):
+  # a gap >= pause_gap_s ends the sentence once it has run for >= pause_min_sentence_s.
+  pause_gap_s: 0.6
+  pause_min_sentence_s: 3.0
+  # A gap this long always ends a sentence.
+  silence_gap_s: 2.0
+
+windows:
+  target_s: 12.0
+  min_s: 5.0
+  max_s: 15.0
+  # A gap between speech of at least this length becomes its own "silence" segment.
+  silence_segment_min_s: 5.0
+  # Over-long sentences are split into pieces of at most max_s - forced_split_margin_s of speech,
+  # leaving room for the half-gaps each segment absorbs at its edges.
+  forced_split_margin_s: 1.5
+  # Scene cuts (Phase 4) as boundary hints: a boundary within hint_tolerance_s of a cut gets this
+  # cost bonus (in squared seconds: 25 means "worth being 5 s off the 12 s target").
+  hint_tolerance_s: 1.0
+  hint_bonus: 25.0
+
+script_timing:
+  # Speaking rate used to estimate timing in script-only mode. Labelled "estimated" everywhere.
+  words_per_second:
+    en: 2.5
+    hi: 2.2
+    hinglish: 2.4
+  sentence_pause_s: 0.35
+  paragraph_pause_s: 0.8
+  tail_s: 0.5

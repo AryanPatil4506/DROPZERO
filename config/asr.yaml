@@ -1,0 +1,19 @@
+# faster-whisper settings. Any change here changes asr_config_hash and invalidates the ASR cache.
+model: large-v3
+compute_type:
+  cuda: float16
+  cpu: int8
+beam_size: 5
+temperature: 0.0
+# Whisper's "repeat the previous line" hallucination would create fake repetition flags later.
+condition_on_previous_text: false
+word_timestamps: true
+vad_filter: true
+vad_parameters:
+  min_silence_duration_ms: 500
+# Declared project language -> Whisper language code. null = auto-detect.
+# Hinglish is auto-detected until real Hinglish clips have been tested (see README "Known gaps").
+language_map:
+  en: en
+  hi: hi
+  hinglish: null

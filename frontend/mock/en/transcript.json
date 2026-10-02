@@ -1,0 +1,3512 @@
+{
+ "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+ "language_declared": "en",
+ "language_detected": null,
+ "language_prob": null,
+ "timing_source": "estimated",
+ "asr_model": null,
+ "asr_config_hash": null,
+ "duration_s": 199.45,
+ "words": [
+  {
+   "text": "I",
+   "start": 0.0,
+   "end": 0.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Built",
+   "start": 0.4,
+   "end": 0.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "an",
+   "start": 0.8,
+   "end": 1.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "AI",
+   "start": 1.2,
+   "end": 1.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Agent",
+   "start": 1.6,
+   "end": 2.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "in",
+   "start": 2.0,
+   "end": 2.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "24",
+   "start": 2.4,
+   "end": 2.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Hours",
+   "start": 2.8,
+   "end": 3.2,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Hey",
+   "start": 4.0,
+   "end": 4.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "everyone,",
+   "start": 4.4,
+   "end": 4.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "welcome",
+   "start": 4.8,
+   "end": 5.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "back",
+   "start": 5.2,
+   "end": 5.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 5.6,
+   "end": 6.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 6.0,
+   "end": 6.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "channel.",
+   "start": 6.4,
+   "end": 6.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Before",
+   "start": 7.15,
+   "end": 7.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "we",
+   "start": 7.55,
+   "end": 7.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "start,",
+   "start": 7.95,
+   "end": 8.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "make",
+   "start": 8.35,
+   "end": 8.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "sure",
+   "start": 8.75,
+   "end": 9.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "you",
+   "start": 9.15,
+   "end": 9.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "subscribe",
+   "start": 9.55,
+   "end": 9.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 9.95,
+   "end": 10.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hit",
+   "start": 10.35,
+   "end": 10.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 10.75,
+   "end": 11.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "bell",
+   "start": 11.15,
+   "end": 11.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "icon,",
+   "start": 11.55,
+   "end": 11.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "because",
+   "start": 11.95,
+   "end": 12.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "we",
+   "start": 12.35,
+   "end": 12.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "post",
+   "start": 12.75,
+   "end": 13.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "every",
+   "start": 13.15,
+   "end": 13.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "week.",
+   "start": 13.55,
+   "end": 13.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "So",
+   "start": 14.3,
+   "end": 14.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "today",
+   "start": 14.7,
+   "end": 15.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 15.1,
+   "end": 15.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 15.5,
+   "end": 15.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "special",
+   "start": 15.9,
+   "end": 16.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "one.",
+   "start": 16.3,
+   "end": 16.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Um,",
+   "start": 17.05,
+   "end": 17.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 17.45,
+   "end": 17.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "have",
+   "start": 17.85,
+   "end": 18.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "been",
+   "start": 18.25,
+   "end": 18.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "wanting",
+   "start": 18.65,
+   "end": 19.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 19.05,
+   "end": 19.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "make",
+   "start": 19.45,
+   "end": 19.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "this",
+   "start": 19.85,
+   "end": 20.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 20.25,
+   "end": 20.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "for",
+   "start": 20.65,
+   "end": 21.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 21.05,
+   "end": 21.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "really",
+   "start": 21.45,
+   "end": 21.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "long",
+   "start": 21.85,
+   "end": 22.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "time,",
+   "start": 22.25,
+   "end": 22.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 22.65,
+   "end": 23.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "honestly",
+   "start": 23.05,
+   "end": 23.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 23.45,
+   "end": 23.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "took",
+   "start": 23.85,
+   "end": 24.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "way",
+   "start": 24.25,
+   "end": 24.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "longer",
+   "start": 24.65,
+   "end": 25.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 25.05,
+   "end": 25.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "edit",
+   "start": 25.45,
+   "end": 25.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "than",
+   "start": 25.85,
+   "end": 26.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 26.25,
+   "end": 26.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "expected.",
+   "start": 26.65,
+   "end": 27.05,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "By",
+   "start": 27.85,
+   "end": 28.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 28.25,
+   "end": 28.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "end",
+   "start": 28.65,
+   "end": 29.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 29.05,
+   "end": 29.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "this",
+   "start": 29.45,
+   "end": 29.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "video",
+   "start": 29.85,
+   "end": 30.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "you",
+   "start": 30.25,
+   "end": 30.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "will",
+   "start": 30.65,
+   "end": 31.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "see",
+   "start": 31.05,
+   "end": 31.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 31.45,
+   "end": 31.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 31.85,
+   "end": 32.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "book",
+   "start": 32.25,
+   "end": 32.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 32.65,
+   "end": 33.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "real",
+   "start": 33.05,
+   "end": 33.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dinner",
+   "start": 33.45,
+   "end": 33.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "reservation",
+   "start": 33.85,
+   "end": 34.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "on",
+   "start": 34.25,
+   "end": 34.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "its",
+   "start": 34.65,
+   "end": 35.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "own.",
+   "start": 35.05,
+   "end": 35.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "That",
+   "start": 35.8,
+   "end": 36.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 36.2,
+   "end": 36.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 36.6,
+   "end": 37.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "demo,",
+   "start": 37.0,
+   "end": 37.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 37.4,
+   "end": 37.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 37.8,
+   "end": 38.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "actually",
+   "start": 38.2,
+   "end": 38.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "works.",
+   "start": 38.6,
+   "end": 39.0,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "So",
+   "start": 39.8,
+   "end": 40.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 40.2,
+   "end": 40.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 40.6,
+   "end": 41.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "an",
+   "start": 41.0,
+   "end": 41.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "AI",
+   "start": 41.4,
+   "end": 41.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent?",
+   "start": 41.8,
+   "end": 42.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "An",
+   "start": 42.55,
+   "end": 42.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 42.95,
+   "end": 43.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 43.35,
+   "end": 43.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 43.75,
+   "end": 44.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "program",
+   "start": 44.15,
+   "end": 44.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 44.55,
+   "end": 44.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "uses",
+   "start": 44.95,
+   "end": 45.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 45.35,
+   "end": 45.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "language",
+   "start": 45.75,
+   "end": 46.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "model",
+   "start": 46.15,
+   "end": 46.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 46.55,
+   "end": 46.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "decide",
+   "start": 46.95,
+   "end": 47.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 47.35,
+   "end": 47.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 47.75,
+   "end": 48.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "do",
+   "start": 48.15,
+   "end": 48.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "next,",
+   "start": 48.55,
+   "end": 48.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "calls",
+   "start": 48.95,
+   "end": 49.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tools",
+   "start": 49.35,
+   "end": 49.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "like",
+   "start": 49.75,
+   "end": 50.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 50.15,
+   "end": 50.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "browser",
+   "start": 50.55,
+   "end": 50.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "or",
+   "start": 50.95,
+   "end": 51.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 51.35,
+   "end": 51.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "calendar,",
+   "start": 51.75,
+   "end": 52.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "looks",
+   "start": 52.15,
+   "end": 52.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 52.55,
+   "end": 52.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 52.95,
+   "end": 53.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "result,",
+   "start": 53.35,
+   "end": 53.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 53.75,
+   "end": 54.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "then",
+   "start": 54.15,
+   "end": 54.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "decides",
+   "start": 54.55,
+   "end": 54.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 54.95,
+   "end": 55.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "next",
+   "start": 55.35,
+   "end": 55.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "step.",
+   "start": 55.75,
+   "end": 56.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "It",
+   "start": 56.5,
+   "end": 56.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "keeps",
+   "start": 56.9,
+   "end": 57.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "looping",
+   "start": 57.3,
+   "end": 57.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "until",
+   "start": 57.7,
+   "end": 58.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 58.1,
+   "end": 58.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "task",
+   "start": 58.5,
+   "end": 58.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 58.9,
+   "end": 59.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "done.",
+   "start": 59.3,
+   "end": 59.7,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "I",
+   "start": 60.5,
+   "end": 60.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "started",
+   "start": 60.9,
+   "end": 61.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 61.3,
+   "end": 61.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "9",
+   "start": 61.7,
+   "end": 62.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "AM",
+   "start": 62.1,
+   "end": 62.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "on",
+   "start": 62.5,
+   "end": 62.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Saturday.",
+   "start": 62.9,
+   "end": 63.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "The",
+   "start": 63.65,
+   "end": 64.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "first",
+   "start": 64.05,
+   "end": 64.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "3",
+   "start": 64.45,
+   "end": 64.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hours",
+   "start": 64.85,
+   "end": 65.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "went",
+   "start": 65.25,
+   "end": 65.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "into",
+   "start": 65.65,
+   "end": 66.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "picking",
+   "start": 66.05,
+   "end": 66.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 66.45,
+   "end": 66.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "framework.",
+   "start": 66.85,
+   "end": 67.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 67.6,
+   "end": 68.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tried",
+   "start": 68.0,
+   "end": 68.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "two",
+   "start": 68.4,
+   "end": 68.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "different",
+   "start": 68.8,
+   "end": 69.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "libraries",
+   "start": 69.2,
+   "end": 69.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 69.6,
+   "end": 70.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "threw",
+   "start": 70.0,
+   "end": 70.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "both",
+   "start": 70.4,
+   "end": 70.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "away,",
+   "start": 70.8,
+   "end": 71.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "because",
+   "start": 71.2,
+   "end": 71.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "they",
+   "start": 71.6,
+   "end": 72.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hid",
+   "start": 72.0,
+   "end": 72.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "too",
+   "start": 72.4,
+   "end": 72.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "much",
+   "start": 72.8,
+   "end": 73.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 73.2,
+   "end": 73.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 73.6,
+   "end": 74.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 74.0,
+   "end": 74.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "model",
+   "start": 74.4,
+   "end": 74.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "was",
+   "start": 74.8,
+   "end": 75.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "actually",
+   "start": 75.2,
+   "end": 75.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "doing.",
+   "start": 75.6,
+   "end": 76.0,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "In",
+   "start": 76.8,
+   "end": 77.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 77.2,
+   "end": 77.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "end",
+   "start": 77.6,
+   "end": 78.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 78.0,
+   "end": 78.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "wrote",
+   "start": 78.4,
+   "end": 78.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 78.8,
+   "end": 79.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "loop",
+   "start": 79.2,
+   "end": 79.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "myself",
+   "start": 79.6,
+   "end": 80.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "in",
+   "start": 80.0,
+   "end": 80.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "about",
+   "start": 80.4,
+   "end": 80.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "150",
+   "start": 80.8,
+   "end": 81.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "lines",
+   "start": 81.2,
+   "end": 81.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 81.6,
+   "end": 82.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Python.",
+   "start": 82.0,
+   "end": 82.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "The",
+   "start": 82.75,
+   "end": 83.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "model",
+   "start": 83.15,
+   "end": 83.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "gets",
+   "start": 83.55,
+   "end": 83.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 83.95,
+   "end": 84.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "goal,",
+   "start": 84.35,
+   "end": 84.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 84.75,
+   "end": 85.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "list",
+   "start": 85.15,
+   "end": 85.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 85.55,
+   "end": 85.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tools,",
+   "start": 85.95,
+   "end": 86.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 86.35,
+   "end": 86.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 86.75,
+   "end": 87.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "history",
+   "start": 87.15,
+   "end": 87.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 87.55,
+   "end": 87.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 87.95,
+   "end": 88.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "happened",
+   "start": 88.35,
+   "end": 88.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "so",
+   "start": 88.75,
+   "end": 89.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "far.",
+   "start": 89.15,
+   "end": 89.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Then",
+   "start": 89.9,
+   "end": 90.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 90.3,
+   "end": 90.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "picks",
+   "start": 90.7,
+   "end": 91.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "one",
+   "start": 91.1,
+   "end": 91.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tool",
+   "start": 91.5,
+   "end": 91.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "call",
+   "start": 91.9,
+   "end": 92.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 92.3,
+   "end": 92.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 92.7,
+   "end": 93.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "time.",
+   "start": 93.1,
+   "end": 93.5,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Now,",
+   "start": 94.3,
+   "end": 94.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "you",
+   "start": 94.7,
+   "end": 95.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "know,",
+   "start": 95.1,
+   "end": 95.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 95.5,
+   "end": 95.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tricky",
+   "start": 95.9,
+   "end": 96.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "part",
+   "start": 96.3,
+   "end": 96.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "was",
+   "start": 96.7,
+   "end": 97.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 97.1,
+   "end": 97.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "browser",
+   "start": 97.5,
+   "end": 97.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tool.",
+   "start": 97.9,
+   "end": 98.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Websites",
+   "start": 98.65,
+   "end": 99.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "change",
+   "start": 99.05,
+   "end": 99.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "their",
+   "start": 99.45,
+   "end": 99.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "layout",
+   "start": 99.85,
+   "end": 100.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "all",
+   "start": 100.25,
+   "end": 100.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 100.65,
+   "end": 101.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "time,",
+   "start": 101.05,
+   "end": 101.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 101.45,
+   "end": 101.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 101.85,
+   "end": 102.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 102.25,
+   "end": 102.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kept",
+   "start": 102.65,
+   "end": 103.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "clicking",
+   "start": 103.05,
+   "end": 103.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 103.45,
+   "end": 103.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "wrong",
+   "start": 103.85,
+   "end": 104.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "buttons.",
+   "start": 104.25,
+   "end": 104.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 105.0,
+   "end": 105.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "fixed",
+   "start": 105.4,
+   "end": 105.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 105.8,
+   "end": 106.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "by",
+   "start": 106.2,
+   "end": 106.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "giving",
+   "start": 106.6,
+   "end": 107.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 107.0,
+   "end": 107.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 107.4,
+   "end": 107.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "page",
+   "start": 107.8,
+   "end": 108.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "as",
+   "start": 108.2,
+   "end": 108.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "plain",
+   "start": 108.6,
+   "end": 109.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "text",
+   "start": 109.0,
+   "end": 109.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "with",
+   "start": 109.4,
+   "end": 109.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "numbered",
+   "start": 109.8,
+   "end": 110.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "links",
+   "start": 110.2,
+   "end": 110.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "instead",
+   "start": 110.6,
+   "end": 111.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 111.0,
+   "end": 111.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "raw",
+   "start": 111.4,
+   "end": 111.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "HTML.",
+   "start": 111.8,
+   "end": 112.2,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Basically,",
+   "start": 113.0,
+   "end": 113.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "an",
+   "start": 113.4,
+   "end": 113.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 113.8,
+   "end": 114.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 114.2,
+   "end": 114.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "just",
+   "start": 114.6,
+   "end": 115.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 115.0,
+   "end": 115.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "language",
+   "start": 115.4,
+   "end": 115.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "model",
+   "start": 115.8,
+   "end": 116.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 116.2,
+   "end": 116.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "chooses",
+   "start": 116.6,
+   "end": 117.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 117.0,
+   "end": 117.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "next",
+   "start": 117.4,
+   "end": 117.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "action,",
+   "start": 117.8,
+   "end": 118.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "uses",
+   "start": 118.2,
+   "end": 118.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 118.6,
+   "end": 119.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tool",
+   "start": 119.0,
+   "end": 119.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "such",
+   "start": 119.4,
+   "end": 119.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "as",
+   "start": 119.8,
+   "end": 120.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 120.2,
+   "end": 120.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "browser",
+   "start": 120.6,
+   "end": 121.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "or",
+   "start": 121.0,
+   "end": 121.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "calendar,",
+   "start": 121.4,
+   "end": 121.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "checks",
+   "start": 121.8,
+   "end": 122.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 122.2,
+   "end": 122.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "came",
+   "start": 122.6,
+   "end": 123.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "back,",
+   "start": 123.0,
+   "end": 123.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 123.4,
+   "end": 123.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "repeats",
+   "start": 123.8,
+   "end": 124.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 124.2,
+   "end": 124.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "loop",
+   "start": 124.6,
+   "end": 125.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "until",
+   "start": 125.0,
+   "end": 125.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 125.4,
+   "end": 125.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "job",
+   "start": 125.8,
+   "end": 126.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 126.2,
+   "end": 126.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "finished.",
+   "start": 126.6,
+   "end": 127.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "That",
+   "start": 127.35,
+   "end": 127.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 127.75,
+   "end": 128.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "really",
+   "start": 128.15,
+   "end": 128.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "all",
+   "start": 128.55,
+   "end": 128.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "an",
+   "start": 128.95,
+   "end": 129.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 129.35,
+   "end": 129.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is.",
+   "start": 129.75,
+   "end": 130.15,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "By",
+   "start": 130.95,
+   "end": 131.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hour",
+   "start": 131.35,
+   "end": 131.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "16",
+   "start": 131.75,
+   "end": 132.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 132.15,
+   "end": 132.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 132.55,
+   "end": 132.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "could",
+   "start": 132.95,
+   "end": 133.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "search",
+   "start": 133.35,
+   "end": 133.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "for",
+   "start": 133.75,
+   "end": 134.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "restaurants,",
+   "start": 134.15,
+   "end": 134.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "but",
+   "start": 134.55,
+   "end": 134.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 134.95,
+   "end": 135.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "failed",
+   "start": 135.35,
+   "end": 135.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "7",
+   "start": 135.75,
+   "end": 136.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "out",
+   "start": 136.15,
+   "end": 136.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 136.55,
+   "end": 136.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "10",
+   "start": 136.95,
+   "end": 137.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "times",
+   "start": 137.35,
+   "end": 137.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 137.75,
+   "end": 138.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 138.15,
+   "end": 138.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "booking",
+   "start": 138.55,
+   "end": 138.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "form.",
+   "start": 138.95,
+   "end": 139.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Why",
+   "start": 139.7,
+   "end": 140.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "was",
+   "start": 140.1,
+   "end": 140.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 140.5,
+   "end": 140.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "failing?",
+   "start": 140.9,
+   "end": 141.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "The",
+   "start": 141.65,
+   "end": 142.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "form",
+   "start": 142.05,
+   "end": 142.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "had",
+   "start": 142.45,
+   "end": 142.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 142.85,
+   "end": 143.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "date",
+   "start": 143.25,
+   "end": 143.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "picker,",
+   "start": 143.65,
+   "end": 144.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 144.05,
+   "end": 144.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 144.45,
+   "end": 144.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "model",
+   "start": 144.85,
+   "end": 145.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "kept",
+   "start": 145.25,
+   "end": 145.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "typing",
+   "start": 145.65,
+   "end": 146.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 146.05,
+   "end": 146.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "date",
+   "start": 146.45,
+   "end": 146.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "in",
+   "start": 146.85,
+   "end": 147.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 147.25,
+   "end": 147.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "wrong",
+   "start": 147.65,
+   "end": 148.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "format.",
+   "start": 148.05,
+   "end": 148.45,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "I",
+   "start": 149.25,
+   "end": 149.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "added",
+   "start": 149.65,
+   "end": 150.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "one",
+   "start": 150.05,
+   "end": 150.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "rule",
+   "start": 150.45,
+   "end": 150.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 150.85,
+   "end": 151.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 151.25,
+   "end": 151.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "prompt",
+   "start": 151.65,
+   "end": 152.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 152.05,
+   "end": 152.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "shows",
+   "start": 152.45,
+   "end": 152.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 152.85,
+   "end": 153.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "exact",
+   "start": 153.25,
+   "end": 153.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "date",
+   "start": 153.65,
+   "end": 154.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "format,",
+   "start": 154.05,
+   "end": 154.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 154.45,
+   "end": 154.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 154.85,
+   "end": 155.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "success",
+   "start": 155.25,
+   "end": 155.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "rate",
+   "start": 155.65,
+   "end": 156.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "went",
+   "start": 156.05,
+   "end": 156.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "from",
+   "start": 156.45,
+   "end": 156.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "3",
+   "start": 156.85,
+   "end": 157.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "out",
+   "start": 157.25,
+   "end": 157.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 157.65,
+   "end": 158.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "10",
+   "start": 158.05,
+   "end": 158.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "to",
+   "start": 158.45,
+   "end": 158.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "9",
+   "start": 158.85,
+   "end": 159.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "out",
+   "start": 159.25,
+   "end": 159.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 159.65,
+   "end": 160.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "10.",
+   "start": 160.05,
+   "end": 160.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "That",
+   "start": 160.8,
+   "end": 161.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "single",
+   "start": 161.2,
+   "end": 161.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "line",
+   "start": 161.6,
+   "end": 162.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "made",
+   "start": 162.0,
+   "end": 162.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 162.4,
+   "end": 162.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "biggest",
+   "start": 162.8,
+   "end": 163.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "difference",
+   "start": 163.2,
+   "end": 163.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "of",
+   "start": 163.6,
+   "end": 164.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 164.0,
+   "end": 164.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "whole",
+   "start": 164.4,
+   "end": 164.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "project.",
+   "start": 164.8,
+   "end": 165.2,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "Here",
+   "start": 166.0,
+   "end": 166.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 166.4,
+   "end": 166.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 166.8,
+   "end": 167.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "demo.",
+   "start": 167.2,
+   "end": 167.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 167.95,
+   "end": 168.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "type:",
+   "start": 168.35,
+   "end": 168.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "book",
+   "start": 168.75,
+   "end": 169.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "a",
+   "start": 169.15,
+   "end": 169.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "table",
+   "start": 169.55,
+   "end": 169.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "for",
+   "start": 169.95,
+   "end": 170.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "two",
+   "start": 170.35,
+   "end": 170.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 170.75,
+   "end": 171.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "an",
+   "start": 171.15,
+   "end": 171.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Italian",
+   "start": 171.55,
+   "end": 171.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "place",
+   "start": 171.95,
+   "end": 172.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "near",
+   "start": 172.35,
+   "end": 172.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "me",
+   "start": 172.75,
+   "end": 173.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "tomorrow",
+   "start": 173.15,
+   "end": 173.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "at",
+   "start": 173.55,
+   "end": 173.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "8",
+   "start": 173.95,
+   "end": 174.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "PM.",
+   "start": 174.35,
+   "end": 174.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "The",
+   "start": 175.1,
+   "end": 175.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent",
+   "start": 175.5,
+   "end": 175.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "opens",
+   "start": 175.9,
+   "end": 176.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 176.3,
+   "end": 176.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "browser,",
+   "start": 176.7,
+   "end": 177.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "searches,",
+   "start": 177.1,
+   "end": 177.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "compares",
+   "start": 177.5,
+   "end": 177.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "three",
+   "start": 177.9,
+   "end": 178.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "restaurants",
+   "start": 178.3,
+   "end": 178.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "by",
+   "start": 178.7,
+   "end": 179.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "rating,",
+   "start": 179.1,
+   "end": 179.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 179.5,
+   "end": 179.9,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "fills",
+   "start": 179.9,
+   "end": 180.3,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 180.3,
+   "end": 180.7,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "booking",
+   "start": 180.7,
+   "end": 181.1,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "form.",
+   "start": 181.1,
+   "end": 181.5,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "And",
+   "start": 181.85,
+   "end": 182.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "there",
+   "start": 182.25,
+   "end": 182.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 182.65,
+   "end": 183.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 183.05,
+   "end": 183.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "confirmation",
+   "start": 183.45,
+   "end": 183.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "email.",
+   "start": 183.85,
+   "end": 184.25,
+   "confidence": null,
+   "paragraph_break": true
+  },
+  {
+   "text": "So",
+   "start": 185.05,
+   "end": 185.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "that",
+   "start": 185.45,
+   "end": 185.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "was",
+   "start": 185.85,
+   "end": 186.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "24",
+   "start": 186.25,
+   "end": 186.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "hours,",
+   "start": 186.65,
+   "end": 187.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "one",
+   "start": 187.05,
+   "end": 187.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "agent,",
+   "start": 187.45,
+   "end": 187.85,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "and",
+   "start": 187.85,
+   "end": 188.25,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "one",
+   "start": 188.25,
+   "end": 188.65,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "dinner",
+   "start": 188.65,
+   "end": 189.05,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "reservation.",
+   "start": 189.05,
+   "end": 189.45,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "If",
+   "start": 189.8,
+   "end": 190.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "you",
+   "start": 190.2,
+   "end": 190.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "want",
+   "start": 190.6,
+   "end": 191.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 191.0,
+   "end": 191.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "code,",
+   "start": 191.4,
+   "end": 191.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "it",
+   "start": 191.8,
+   "end": 192.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "is",
+   "start": 192.2,
+   "end": 192.6,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "linked",
+   "start": 192.6,
+   "end": 193.0,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "in",
+   "start": 193.0,
+   "end": 193.4,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 193.4,
+   "end": 193.8,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "description.",
+   "start": 193.8,
+   "end": 194.2,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "Let",
+   "start": 194.55,
+   "end": 194.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "me",
+   "start": 194.95,
+   "end": 195.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "know",
+   "start": 195.35,
+   "end": 195.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "in",
+   "start": 195.75,
+   "end": 196.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "the",
+   "start": 196.15,
+   "end": 196.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "comments",
+   "start": 196.55,
+   "end": 196.95,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "what",
+   "start": 196.95,
+   "end": 197.35,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "I",
+   "start": 197.35,
+   "end": 197.75,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "should",
+   "start": 197.75,
+   "end": 198.15,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "automate",
+   "start": 198.15,
+   "end": 198.55,
+   "confidence": null,
+   "paragraph_break": false
+  },
+  {
+   "text": "next.",
+   "start": 198.55,
+   "end": 198.95,
+   "confidence": null,
+   "paragraph_break": true
+  }
+ ],
+ "sentences": [
+  {
+   "idx": 0,
+   "start": 0.0,
+   "end": 3.2,
+   "text": "I Built an AI Agent in 24 Hours",
+   "word_start": 0,
+   "word_end": 8,
+   "end_reason": "pause"
+  },
+  {
+   "idx": 1,
+   "start": 4.0,
+   "end": 6.8,
+   "text": "Hey everyone, welcome back to the channel.",
+   "word_start": 8,
+   "word_end": 15,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 2,
+   "start": 7.15,
+   "end": 13.95,
+   "text": "Before we start, make sure you subscribe and hit the bell icon, because we post every week.",
+   "word_start": 15,
+   "word_end": 32,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 3,
+   "start": 14.3,
+   "end": 16.7,
+   "text": "So today is a special one.",
+   "word_start": 32,
+   "word_end": 38,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 4,
+   "start": 17.05,
+   "end": 27.05,
+   "text": "Um, I have been wanting to make this video for a really long time, and honestly it took way longer to edit than I expected.",
+   "word_start": 38,
+   "word_end": 63,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 5,
+   "start": 27.85,
+   "end": 35.45,
+   "text": "By the end of this video you will see the agent book a real dinner reservation on its own.",
+   "word_start": 63,
+   "word_end": 82,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 6,
+   "start": 35.8,
+   "end": 39.0,
+   "text": "That is the demo, and it actually works.",
+   "word_start": 82,
+   "word_end": 90,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 7,
+   "start": 39.8,
+   "end": 42.2,
+   "text": "So what is an AI agent?",
+   "word_start": 90,
+   "word_end": 96,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 8,
+   "start": 42.55,
+   "end": 56.15,
+   "text": "An agent is a program that uses a language model to decide what to do next, calls tools like a browser or a calendar, looks at the result, and then decides the next step.",
+   "word_start": 96,
+   "word_end": 130,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 9,
+   "start": 56.5,
+   "end": 59.7,
+   "text": "It keeps looping until the task is done.",
+   "word_start": 130,
+   "word_end": 138,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 10,
+   "start": 60.5,
+   "end": 63.3,
+   "text": "I started at 9 AM on Saturday.",
+   "word_start": 138,
+   "word_end": 145,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 11,
+   "start": 63.65,
+   "end": 67.25,
+   "text": "The first 3 hours went into picking a framework.",
+   "word_start": 145,
+   "word_end": 154,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 12,
+   "start": 67.6,
+   "end": 76.0,
+   "text": "I tried two different libraries and threw both away, because they hid too much of what the model was actually doing.",
+   "word_start": 154,
+   "word_end": 175,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 13,
+   "start": 76.8,
+   "end": 82.4,
+   "text": "In the end I wrote the loop myself in about 150 lines of Python.",
+   "word_start": 175,
+   "word_end": 189,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 14,
+   "start": 82.75,
+   "end": 89.55,
+   "text": "The model gets the goal, a list of tools, and the history of what happened so far.",
+   "word_start": 189,
+   "word_end": 206,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 15,
+   "start": 89.9,
+   "end": 93.5,
+   "text": "Then it picks one tool call at a time.",
+   "word_start": 206,
+   "word_end": 215,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 16,
+   "start": 94.3,
+   "end": 98.3,
+   "text": "Now, you know, the tricky part was the browser tool.",
+   "word_start": 215,
+   "word_end": 225,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 17,
+   "start": 98.65,
+   "end": 104.65,
+   "text": "Websites change their layout all the time, and the agent kept clicking the wrong buttons.",
+   "word_start": 225,
+   "word_end": 240,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 18,
+   "start": 105.0,
+   "end": 112.2,
+   "text": "I fixed that by giving it the page as plain text with numbered links instead of raw HTML.",
+   "word_start": 240,
+   "word_end": 258,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 19,
+   "start": 113.0,
+   "end": 127.0,
+   "text": "Basically, an agent is just a language model that chooses the next action, uses a tool such as a browser or calendar, checks what came back, and repeats that loop until the job is finished.",
+   "word_start": 258,
+   "word_end": 293,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 20,
+   "start": 127.35,
+   "end": 130.15,
+   "text": "That is really all an agent is.",
+   "word_start": 293,
+   "word_end": 300,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 21,
+   "start": 130.95,
+   "end": 139.35,
+   "text": "By hour 16 the agent could search for restaurants, but it failed 7 out of 10 times at the booking form.",
+   "word_start": 300,
+   "word_end": 321,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 22,
+   "start": 139.7,
+   "end": 141.3,
+   "text": "Why was it failing?",
+   "word_start": 321,
+   "word_end": 325,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 23,
+   "start": 141.65,
+   "end": 148.45,
+   "text": "The form had a date picker, and the model kept typing the date in the wrong format.",
+   "word_start": 325,
+   "word_end": 342,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 24,
+   "start": 149.25,
+   "end": 160.45,
+   "text": "I added one rule to the prompt that shows the exact date format, and the success rate went from 3 out of 10 to 9 out of 10.",
+   "word_start": 342,
+   "word_end": 370,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 25,
+   "start": 160.8,
+   "end": 165.2,
+   "text": "That single line made the biggest difference of the whole project.",
+   "word_start": 370,
+   "word_end": 381,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 26,
+   "start": 166.0,
+   "end": 167.6,
+   "text": "Here is the demo.",
+   "word_start": 381,
+   "word_end": 385,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 27,
+   "start": 167.95,
+   "end": 174.75,
+   "text": "I type: book a table for two at an Italian place near me tomorrow at 8 PM.",
+   "word_start": 385,
+   "word_end": 402,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 28,
+   "start": 175.1,
+   "end": 181.5,
+   "text": "The agent opens the browser, searches, compares three restaurants by rating, and fills the booking form.",
+   "word_start": 402,
+   "word_end": 418,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 29,
+   "start": 181.85,
+   "end": 184.25,
+   "text": "And there is the confirmation email.",
+   "word_start": 418,
+   "word_end": 424,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 30,
+   "start": 185.05,
+   "end": 189.45,
+   "text": "So that was 24 hours, one agent, and one dinner reservation.",
+   "word_start": 424,
+   "word_end": 435,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 31,
+   "start": 189.8,
+   "end": 194.2,
+   "text": "If you want the code, it is linked in the description.",
+   "word_start": 435,
+   "word_end": 446,
+   "end_reason": "punct"
+  },
+  {
+   "idx": 32,
+   "start": 194.55,
+   "end": 198.95,
+   "text": "Let me know in the comments what I should automate next.",
+   "word_start": 446,
+   "word_end": 457,
+   "end_reason": "end"
+  }
+ ],
+ "mean_confidence": null,
+ "transcript_schema_version": "1.0"
+}
