@@ -20,12 +20,10 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.2"
+RULES_VERSION = "rules-1.3"
 
-# Causes the retention model has features for. Only their CUT/MOVE edits are simulated; for
-# others (silent intro, title promise, silence, visuals) a simulated curve would only reflect
-# segments shifting position, so those edits are advice only.
-MODELLED = {"repetition", "low_information", "pacing", "model_risk"}
+# Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
+# SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
 
 
 def mmss(t: float) -> str:
@@ -86,7 +84,7 @@ class _Builder:
         e = Edit(
             id=f"e{len(self.edits) + 1}",
             flag_id=f.id,
-            simulatable=kw["action"] in ("CUT", "MOVE") and f.category in MODELLED,
+            simulatable=kw["action"] == "CUT",
             **kw,
         )
         self.edits.append(e)

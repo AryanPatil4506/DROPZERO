@@ -17,6 +17,7 @@ from backend.app.ingestion.validate import (
     decode_script,
     duration_warnings,
 )
+from backend.app.model.predict import load_model
 from backend.app.pipeline.runner import Services, new_job, run_job
 from backend.app.schemas.av_features import AVFeatureSet
 from backend.app.schemas.features import TextFeatureSet
@@ -26,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.project import Project, ProjectCreate, ProjectStatus, SourceType
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
-from backend.app.simulate.edits import Simulation, simulate
+from backend.app.simulate.exposure import CustomEdit, SimulationV2, simulate_exposure
 from backend.app.storage.db import new_id, utcnow
 
 router = APIRouter(prefix="/api/projects", tags=["projects"])
@@ -216,21 +217,35 @@ def get_flags(pid: str, svc: Services = Depends(get_services)) -> FlagsResponse:
 
 
 class SimulateRequest(BaseModel):
-    edit_ids: list[str]
+    edit_ids: list[str] = []
+    custom_edits: list[CustomEdit] = []  # editor trims / cuts / speed-ups
 
 
-@router.post("/{pid}/simulate", response_model=Simulation)
+@router.post("/{pid}/simulate", response_model=SimulationV2)
 def post_simulate(
     pid: str, body: SimulateRequest, svc: Services = Depends(get_services)
-) -> Simulation:
+) -> SimulationV2:
     t = Transcript.model_validate_json(_artifact(svc, pid, "transcript"))
+    segs = [Segment.model_validate(x) for x in json.loads(_artifact(svc, pid, "segments"))]
+    fs = TextFeatureSet.model_validate_json(_artifact(svc, pid, "text_features"))
     flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
     pred = Prediction.model_validate_json(_artifact(svc, pid, "prediction"))
     unknown = set(body.edit_ids) - {e.id for e in flags.edits}
-    if unknown or not body.edit_ids:
-        raise HTTPException(422, f"unknown or empty edit ids: {sorted(unknown)}")
-    cfgs = {k: load_config(k) for k in ("segmentation", "text_features", "fillers")}
-    return simulate(t, flags.edits, body.edit_ids, pred.points, svc.embedder, cfgs)
+    if unknown or not (body.edit_ids or body.custom_edits):
+        raise HTTPException(422, f"unknown or empty edits: {sorted(unknown)}")
+    for c in body.custom_edits:
+        if c.action in ("CUT", "SPEED") and c.end <= c.start:
+            raise HTTPException(422, "custom edit end must be after start")
+    return simulate_exposure(
+        segs,
+        fs,
+        t.duration_s,
+        pred.points,
+        flags.edits,
+        body.edit_ids,
+        body.custom_edits,
+        load_model(),
+    )
 
 
 _VIDEO_TYPES = {".mp4": "video/mp4", ".m4v": "video/mp4", ".mov": "video/quicktime"}

@@ -6,7 +6,22 @@ model:
   min_samples_leaf: 40
   l2_regularization: 1.0
   random_state: 0
-  band_quantiles: [0.1, 0.9]     # uncertainty band = hazard quantile models
+  # band = empirical quantiles of (actual - calibrated) retention on TRAIN, by position
+  band_quantiles: [0.1, 0.9]
+  band_bins: 10
+
+# Direction constraints (research priors: Guo et al. 2014 - engagement rises with speaking
+# rate; repetition and low new information are the problem statement's drop causes).
+# +1 = can only raise the drop rate, -1 = can only lower it.
+monotonic:
+  repetition_similarity: 1
+  repeated_sentence_ratio: 1
+  repetition_count: 1
+  semantic_novelty: -1
+  information_gain: -1
+  novelty_prev3_mean: -1
+  gain_prev3_mean: -1
+  pace_ratio: -1
 
 baseline:
   position_bins: 20               # category-average curve: mean hazard by relative position

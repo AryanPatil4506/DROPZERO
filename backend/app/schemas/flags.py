@@ -33,7 +33,7 @@ class Edit(BaseModel):
     target_time: float | None = None  # MOVE destination (original timeline)
     reason: str
     rewrite_text: str | None = None
-    # CUT/MOVE for causes the model has features for; everything else is advice only
+    # only CUTs are simulated (exposure model); everything else is advice
     simulatable: bool
 
 

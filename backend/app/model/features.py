@@ -110,6 +110,18 @@ def hazard_to_rate(hazard: np.ndarray, durations: np.ndarray) -> np.ndarray:
     return -np.log1p(-h) / np.maximum(durations, 1e-3)
 
 
+def signed_segment_rate(starts, ends, retention: np.ndarray) -> np.ndarray:
+    """log(R(start) / R(end)) / duration. Unlike the clipped hazard it keeps re-watching (R can
+    rise), so the product of predicted segment drops is not biased low."""
+    n = len(retention)
+    out = []
+    for s, e in zip(starts, ends, strict=True):
+        r0 = max(retention[min(n - 1, int(s))], 1e-3)
+        r1 = max(retention[min(n - 1, max(0, int(np.ceil(e)) - 1))], 1e-3)
+        out.append(np.log(r0 / r1) / max(e - s, 1e-3))
+    return np.array(out)
+
+
 def rate_to_hazard(rate: np.ndarray, durations: np.ndarray) -> np.ndarray:
     return 1 - np.exp(-np.clip(rate, 0, None) * np.maximum(durations, 0))
 

@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from backend.app.config import load_config
-from backend.app.detection.flags import MODELLED, detect, mmss
+from backend.app.detection.flags import detect, mmss
 from backend.app.features.text.extract import extract_text_features
 from backend.app.model.features import (
     curve_from_hazard,
@@ -93,12 +93,7 @@ def test_slow_hook_and_missing_promise_flags():
             and f.explanation
             and f.source in ("model", "rule", "model+rule")
         )
-    cat = {f.id: f.category for f in res.flags}
-    assert all(
-        e.simulatable == (e.action in ("CUT", "MOVE") and cat[e.flag_id] in MODELLED)
-        for e in res.edits
-    )
-    assert not cut.simulatable  # the model has no feature for silent intros: advice only
+    assert all(e.simulatable == (e.action == "CUT") for e in res.edits)
 
 
 def test_repetition_flag_and_payoff_exception():
@@ -173,3 +168,32 @@ def test_simulate_labels_and_shortens():
     assert sim.applied_edit_ids == ["e1"]
     assert sim.simulated_duration_s == pytest.approx(t.duration_s - 17.5, abs=0.01)
     assert sim.original == pred.points
+
+
+# ---------- simulation v2 (exposure)
+
+
+def test_exposure_simulation_cut_trim_speed():
+    from backend.app.simulate.exposure import CustomEdit, simulate_exposure
+
+    t, segs, fs = _pipeline("en")
+    pred = predict(segs, fs, t.duration_s)
+    art = load_model()
+    cut = _edit("e1", "CUT", 60.0, 75.0)
+    sim = simulate_exposure(segs, fs, t.duration_s, pred.points, [cut], ["e1"], [], art)
+    assert sim.applied_edit_ids == ["e1"]
+    assert sim.simulated_duration_s == pytest.approx(t.duration_s - 15.0, abs=0.01)
+    assert sim.delta["end_retention_pp"] >= 0  # removing exposure can only help this model
+    # untouched content before the cut keeps exactly its predicted retention
+    before = [p for p in pred.points if p.t <= 60.0]
+    assert [p.retention for p in sim.simulated[: len(before)]] == [p.retention for p in before]
+    trims = [
+        CustomEdit(action="TRIM_START", start=0, end=10),
+        CustomEdit(action="SPEED", start=100, end=140, factor=2.0),
+    ]
+    sim2 = simulate_exposure(segs, fs, t.duration_s, pred.points, [], [], trims, art)
+    assert sim2.simulated_duration_s == pytest.approx(t.duration_s - 10 - 20, abs=0.01)
+    assert len(sim2.applied_custom) == 2 and "Simulated" in sim2.label
+    move = _edit("e2", "MOVE", 80.0, 85.0, target=0.0)
+    sim3 = simulate_exposure(segs, fs, t.duration_s, pred.points, [move], ["e2"], [], art)
+    assert sim3.skipped_edit_ids == ["e2"]

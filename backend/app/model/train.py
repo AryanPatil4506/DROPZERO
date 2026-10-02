@@ -14,7 +14,8 @@ from pathlib import Path
 
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
-from sklearn.ensemble import HistGradientBoostingRegressor
+from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
+from sklearn.isotonic import IsotonicRegression
 
 from backend.app.config import config_hash, load_config
 from backend.app.features.text.embedder import SentenceTransformerEmbedder
@@ -29,6 +30,14 @@ from backend.app.model.features import (
     hazard_to_rate,
     rate_to_hazard,
     segment_hazard,
+    signed_segment_rate,
+)
+from backend.app.model.predict import (
+    band_lookup,
+    band_offsets,
+    calibrated_curve,
+    drop_probs,
+    position_rate,
 )
 from backend.app.segmentation.windows import segment_transcript
 from backend.app.settings import REPO_ROOT
@@ -119,10 +128,50 @@ def _hgb(cfg: dict, **kw) -> HistGradientBoostingRegressor:
     )
 
 
+def mono_cst(cols: list[int], cfg: dict) -> list[int]:
+    """Direction constraints from research priors (config/model.yaml -> monotonic)."""
+    m = cfg.get("monotonic", {})
+    return [m.get(FEATURES[i], 0) for i in cols]
+
+
 def fit(lectures: list[dict], cols: list[int], cfg: dict):
+    """Per-second drop rate on the signed target (keeps re-watching), direction-constrained."""
     X = np.vstack([lec["X"][:, cols] for lec in lectures])
-    y = np.concatenate([hazard_to_rate(lec["hazard"], durations_of(lec["X"])) for lec in lectures])
-    return _hgb(cfg).fit(X, y)
+    y = np.concatenate([signed_rate(lec) for lec in lectures])
+    return _hgb(cfg, monotonic_cst=mono_cst(cols, cfg)).fit(X, y)
+
+
+def signed_rate(lec: dict) -> np.ndarray:
+    return signed_segment_rate(lec["starts"], lec["ends"], lec["retention"])
+
+
+def fit_drop_classifier(lectures: list[dict], cfg: dict):
+    major = cfg["detection"]["major_drop_hazard"]
+    X = np.vstack([lec["X"][1:, MODEL_COLS] for lec in lectures])
+    y = np.concatenate([(lec["hazard"][1:] >= major).astype(int) for lec in lectures])
+    m = cfg["model"]
+    return HistGradientBoostingClassifier(
+        max_iter=m["max_iter"],
+        learning_rate=m["learning_rate"],
+        max_leaf_nodes=m["max_leaf_nodes"],
+        min_samples_leaf=m["min_samples_leaf"],
+        l2_regularization=m["l2_regularization"],
+        random_state=m["random_state"],
+        early_stopping=False,
+    ).fit(X, y)
+
+
+def drop_rate_by_position(lectures, cfg) -> list[float]:
+    bins = cfg["baseline"]["position_bins"]
+    major = cfg["detection"]["major_drop_hazard"]
+    i_rs = FEATURES.index("rel_start")
+    hits, n = np.zeros(bins), np.zeros(bins)
+    for lec in lectures:
+        for x, h in zip(lec["X"][1:], lec["hazard"][1:], strict=True):
+            b = min(bins - 1, int(x[i_rs] * bins))
+            n[b] += 1
+            hits[b] += h >= major
+    return [float(max(h / max(c, 1), 1e-3)) for h, c in zip(hits, n, strict=True)]
 
 
 class PositionBaseline:
@@ -238,7 +287,8 @@ def curve_metrics(lectures, preds):
 
 def predict_all(model, lectures, cols):
     return [
-        rate_to_hazard(model.predict(lec["X"][:, cols]), durations_of(lec["X"])) for lec in lectures
+        rate_to_hazard(np.clip(model.predict(lec["X"][:, cols]), 0, None), durations_of(lec["X"]))
+        for lec in lectures
     ]
 
 
@@ -258,7 +308,7 @@ def main() -> None:
     )
     all_cols = MODEL_COLS
     version = (
-        "mooc-hgb-"
+        "mooc-hgb2-"
         + config_hash(
             [cfg, FEATURES, MODEL_COLS, FEATURE_SCHEMA_VERSION, [lec["ccid"] for lec in train]]
         )[:8]
@@ -266,32 +316,39 @@ def main() -> None:
 
     model = fit(train, all_cols, cfg)
     base = PositionBaseline(cfg["baseline"]["position_bins"]).fit(train)
+    clf = fit_drop_classifier(train, cfg)
 
-    X_tr = np.vstack([lec["X"] for lec in train])
-    y_tr = np.concatenate([hazard_to_rate(lec["hazard"], durations_of(lec["X"])) for lec in train])
-    q_lo, q_hi = cfg["model"]["band_quantiles"]
-    lo = _hgb(cfg, loss="quantile", quantile=q_lo).fit(X_tr[:, MODEL_COLS], y_tr)
-    hi = _hgb(cfg, loss="quantile", quantile=q_hi).fit(X_tr[:, MODEL_COLS], y_tr)
-
+    # calibration of the cumulative curve level, fitted on TRAIN only
     p_tr = predict_all(model, train, all_cols)
-    b_tr = [base.predict(lec["X"]) for lec in train]
-    thr_model = pick_threshold(train, p_tr, cfg)
-    thr_base = pick_threshold(train, b_tr, cfg)
+    iso = IsotonicRegression(y_min=0, y_max=1, out_of_bounds="clip").fit(
+        np.concatenate([curve_from_hazard(p) for p in p_tr]),
+        np.concatenate([lec["actual_R"] for lec in train]),
+    )
+    art = {"model": model, "calib": iso}
+    q_lo, q_hi = cfg["model"]["band_quantiles"]
+    band = band_offsets(train, art, cfg["model"]["band_bins"], q_lo, q_hi)
 
-    p_te = predict_all(model, test, all_cols)
+    def as_hazard(r):  # per-segment drop implied by a monotone curve
+        prev = np.concatenate([[1.0], r[:-1]])
+        return np.clip(1 - r / np.maximum(prev, 1e-9), 0, 1)
+
+    c_te = [calibrated_curve(art, lec["X"]) for lec in test]
+    p_te = [as_hazard(r) for r in c_te]
+    b_tr = [base.predict(lec["X"]) for lec in train]
     b_te = [base.predict(lec["X"]) for lec in test]
-    det_model, per_model = detection(test, p_te, thr_model, cfg)
+    # drop detection: dedicated classifier, threshold chosen on TRAIN
+    d_tr = [drop_probs(clf, lec["X"]) for lec in train]
+    d_te = [drop_probs(clf, lec["X"]) for lec in test]
+    thr_model = pick_threshold(train, d_tr, cfg)
+    thr_base = pick_threshold(train, b_tr, cfg)
+    det_model, per_model = detection(test, d_te, thr_model, cfg)
     det_base, _ = detection(test, b_te, thr_base, cfg)
 
-    # band coverage on test: share of actual R inside the predicted band
     inside = total = 0
-    for lec in test:
-        d = durations_of(lec["X"])
-        r_hi = curve_from_hazard(
-            rate_to_hazard(lo.predict(lec["X"][:, MODEL_COLS]), d)
-        )  # low drop -> high R
-        r_lo = curve_from_hazard(rate_to_hazard(hi.predict(lec["X"][:, MODEL_COLS]), d))
-        inside += int(np.sum((lec["actual_R"] >= r_lo) & (lec["actual_R"] <= r_hi)))
+    for lec, r in zip(test, c_te, strict=True):
+        lo_r = r + band_lookup(band, lec["X"], "lo")
+        hi_r = r + band_lookup(band, lec["X"], "hi")
+        inside += int(np.sum((lec["actual_R"] >= lo_r) & (lec["actual_R"] <= hi_r)))
         total += len(lec["actual_R"])
 
     ablations = {}
@@ -307,12 +364,10 @@ def main() -> None:
             "detection_f1": detection(test, pe, pick_threshold(train, pt, cfg), cfg)[0]["f1"],
         }
 
-    # risk = predicted rate relative to the category-average rate at the same position
+    # risk = drop probability relative to how often THIS position drops in training lectures
+    drop_base = drop_rate_by_position(train, cfg)
     ratios = np.concatenate(
-        [
-            model.predict(lec["X"][:, MODEL_COLS]) / np.maximum(base.predict_rate(lec["X"]), 1e-6)
-            for lec in train
-        ]
+        [drop_probs(clf, lec["X"])[1:] / position_rate(drop_base, lec["X"])[1:] for lec in train]
     )
     risk = {
         "high": float(np.quantile(ratios, cfg["risk_levels"]["high_quantile"])),
@@ -320,10 +375,9 @@ def main() -> None:
     }
 
     examples = []
-    for lec, p, per in sorted(
-        zip(test, p_te, per_model, strict=True), key=lambda z: -z[0]["n_starters"]
+    for lec, r, per in sorted(
+        zip(test, c_te, per_model, strict=True), key=lambda z: -z[0]["n_starters"]
     )[:6]:
-        r = curve_from_hazard(p)
         examples.append(
             {
                 "video_id": lec["ccid"],
@@ -364,6 +418,14 @@ def main() -> None:
         },
         "baseline_detection": det_base,
         "band": {"quantiles": [q_lo, q_hi], "test_coverage": round(inside / total, 3)},
+        "level": {
+            "median_end_retention_actual": round(
+                float(np.median([x["actual_R"][-1] for x in test])), 3
+            ),
+            "median_end_retention_predicted": round(float(np.median([r[-1] for r in c_te])), 3),
+        },
+        "detector": "dedicated drop classifier (major drop = a segment losing >= 5% of its "
+        "viewers); curve = calibrated rate model",
         "ablations": ablations,
         "examples": examples,
     }
@@ -374,8 +436,10 @@ def main() -> None:
                 "features": FEATURES,
                 "model_cols": MODEL_COLS,
                 "model": model,
-                "lo": lo,
-                "hi": hi,
+                "calib": iso,
+                "band": band,
+                "clf": clf,
+                "drop_base": drop_base,
                 "risk_thresholds": risk,
                 "drop_threshold": thr_model,
                 "baseline": base,
@@ -394,6 +458,7 @@ def main() -> None:
                     "detection",
                     "baseline_detection",
                     "band",
+                    "level",
                     "ablations",
                 )
             },
