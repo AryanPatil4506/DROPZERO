@@ -1,3 +1,4 @@
+import type { CustomEdit } from "./types";
 import { useCallback } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "./client";
@@ -26,11 +27,11 @@ export const useFlags = (id: string) => useQuery({ queryKey: ["flags", id], quer
 
 export const useValidation = () => useQuery({ queryKey: ["validation"], queryFn: api.getValidation, retry: noRetryOn404 });
 
-export const useSimulation = (id: string, editIds: string[]) =>
+export const useSimulation = (id: string, editIds: string[], custom: CustomEdit[] = []) =>
   useQuery({
-    queryKey: ["simulate", id, [...editIds].sort().join(",")],
-    queryFn: () => api.simulate(id, editIds),
-    enabled: editIds.length > 0,
+    queryKey: ["simulate", id, [...editIds].sort().join(","), JSON.stringify(custom)],
+    queryFn: () => api.simulate(id, editIds, custom),
+    enabled: editIds.length > 0 || custom.length > 0,
     retry: noRetryOn404,
   });
 

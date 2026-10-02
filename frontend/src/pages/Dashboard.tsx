@@ -68,7 +68,7 @@ export default function Dashboard() {
   const skipRanges = useMemo(() => {
     const ranges = [
       ...edits.filter((e) => acceptedEditIds.includes(e.id) && SKIPPABLE.has(e.action)).map((e) => ({ start: e.start, end: e.end })),
-      ...customCuts.map((c) => ({ start: c.start, end: c.end })),
+      ...customCuts.filter((c) => c.action !== "SPEED").map((c) => ({ start: c.start, end: c.end })),
     ].sort((a, b) => a.start - b.start);
     const merged: TimeRange[] = [];
     for (const r of ranges) {
@@ -178,7 +178,11 @@ export default function Dashboard() {
       setAcceptedEditIds((ids) => (ids.includes(editId) ? ids.filter((x) => x !== editId) : [...ids, editId])),
     setAcceptedEditIds,
     customCuts,
-    addCustomCut: (r) => setCustomCuts((cs) => [...cs, { id: `my-${Date.now()}`, start: Math.min(r.start, r.end), end: Math.max(r.start, r.end) }]),
+    addCustomCut: (r) =>
+      setCustomCuts((cs) => [
+        ...cs,
+        { id: `my-${Date.now()}`, action: r.action ?? "CUT", factor: r.factor, start: Math.min(r.start, r.end), end: Math.max(r.start, r.end) },
+      ]),
     removeCustomCut: (cutId) => setCustomCuts((cs) => cs.filter((c) => c.id !== cutId)),
     previewEdited: previewing,
     setPreviewEdited: setPreviewEditedState,

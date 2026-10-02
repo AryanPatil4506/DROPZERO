@@ -5,9 +5,12 @@ export interface TimeRange {
   end: number;
 }
 
-/** A cut the creator marked by hand on the timeline (kept in the browser; never applied to the file). */
+/** An edit the creator made in the editor: cut, trim start/end or speed-up (kept in the browser;
+ * never applied to the file). Simulated by the backend's exposure model. */
 export interface CustomCut extends TimeRange {
   id: string;
+  action: "CUT" | "TRIM_START" | "TRIM_END" | "SPEED";
+  factor?: number;
 }
 
 /** One shared timeline: every panel reads and sets the same current time and selection. */
@@ -33,7 +36,7 @@ export interface TimelineState {
   toggleEdit: (id: string) => void;
   setAcceptedEditIds: (ids: string[]) => void;
   customCuts: CustomCut[];
-  addCustomCut: (range: TimeRange) => void;
+  addCustomCut: (range: TimeRange & { action?: CustomCut["action"]; factor?: number }) => void;
   removeCustomCut: (id: string) => void;
   /** Playback skips accepted cuts, so the creator can hear the edited flow. */
   previewEdited: boolean;

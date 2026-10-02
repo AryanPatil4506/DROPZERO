@@ -125,6 +125,10 @@ export const api = {
       return sim;
     }, 500),
   getValidation: () => attempt(() => file<Validation>("validation.json")),
+  explain: () =>
+    attempt(() => {
+      throw new ApiError(409, "AI explanations need the live backend (the local LLM runs there).");
+    }),
   mediaUrl: (id: string) => `/api/projects/${id}/media`,
 };
 

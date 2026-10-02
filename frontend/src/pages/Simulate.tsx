@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useFlags, useProject, useSimulation } from "../api/hooks";
-import type { CurvePoint } from "../api/types";
+import type { CurvePoint, CustomEdit } from "../api/types";
 import { IconChevron } from "../components/icons";
 import { isNotFound } from "../api/errors";
 import { EmptyState, ErrorBox, MockBadge, Spinner } from "../components/ui";
@@ -52,11 +52,21 @@ export default function SimulatePage() {
     () => (requested != null ? requested.split(",").filter(Boolean) : edits.filter((e) => e.simulatable !== false).map((e) => e.id)),
     [requested, edits],
   );
-  const sim = useSimulation(id, selected);
+  const custom = useMemo<CustomEdit[]>(() => {
+    try {
+      const raw = params.get("custom");
+      return raw ? (JSON.parse(raw) as CustomEdit[]) : [];
+    } catch {
+      return [];
+    }
+  }, [params]);
+  const sim = useSimulation(id, selected, custom);
 
   const toggle = (editId: string) => {
     const next = selected.includes(editId) ? selected.filter((x) => x !== editId) : [...selected, editId];
-    setParams({ edits: next.join(",") }, { replace: true });
+    const q: Record<string, string> = { edits: next.join(",") };
+    if (custom.length) q.custom = JSON.stringify(custom);
+    setParams(q, { replace: true });
   };
 
   const rows = useMemo(() => (sim.data ? mergeCurves(sim.data.original, sim.data.simulated) : []), [sim.data]);
@@ -74,7 +84,7 @@ export default function SimulatePage() {
       {/* the label is always visible and verbatim */}
       <div className="rounded-[22px] border border-sim/40 bg-sim/10 px-5 py-3">
         <p className="text-[17px] font-medium text-ink">{sim.data?.label ?? "Simulated / model-estimated"}</p>
-        <p className="mt-0.5 text-sm text-ink-2">The edits are applied to the feature sequence and the model is re-run. Nothing is cut from your video.</p>
+        <p className="mt-0.5 text-sm text-ink-2">Removed or sped-up time no longer exposes viewers to its predicted drop risk; untouched parts keep their prediction. Nothing is cut from your video.</p>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
@@ -83,8 +93,13 @@ export default function SimulatePage() {
             <h1 className="text-[19px] font-medium tracking-tight">Original vs simulated</h1>
             <MockBadge note={sim.data?._mock} />
           </div>
-          {selected.length === 0 && <div className="mt-6"><EmptyState title="Select at least one edit to simulate." /></div>}
-          {sim.isPending && selected.length > 0 && <div className="grid h-80 place-items-center"><Spinner label="Re-running the model on the edited sequence (a few seconds)" /></div>}
+          {selected.length === 0 && custom.length === 0 && <div className="mt-6"><EmptyState title="Select at least one edit to simulate." /></div>}
+          {custom.length > 0 && (
+            <p className="mt-2 text-xs text-ink-2">
+              Includes {custom.length} edit{custom.length > 1 ? "s" : ""} you made in the editor: {custom.map((c) => c.action === "SPEED" ? `speed ×${c.factor} ${mmss(c.start)}–${mmss(c.end)}` : c.action === "TRIM_START" ? `trim start → ${mmss(c.end)}` : c.action === "TRIM_END" ? `trim end from ${mmss(c.start)}` : `cut ${mmss(c.start)}–${mmss(c.end)}`).join(", ")}
+            </p>
+          )}
+          {sim.isPending && (selected.length > 0 || custom.length > 0) && <div className="grid h-80 place-items-center"><Spinner label="Re-running the model on the edited sequence (a few seconds)" /></div>}
           {sim.isError && (isNotFound(sim.error) ? (
             <div className="mt-6"><EmptyState title="Simulation isn't available for this project yet." /></div>
           ) : <div className="mt-6 space-y-3">

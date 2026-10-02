@@ -6,6 +6,8 @@ import {
   type Prediction,
   type Project,
   type Segment,
+  type CustomEdit,
+  type Explanation,
   type Simulation,
   type TextFeatures,
   type Transcript,
@@ -59,7 +61,10 @@ const live = {
   getTextFeatures: (id: string) => request<TextFeatures>(`/projects/${id}/features/text`),
   getPrediction: (id: string) => request<Prediction>(`/projects/${id}/prediction`),
   getFlags: (id: string) => request<FlagsResponse>(`/projects/${id}/flags`),
-  simulate: (id: string, editIds: string[]) => request<Simulation>(`/projects/${id}/simulate`, json({ edit_ids: editIds })),
+  simulate: (id: string, editIds: string[], custom: CustomEdit[] = []) =>
+    request<Simulation>(`/projects/${id}/simulate`, json({ edit_ids: editIds, custom_edits: custom })),
+  explain: (id: string, flagId: string, refresh = false) =>
+    request<Explanation>(`/projects/${id}/flags/${flagId}/explain${refresh ? "?refresh=true" : ""}`, { method: "POST" }),
   getValidation: () => request<Validation>("/validation"),
   mediaUrl: (id: string) => `/api/projects/${id}/media`,
 };

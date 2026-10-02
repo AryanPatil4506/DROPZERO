@@ -1,6 +1,7 @@
-import type { ComponentType, SVGProps } from "react";
+import { type ComponentType, type SVGProps, useState } from "react";
+import { api } from "../../api/client";
 import { useNavigate } from "react-router-dom";
-import type { Action, Edit, Evidence, Flag } from "../../api/types";
+import type { Action, Edit, Evidence, Explanation, Flag } from "../../api/types";
 import { ACTION_LABEL, editSentence, evidenceValue, FLAG_CATEGORY_LABEL, mmss, range, SOURCE_HINT, SOURCE_LABEL } from "../../lib/format";
 import { IconHook, IconKeep, IconMove, IconRewrite, IconScissors, IconShorten, IconVisual } from "../icons";
 import { SeverityTag } from "../ui";
@@ -16,6 +17,48 @@ const ACTION_ICON: Record<Action, ComponentType<SVGProps<SVGSVGElement>>> = {
   KEEP: IconKeep,
 };
 const ACTION_GRID: Action[] = ["CUT", "MOVE", "SHORTEN", "REWRITE", "ADD_HOOK", "ADD_VISUAL"];
+
+/** "Explain with AI": a local LLM narrates this flag's evidence. Numbers it uses are checked
+ * against the evidence on the server; if it invents any, the template text is shown instead. */
+function AiExplanation({ projectId, flagId }: { projectId: string; flagId: string }) {
+  const [state, setState] = useState<{ loading: boolean; data?: Explanation; error?: string }>({ loading: false });
+  const run = () => {
+    setState({ loading: true });
+    api
+      .explain(projectId, flagId)
+      .then((data) => setState({ loading: false, data }))
+      .catch((e: Error) => setState({ loading: false, error: e.message }));
+  };
+  const d = state.data;
+  return (
+    <div className="mt-4 rounded-[22px] border border-pred/30 bg-pred/[0.07] p-3">
+      <div className="flex items-center justify-between gap-2 px-1">
+        <p className="text-[15px] font-medium">AI reasoning</p>
+        {!d && (
+          <button type="button" className="pill-ghost h-8 px-3 text-[12.5px]" onClick={run} disabled={state.loading}>
+            {state.loading ? "Thinking (local model)…" : "Explain with AI"}
+          </button>
+        )}
+        {d && (
+          <span className="chip h-5 text-[10.5px]" title={d.source === "llm" ? "Checked: every number comes from the evidence" : "The AI answer used numbers not in the evidence, so the measured explanation is shown"}>
+            {d.source === "llm" ? `${d.model ?? "LLM"} · evidence-checked` : "template (AI answer rejected)"}
+          </span>
+        )}
+      </div>
+      {state.error && <p className="mt-2 px-1 text-xs text-ink-3">{state.error}</p>}
+      {d && (
+        <div className="mt-2 space-y-2 px-1 text-[13.5px]">
+          <p className="font-medium text-ink">{d.reason}</p>
+          <p className="text-ink-2">{d.why_viewers_leave}</p>
+          <p className="text-ink"><span className="text-ink-3">Fix: </span>{d.fix}</p>
+          {d.rewrite && (
+            <p className="rounded-xl bg-black/25 px-3 py-2 text-ink"><span className="text-ink-3">Try saying: </span>“{d.rewrite}”</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 /** Evidence row styled like the reference's slider pills; 0–1 ratios get a proportional fill. */
 function EvidenceRow({ ev }: { ev: Evidence }) {
@@ -116,6 +159,8 @@ export default function RiskDrawer({
           <EvidenceRow key={i} ev={ev} />
         ))}
       </ul>
+
+      <AiExplanation key={flag.id} projectId={projectId} flagId={flag.id} />
 
       {flag.secondary_categories.length > 0 && (
         <p className="mt-3 flex flex-wrap items-center gap-1.5 text-xs text-ink-3">

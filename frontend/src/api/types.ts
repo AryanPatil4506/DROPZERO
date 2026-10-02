@@ -209,8 +209,32 @@ export interface FlagsResponse extends MockMarker {
   edits: Edit[];
 }
 
+export type CustomAction = "CUT" | "TRIM_START" | "TRIM_END" | "SPEED";
+/** An edit made by the creator in the editor (simulated by the exposure model). */
+export interface CustomEdit {
+  action: CustomAction;
+  start: number;
+  end: number;
+  /** SPEED only, e.g. 1.5 */
+  factor?: number;
+}
+
+/** LLM narration of one flag; numbers are checked against the evidence (else template). */
+export interface Explanation {
+  flag_id: string;
+  source: "llm" | "template";
+  model: string | null;
+  reason: string;
+  why_viewers_leave: string;
+  fix: string;
+  rewrite?: string | null;
+  rejected?: string[];
+}
+
 export interface Simulation extends MockMarker {
   label: string;
+  method?: string;
+  applied_custom?: CustomEdit[];
   applied_edit_ids: string[];
   /** overlapping or advice-only edits that were not applied */
   skipped_edit_ids?: string[];

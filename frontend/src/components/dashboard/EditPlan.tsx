@@ -1,22 +1,48 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Edit, Project } from "../../api/types";
+import type { CustomEdit, Edit, Project } from "../../api/types";
 import { ACTION_LABEL, editSentence, mmss, range } from "../../lib/format";
 import { IconClose, IconDownload } from "../icons";
-import { useTimeline } from "./timeline-context";
+import { type CustomCut, useTimeline } from "./timeline-context";
 
 const SKIPPABLE = new Set(["CUT", "SHORTEN"]);
 
+function customLabel(c: CustomCut): string {
+  if (c.action === "TRIM_START") return `Trim start → ${mmss(c.end)}`;
+  if (c.action === "TRIM_END") return `Trim end from ${mmss(c.start)}`;
+  if (c.action === "SPEED") return `Speed up ×${c.factor ?? 1.5} ${range(c.start, c.end)}`;
+  return `Cut ${range(c.start, c.end)}`;
+}
+
+const toCustomEdits = (cuts: CustomCut[]): CustomEdit[] =>
+  cuts.map((c) => ({ action: c.action, start: c.start, end: c.end, ...(c.action === "SPEED" ? { factor: c.factor ?? 1.5 } : {}) }));
+
 /**
- * The edit decision list: accept suggested edits, mark your own cuts, preview playback with the
- * cuts skipped, simulate, or export. Nothing here touches the original video file.
+ * The editor: accept suggested edits, and make your own — trim the start or end, cut a range,
+ * or speed a range up. Preview playback skips cuts and trims; Simulate re-estimates the curve for
+ * suggested + your own edits together. Nothing here touches the original video file.
  */
 export default function EditPlan({ project, edits }: { project: Project; edits: Edit[] }) {
   const navigate = useNavigate();
-  const { time, seek, acceptedEditIds, toggleEdit, setAcceptedEditIds, customCuts, addCustomCut, removeCustomCut, previewEdited, setPreviewEdited, skipRanges } =
+  const { time, duration, seek, acceptedEditIds, toggleEdit, setAcceptedEditIds, customCuts, addCustomCut, removeCustomCut, previewEdited, setPreviewEdited, skipRanges } =
     useTimeline();
   const [markIn, setMarkIn] = useState<number | null>(null);
   const simulatableAccepted = edits.filter((e) => acceptedEditIds.includes(e.id) && e.simulatable !== false).map((e) => e.id);
+  const rangeReady = markIn != null && time - markIn >= 0.5;
+
+  const addRange = (action: CustomCut["action"], factor?: number) => {
+    if (markIn == null) return;
+    addCustomCut({ start: markIn, end: time, action, factor });
+    setMarkIn(null);
+  };
+
+  const simulate = () => {
+    const custom = toCustomEdits(customCuts);
+    const q = new URLSearchParams();
+    q.set("edits", simulatableAccepted.join(","));
+    if (custom.length) q.set("custom", JSON.stringify(custom));
+    navigate(`/projects/${project.id}/simulate?${q.toString()}`);
+  };
 
   const exportPlan = () => {
     const plan = {
@@ -29,7 +55,7 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
         ...edits
           .filter((e) => acceptedEditIds.includes(e.id))
           .map((e) => ({ source: "suggested", id: e.id, action: e.action, start: e.start, end: e.end, target_time: e.target_time, reason: e.reason })),
-        ...customCuts.map((c) => ({ source: "custom", id: c.id, action: "CUT", start: c.start, end: c.end, target_time: null, reason: "Marked by creator" })),
+        ...customCuts.map((c) => ({ source: "custom", id: c.id, action: c.action, start: c.start, end: c.end, factor: c.factor ?? null, reason: "Made in the editor" })),
       ].sort((a, b) => a.start - b.start),
     };
     const url = URL.createObjectURL(new Blob([JSON.stringify(plan, null, 2)], { type: "application/json" }));
@@ -41,7 +67,7 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
   };
 
   return (
-    <div className="grid h-full min-h-0 gap-3 lg:grid-cols-[minmax(0,1fr)_260px]">
+    <div className="grid h-full min-h-0 gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
       <ul className="scroll-thin min-h-0 space-y-1.5 overflow-y-auto pr-1" aria-label="Edit plan">
         {edits.map((e) => {
           const on = acceptedEditIds.includes(e.id);
@@ -73,35 +99,43 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
           <li key={c.id} className="flex items-center gap-3 rounded-2xl border border-dashed border-accent/50 bg-accent/10 px-3 py-2">
             <span className="grid h-6 w-10 shrink-0 place-items-center rounded-full bg-accent/30 text-[10px] font-semibold text-ink">MY</span>
             <button type="button" onClick={() => seek(c.start)} className="min-w-0 flex-1 text-left text-[13px]">
-              <span className="font-medium text-ink">Cut {range(c.start, c.end)}</span>
-              <span className="block text-ink-2">Marked by you · not simulated yet</span>
+              <span className="font-medium text-ink">{customLabel(c)}</span>
+              <span className="block text-ink-2">
+                Made by you · simulated{c.action === "SPEED" ? " · not previewed" : ""}
+              </span>
             </button>
-            <button type="button" aria-label={`Remove cut ${range(c.start, c.end)}`} onClick={() => removeCustomCut(c.id)} className="grid size-7 place-items-center rounded-full text-ink-3 hover:bg-white/10 hover:text-ink">
+            <button type="button" aria-label={`Remove ${customLabel(c)}`} onClick={() => removeCustomCut(c.id)} className="grid size-7 place-items-center rounded-full text-ink-3 hover:bg-white/10 hover:text-ink">
               <IconClose className="size-4" />
             </button>
           </li>
         ))}
-        {edits.length === 0 && customCuts.length === 0 && <li className="px-1 text-sm text-ink-3">No edits yet. Mark a cut at the playhead to start a plan.</li>}
+        {edits.length === 0 && customCuts.length === 0 && <li className="px-1 text-sm text-ink-3">No edits yet. Trim, cut or speed up a range to start a plan.</li>}
       </ul>
 
       <div className="flex flex-col gap-2">
+        <p className="eyebrow px-1">Editor · playhead {mmss(time)}</p>
         <div className="flex gap-2">
-          <button type="button" className="pill-ghost h-9 flex-1 px-3 text-[13px]" onClick={() => setMarkIn(time)}>
+          <button type="button" className="pill-ghost h-9 flex-1 px-2 text-[13px]" disabled={time < 0.5} title="Remove everything before the playhead" onClick={() => addCustomCut({ start: 0, end: time, action: "TRIM_START" })}>
+            Trim start
+          </button>
+          <button type="button" className="pill-ghost h-9 flex-1 px-2 text-[13px]" disabled={duration - time < 0.5} title="Remove everything after the playhead" onClick={() => addCustomCut({ start: time, end: duration, action: "TRIM_END" })}>
+            Trim end
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <button type="button" className="pill-ghost h-9 flex-1 px-2 text-[13px]" onClick={() => setMarkIn(time)}>
             Mark in {markIn != null && <span className="text-accent tabular-nums">{mmss(markIn)}</span>}
           </button>
-          <button
-            type="button"
-            className="pill-ghost h-9 flex-1 px-3 text-[13px]"
-            disabled={markIn == null || time - markIn < 0.5}
-            title={markIn == null ? "Mark in first" : "Ends the cut at the playhead"}
-            onClick={() => {
-              if (markIn == null) return;
-              addCustomCut({ start: markIn, end: time });
-              setMarkIn(null);
-            }}
-          >
-            Mark out
+          <button type="button" className="pill-ghost h-9 flex-1 px-2 text-[13px]" disabled={!rangeReady} title={markIn == null ? "Mark in first" : "Cut from mark-in to the playhead"} onClick={() => addRange("CUT")}>
+            Cut to here
           </button>
+        </div>
+        <div className="flex gap-2">
+          {[1.25, 1.5].map((f) => (
+            <button key={f} type="button" className="pill-ghost h-9 flex-1 px-2 text-[13px]" disabled={!rangeReady} title={markIn == null ? "Mark in first" : `Speed up mark-in → playhead ×${f}`} onClick={() => addRange("SPEED", f)}>
+              Speed ×{f}
+            </button>
+          ))}
         </div>
         <button type="button" className="pill-ghost h-9 text-[13px]" onClick={() => setAcceptedEditIds(acceptedEditIds.length === edits.length ? [] : edits.map((e) => e.id))} disabled={edits.length === 0}>
           {acceptedEditIds.length === edits.length && edits.length > 0 ? "Clear accepted" : "Accept all suggestions"}
@@ -109,8 +143,8 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
         <button type="button" className={`pill-btn h-9 text-[13px] ${previewEdited ? "bg-accent text-[#160700]" : "border border-line-2 bg-white/5 text-ink hover:bg-white/10"}`} disabled={skipRanges.length === 0} onClick={() => setPreviewEdited(!previewEdited)} aria-pressed={previewEdited}>
           {previewEdited ? "Previewing with cuts" : "Preview with cuts"}
         </button>
-        <button type="button" className="pill-accent h-9 text-[13px]" disabled={simulatableAccepted.length === 0} onClick={() => navigate(`/projects/${project.id}/simulate?edits=${simulatableAccepted.join(",")}`)}>
-          Simulate accepted edits
+        <button type="button" className="pill-accent h-9 text-[13px]" disabled={simulatableAccepted.length === 0 && customCuts.length === 0} onClick={simulate}>
+          Simulate my edit plan
         </button>
         <button type="button" className="pill-btn h-9 text-[13px] text-ink-2 hover:text-ink" disabled={acceptedEditIds.length === 0 && customCuts.length === 0} onClick={exportPlan}>
           <IconDownload className="size-4" />
