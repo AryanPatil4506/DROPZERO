@@ -142,6 +142,42 @@ class MediaStore:
             for block in decrypt_chunks(self.key, s):
                 d.write(block)
 
+    def _layout(self, project_id: str, name: str) -> tuple[Path, bytes, int, int, int]:
+        """(path, header, chunk size, chunk count, plaintext size) without decrypting anything."""
+        path = self.path(project_id, name)
+        with path.open("rb") as f:
+            header = _read_full(f, HEADER_LEN)
+        if len(header) != HEADER_LEN or header[:4] != MAGIC:
+            raise ValueError("not a DROPZERO encrypted file")
+        chunk = struct.unpack(">I", header[4:8])[0]
+        body = path.stat().st_size - HEADER_LEN
+        n = max(1, -(-body // (chunk + TAG)))
+        size = body - n * TAG
+        return path, header, chunk, n, size
+
+    def plaintext_size(self, project_id: str, name: str) -> int:
+        return self._layout(project_id, name)[4]
+
+    def iter_range(self, project_id: str, name: str, start: int, end: int) -> Iterator[bytes]:
+        """Yield plaintext bytes [start, end] (inclusive), decrypting only the chunks holding them.
+
+        Each chunk is still authenticated (its index and last-chunk flag are in the AAD), so a
+        tampered or truncated file fails here exactly as in a full decrypt.
+        """
+        path, header, chunk, n, size = self._layout(project_id, name)
+        if not 0 <= start <= end < size:
+            raise ValueError("range outside the file")
+        aes = AESGCM(self.key)
+        with path.open("rb") as f:
+            for i in range(start // chunk, end // chunk + 1):
+                f.seek(HEADER_LEN + i * (chunk + TAG))
+                blob = _read_full(f, chunk + TAG)
+                nonce = header[8:16] + struct.pack(">I", i)
+                plain = aes.decrypt(nonce, blob, _aad(header, i, i == n - 1))
+                lo = max(start - i * chunk, 0)
+                hi = min(end - i * chunk, len(plain) - 1)
+                yield plain[lo : hi + 1]
+
     def exists(self, project_id: str, name: str) -> bool:
         return self.path(project_id, name).exists()
 

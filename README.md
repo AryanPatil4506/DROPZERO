@@ -56,6 +56,7 @@ First analysis downloads model weights into the Hugging Face cache (~3 GB Whispe
 | GET | `/api/projects/{id}/flags` | drop-off flags with evidence, title-promise check, suggested edits |
 | POST | `/api/projects/{id}/simulate` | `{"edit_ids": [...]}` → original vs simulated curve (model-estimated) |
 | GET | `/api/validation` | held-out validation report of the current model |
+| GET | `/api/projects/{id}/media` | the uploaded video for the dashboard player, decrypted on the fly; HTTP Range (206) for seeking; 404 in script mode |
 | DELETE | `/api/projects/{id}` | deletes encrypted media and all derived data |
 
 Example:

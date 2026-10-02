@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DROPZERO — Find the drop-off before you publish</title>
+  <meta name="description" content="DROPZERO reads your script or cut before you publish and points to the exact seconds viewers are likely to leave, with the reason and the edit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero" id="top">
+    <header class="nav">
+      <a class="logo" href="#top" aria-label="DROPZERO home">
+        <svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true">
+          <rect width="24" height="24" rx="6" fill="var(--accent)" />
+          <path d="M4 7h4.5c2.2 0 2.9 1.4 3.8 3.6l1.2 3c.7 1.8 1.4 2.4 3 2.4H20" fill="none" stroke="#0a0a0b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="12.4" cy="10.6" r="1.9" fill="#0a0a0b" />
+        </svg>
+        <span>DROPZERO</span>
+      </a>
+      <nav class="pills" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#product">Product</a>
+        <a href="#validation">Validation</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-link" href="/login">Sign in</a>
+        <a class="btn btn-ghost" href="#start">Get early access</a>
+      </div>
+    </header>
+
+    <div class="hero-grid">
+      <h1 class="hero-title" data-reveal-words>We already found your drop-off</h1>
+
+      <div class="hero-side fade-late">
+        <p>DROPZERO reads your script or cut before you publish and lands on the exact seconds viewers are likely to leave — with the reason and the edit.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#start">Analyze a script</a>
+          <a class="btn btn-square" href="#how" aria-label="See how it works">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <p class="hero-tag fade-later">For creators who actually read their retention graph</p>
+
+      <div class="hero-stats fade-later">
+        <div class="stat">
+          <span class="stat-value">0</span>
+          <span class="stat-label">Views needed — it runs before you publish</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">EN · हि</span>
+          <span class="stat-label">English, Hindi and Hinglish</span>
+        </div>
+      </div>
+
+      <!-- Decorative stage: chrome claw lifts the risky segment out of the timeline -->
+      <div class="stage" aria-hidden="true">
+        <div class="pile" id="pile"></div>
+        <div class="rig" id="rig">
+          <svg class="claw" viewBox="0 0 600 800" width="600" height="800">
+            <defs>
+              <linearGradient id="g-rod" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#0b0b0d" />
+                <stop offset=".16" stop-color="#34343a" />
+                <stop offset=".36" stop-color="#d8d8dd" />
+                <stop offset=".48" stop-color="#ffffff" />
+                <stop offset=".62" stop-color="#85858d" />
+                <stop offset=".82" stop-color="#26262b" />
+                <stop offset=".93" stop-color="#6b3a22" />
+                <stop offset="1" stop-color="#0b0b0d" />
+              </linearGradient>
+              <linearGradient id="g-arm" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#f4f4f6" />
+                <stop offset=".35" stop-color="#6c6c74" />
+                <stop offset=".6" stop-color="#e6e6ea" />
+                <stop offset="1" stop-color="#2a2a30" />
+              </linearGradient>
+              <linearGradient id="g-copper" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#4a1c08" />
+                <stop offset=".45" stop-color="#ff8a4a" />
+                <stop offset=".7" stop-color="#c2410c" />
+                <stop offset="1" stop-color="#3a1506" />
+              </linearGradient>
+              <radialGradient id="g-ball" cx=".38" cy=".32" r=".7">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset=".45" stop-color="#9a9aa2" />
+                <stop offset="1" stop-color="#151518" />
+              </radialGradient>
+            </defs>
+            <g id="claw">
+              <g id="coil-back"></g>
+              <rect x="281" y="-900" width="38" height="1105" fill="url(#g-rod)" />
+              <g id="coil-front"></g>
+              <rect x="266" y="196" width="68" height="20" rx="5" fill="url(#g-rod)" />
+              <rect x="283" y="216" width="34" height="34" fill="url(#g-rod)" />
+              <rect x="270" y="246" width="60" height="16" rx="5" fill="url(#g-rod)" />
+              <!-- centre pin -->
+              <rect x="296" y="262" width="8" height="200" fill="url(#g-rod)" />
+              <rect x="293" y="458" width="14" height="12" rx="3" fill="url(#g-copper)" />
+              <!-- left arm -->
+              <g id="arm-l">
+                <path d="M300 266 L216 284" stroke="#141417" stroke-width="12" stroke-linecap="round" />
+                <path d="M300 266 L216 284" stroke="url(#g-arm)" stroke-width="6" stroke-linecap="round" />
+                <path d="M216 284 C160 330 150 420 186 492" fill="none" stroke="#141417" stroke-width="13" stroke-linecap="round" />
+                <path d="M216 284 C160 330 150 420 186 492" fill="none" stroke="url(#g-arm)" stroke-width="6" stroke-linecap="round" />
+                <rect x="178" y="488" width="16" height="14" rx="3" fill="url(#g-copper)" transform="rotate(-28 186 495)" />
+                <circle cx="216" cy="284" r="10" fill="url(#g-ball)" />
+              </g>
+              <!-- right arm -->
+              <g id="arm-r">
+                <path d="M300 266 L384 284" stroke="#141417" stroke-width="12" stroke-linecap="round" />
+                <path d="M300 266 L384 284" stroke="url(#g-arm)" stroke-width="6" stroke-linecap="round" />
+                <path d="M384 284 C440 330 450 420 414 492" fill="none" stroke="#141417" stroke-width="13" stroke-linecap="round" />
+                <path d="M384 284 C440 330 450 420 414 492" fill="none" stroke="url(#g-arm)" stroke-width="6" stroke-linecap="round" />
+                <rect x="406" y="488" width="16" height="14" rx="3" fill="url(#g-copper)" transform="rotate(28 414 495)" />
+                <circle cx="384" cy="284" r="10" fill="url(#g-ball)" />
+              </g>
+              <circle cx="300" cy="266" r="12" fill="url(#g-ball)" />
+            </g>
+          </svg>
+
+          <div class="vcard vcard-target" id="target">
+            <span class="vc-chip"></span>
+            <span class="vc-stripes"></span>
+            <span class="vc-bar"><i style="width:40%"></i></span>
+            <div class="vc-flag">
+              <span class="vc-eyebrow">Example flag · High risk</span>
+              <span class="vc-time">02:03 – 02:31</span>
+              <span class="vc-why">Repeats 01:10–01:30 · similarity 0.89</span>
+              <span class="vc-action">Cut 02:03–02:20</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCAN TRANSITION (scroll-driven) ===================== -->
+  <section class="scan" id="scan" aria-label="DROPZERO scans every second of your video">
+    <div class="scan-sticky">
+      <div class="scan-panel">
+        <div class="scan-field" id="scan-field" aria-hidden="true"></div>
+        <p class="scan-line scan-line-1" data-reveal-letters>Scanning every second…</p>
+        <p class="scan-line scan-line-2" data-reveal-letters>Found it. 02:03.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== HOW IT WORKS ============================== -->
+  <section class="section" id="how">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>One timeline. Every second accounted for.</h2>
+      <p class="lede">Prediction comes from measured features — pacing, repetition, new information, visual change and promise payoff. The language model only explains the evidence; it never invents it.</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-n">01</span>
+        <h3>Predict</h3>
+        <p>Upload a script or a cut. Every 10–15 second segment is measured, then turned into a retention-risk curve.</p>
+        <svg class="step-glyph" viewBox="0 0 120 48" aria-hidden="true"><path d="M2 6 C30 8 40 12 52 20 S70 22 80 30 S104 40 118 42" fill="none" stroke="var(--s-pred)" stroke-width="2" stroke-linecap="round" /></svg>
+      </li>
+      <li class="step">
+        <span class="step-n">02</span>
+        <h3>Explain</h3>
+        <p>Click any dip to see why. Each flag cites the evidence and the exact range: “Repeats 01:10–01:30”, “Intro runs 45 s before the hook”.</p>
+        <svg class="step-glyph" viewBox="0 0 120 48" aria-hidden="true"><rect x="2" y="8" width="70" height="6" rx="3" fill="var(--line-2)" /><rect x="2" y="21" width="96" height="6" rx="3" fill="var(--line-2)" /><rect x="2" y="34" width="54" height="6" rx="3" fill="var(--accent)" /></svg>
+      </li>
+      <li class="step">
+        <span class="step-n">03</span>
+        <h3>Fix</h3>
+        <p>Get the edit, not advice: cut 02:03–02:20, move the demo to 02:21, add a hook line. Every action points to a timestamp.</p>
+        <svg class="step-glyph" viewBox="0 0 120 48" aria-hidden="true"><rect x="2" y="18" width="34" height="12" rx="3" fill="var(--line-2)" /><rect x="42" y="18" width="30" height="12" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 3" /><rect x="78" y="18" width="40" height="12" rx="3" fill="var(--line-2)" /></svg>
+      </li>
+      <li class="step">
+        <span class="step-n">04</span>
+        <h3>Simulate</h3>
+        <p>Apply the edit virtually and rerun the model. Original and simulated curves sit side by side — always labelled as a model estimate.</p>
+        <svg class="step-glyph" viewBox="0 0 120 48" aria-hidden="true"><path d="M2 6 C30 8 40 12 52 22 S80 32 118 42" fill="none" stroke="var(--s-pred)" stroke-width="2" stroke-linecap="round" /><path d="M2 6 C30 7 44 10 60 14 S96 22 112 26" fill="none" stroke="var(--s-sim)" stroke-width="2" stroke-linecap="round" /></svg>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============================== PRODUCT MOCK ============================== -->
+  <section class="section" id="product">
+    <div class="section-head">
+      <p class="eyebrow">Product</p>
+      <h2>Click the dip. See why. Fix it.</h2>
+      <p class="lede">The whole report revolves around one timeline. Pick a flagged range to read the evidence, then simulate the edit.</p>
+    </div>
+
+    <div class="app-mock">
+      <div class="app-top">
+        <div>
+          <p class="app-title">I Built an AI Agent in 24 Hours</p>
+          <p class="app-meta">05:12 · Tech · English</p>
+        </div>
+        <span class="badge">Illustrative example — not a real prediction</span>
+      </div>
+
+      <div class="app-body">
+        <div class="chart-wrap">
+          <div class="chart-head">
+            <p class="chart-title" id="chart-title">Predicted audience remaining</p>
+            <div class="seg" role="group" aria-label="Curve view">
+              <button type="button" class="seg-btn is-on" data-view="original" aria-pressed="true">Original</button>
+              <button type="button" class="seg-btn" data-view="simulated" aria-pressed="false">Simulate fix</button>
+            </div>
+          </div>
+          <div class="legend" id="legend" hidden>
+            <span><i class="key key-pred"></i>Predicted, original (05:12)</span>
+            <span><i class="key key-sim"></i>Simulated after edits (04:55) · model-estimated</span>
+          </div>
+          <div class="chart" id="chart">
+            <svg id="chart-svg" role="img" aria-labelledby="chart-title"></svg>
+            <div class="tooltip" id="tooltip" hidden></div>
+          </div>
+          <div class="zones" id="zones" role="tablist" aria-label="Flagged ranges"></div>
+          <details class="table-view">
+            <summary>View as table</summary>
+            <div id="chart-table"></div>
+          </details>
+        </div>
+
+        <aside class="drawer" id="drawer" aria-live="polite"></aside>
+      </div>
+      <p class="fineprint">Curves and scores are DROPZERO internal estimates, not YouTube analytics. Simulated curves are model estimates, not guarantees.</p>
+    </div>
+  </section>
+
+  <!-- ============================== HINGLISH ============================== -->
+  <section class="section split" id="languages">
+    <div class="section-head">
+      <p class="eyebrow">Hindi · Hinglish · English</p>
+      <h2>Built for how creators actually talk.</h2>
+      <p class="lede">Code-switched transcripts are analysed as they are. Fillers are caught in both scripts, technical English terms are kept, and hook rewrites come back in your language.</p>
+    </div>
+    <div class="transcript-card">
+      <p class="tc-head"><span>00:00 – 00:14</span><span class="badge badge-quiet">Hook · example</span></p>
+      <p class="tc-line"><mark>Toh</mark> <mark>basically</mark> aaj hum dekhenge ki maine 24 hours mein ek AI agent kaise banaya — <mark>matlab</mark>, poora process.</p>
+      <p class="tc-line tc-deva"><mark>तो</mark> <mark>बेसिकली</mark> आज हम देखेंगे कि मैंने एक AI agent कैसे बनाया।</p>
+      <div class="tc-fix">
+        <p class="tc-label">Suggested hook · Hinglish</p>
+        <p>“24 ghante, ek AI agent, aur ek demo jo end tak chalega. Pehle result dikhata hoon — phir kaise banaya.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== VALIDATION ============================== -->
+  <section class="section split split-rev" id="validation">
+    <div class="section-head">
+      <p class="eyebrow">Validation</p>
+      <h2>Checked against your real retention.</h2>
+      <p class="lede">Upload your YouTube Studio retention export. DROPZERO lines it up with its prediction, reports the error and correlation, and lists every drop it caught — and every one it missed.</p>
+      <ul class="principles">
+        <li>Every flag carries a timestamp and the evidence behind it.</li>
+        <li>Simulations are labelled as model estimates. No guarantees.</li>
+        <li>Scores are DROPZERO internal scores, not platform analytics.</li>
+        <li>Unpublished videos are encrypted at rest and deleted on a schedule.</li>
+      </ul>
+    </div>
+    <figure class="val-card">
+      <figcaption>
+        <span class="val-title">Actual vs predicted · example layout</span>
+        <span class="legend legend-inline"><span><i class="key key-actual"></i>Actual (your CSV)</span><span><i class="key key-pred"></i>Predicted</span></span>
+      </figcaption>
+      <svg id="val-svg" viewBox="0 0 520 240" role="img" aria-label="Example layout: actual and predicted retention lines with one caught drop and one missed drop marked"></svg>
+    </figure>
+  </section>
+
+  <!-- ============================== CTA ============================== -->
+  <section class="cta" id="start">
+    <h2>Find the drop-off before your viewers do.</h2>
+    <p>Paste a script and get a timestamped report: where viewers are likely to leave, why, and the exact edit.</p>
+    <div class="cta-row cta-row-center">
+      <a class="btn btn-solid" href="/new">Analyze a script</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <a class="logo" href="#top" aria-label="DROPZERO home">
+      <svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true">
+        <rect width="24" height="24" rx="6" fill="var(--accent)" />
+        <path d="M4 7h4.5c2.2 0 2.9 1.4 3.8 3.6l1.2 3c.7 1.8 1.4 2.4 3 2.4H20" fill="none" stroke="#0a0a0b" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="12.4" cy="10.6" r="1.9" fill="#0a0a0b" />
+      </svg>
+      <span>DROPZERO</span>
+    </a>
+    <p>A pre-publish audience simulator. Predictions are estimates; your real retention data is the judge.</p>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>

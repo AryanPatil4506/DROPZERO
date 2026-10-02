@@ -64,3 +64,39 @@ def test_key_validation():
         load_key("")
     with pytest.raises(MediaKeyMissing):
         load_key("c2hvcnQ=")
+
+
+@pytest.mark.parametrize("size", [1, 16, 17, 100, 160])
+def test_iter_range_decrypts_only_requested_bytes(key, tmp_path, size):
+    store = MediaStore(tmp_path / "media", key)
+    data = os.urandom(size)
+    dest = store.path("p", "original")
+    dest.parent.mkdir(parents=True)
+    with dest.open("wb") as d:
+        encrypt_stream(key, io.BytesIO(data), d, chunk=16)
+    assert store.plaintext_size("p", "original") == size
+    for start, end in [
+        (0, size - 1),
+        (0, 0),
+        (size - 1, size - 1),
+        (size // 3, size - 1),
+        (5 % size, min(40, size - 1)),
+    ]:
+        if start > end:
+            continue
+        assert b"".join(store.iter_range("p", "original", start, end)) == data[start : end + 1]
+    with pytest.raises(ValueError):
+        list(store.iter_range("p", "original", 0, size))
+
+
+def test_iter_range_detects_tampering(key, tmp_path):
+    store = MediaStore(tmp_path / "media", key)
+    dest = store.path("p", "original")
+    dest.parent.mkdir(parents=True)
+    with dest.open("wb") as d:
+        encrypt_stream(key, io.BytesIO(os.urandom(64)), d, chunk=16)
+    blob = bytearray(dest.read_bytes())
+    blob[-3] ^= 1  # last chunk
+    dest.write_bytes(bytes(blob))
+    with pytest.raises(InvalidTag):
+        list(store.iter_range("p", "original", 60, 63))

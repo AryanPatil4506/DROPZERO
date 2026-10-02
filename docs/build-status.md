@@ -78,9 +78,26 @@ locally.
 5. **The benchmark data is small and author-written** (40 items). Its ranking is indicative only.
 6. **Visual features are low-level** (cuts and motion on 64×36 grayscale). No content
    understanding, no B-roll detection yet.
-7. Not built: thumbnail upload (field reserved), video streaming for the player.
+7. Not built: thumbnail upload (field reserved).
 8. Rule-based flags (repetition etc.) are not validated against retention data; the model alone is.
 9. Plain-LLM baseline ("why not ChatGPT?") not run yet.
+
+## Backend update needed for the dashboard video (added 2026-10-03, review before merging)
+
+The dashboard plays the project video full-screen behind its panels. That needs the new
+`GET /api/projects/{id}/media` endpoint, added in `backend/app/api/projects.py`
+(+ `MediaStore.plaintext_size` / `iter_range` in `storage/media_store.py`):
+
+- Streams the encrypted original, decrypting **only the 1 MiB chunks a request needs**; every
+  chunk is still authenticated, and nothing decrypted is written to disk.
+- Single-range HTTP Range support (`bytes=a-b`, `a-`, `-n`) → 206 with `Content-Range`; 416 when
+  unsatisfiable. `Cache-Control: no-store` so unpublished video isn't cached by the browser.
+- 404 for script projects or missing uploads; 503 if `DROPZERO_MEDIA_KEY` is unset.
+- Tests: `backend/tests/test_media_api.py` (full file, chunk-crossing ranges, suffix range, 416,
+  script 404) and `test_media_store.py` (range decrypt at chunk edges, tamper detection).
+
+**If you pull the frontend without this backend change, video projects show "Video streaming
+isn't available from the API yet" and a *Load local copy* button instead of auto-playing.**
 
 ## Data used for steps 5 and 10
 
