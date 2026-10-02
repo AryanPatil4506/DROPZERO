@@ -125,6 +125,10 @@ export const api = {
       return sim;
     }, 500),
   getValidation: () => attempt(() => file<Validation>("validation.json")),
+  getScores: () =>
+    attempt(() => {
+      throw new ApiError(404, "Score lanes need the live backend.");
+    }),
   explain: () =>
     attempt(() => {
       throw new ApiError(409, "AI explanations need the live backend (the local LLM runs there).");
