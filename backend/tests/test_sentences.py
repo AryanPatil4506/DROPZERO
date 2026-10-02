@@ -54,3 +54,21 @@ def test_sentences_cover_all_words(lang):
     assert t.sentences[0].word_start == 0 and t.sentences[-1].word_end == len(t.words)
     for a, b in zip(t.sentences, t.sentences[1:], strict=False):
         assert a.word_end == b.word_start
+
+
+def test_whisper_phrase_breaks_split_unpunctuated_speech(seg_cfg):
+    cfg = seg_cfg["sentences"]
+    w = [Word(text=f"w{i}", start=i * 0.4, end=i * 0.4 + 0.35) for i in range(20)]
+    w[7] = w[7].model_copy(update={"phrase_break": True})  # ends at 3.15 s
+    w[9] = w[9].model_copy(update={"phrase_break": True})  # too soon after the last split
+    s = build_sentences(w, cfg)
+    assert [x.end_reason for x in s] == ["phrase", "end"]
+    assert s[0].word_end == 8
+
+
+def test_max_sentence_length(seg_cfg):
+    cfg = seg_cfg["sentences"]
+    w = [Word(text=f"w{i}", start=i * 0.4, end=i * 0.4 + 0.35) for i in range(100)]  # 40 s
+    s = build_sentences(w, cfg)
+    assert all(x.end - x.start <= cfg["max_sentence_s"] + 0.5 for x in s)
+    assert s[0].end_reason == "max_length"

@@ -8,6 +8,10 @@ sentences:
   pause_min_sentence_s: 3.0
   # A gap this long always ends a sentence.
   silence_gap_s: 2.0
+  # Unpunctuated ASR (Hindi especially): end at Whisper's own phrase boundaries once the sentence
+  # has run this long, and never let a "sentence" exceed max_sentence_s.
+  phrase_min_sentence_s: 2.0
+  max_sentence_s: 15.0
 
 windows:
   target_s: 12.0

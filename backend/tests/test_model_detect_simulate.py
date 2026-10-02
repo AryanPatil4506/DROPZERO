@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from backend.app.config import load_config
-from backend.app.detection.flags import detect, mmss
+from backend.app.detection.flags import MODELLED, detect, mmss
 from backend.app.features.text.extract import extract_text_features
 from backend.app.model.features import (
     curve_from_hazard,
@@ -93,7 +93,12 @@ def test_slow_hook_and_missing_promise_flags():
             and f.explanation
             and f.source in ("model", "rule", "model+rule")
         )
-    assert all(e.simulatable == (e.action in ("CUT", "MOVE")) for e in res.edits)
+    cat = {f.id: f.category for f in res.flags}
+    assert all(
+        e.simulatable == (e.action in ("CUT", "MOVE") and cat[e.flag_id] in MODELLED)
+        for e in res.edits
+    )
+    assert not cut.simulatable  # the model has no feature for silent intros: advice only
 
 
 def test_repetition_flag_and_payoff_exception():

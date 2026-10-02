@@ -85,7 +85,9 @@ def test_long_sentence_forced_split(seg_cfg):
         timing_source=TimingSource.ASR,
         duration_s=41.0,
         words=words,
-        sentences=build_sentences(words, {**seg_cfg["sentences"], "pause_gap_s": 99}),
+        sentences=build_sentences(
+            words, {**seg_cfg["sentences"], "pause_gap_s": 99, "max_sentence_s": 99}
+        ),
         transcript_schema_version="t",
     )
     assert len(t.sentences) == 1  # one 40 s run-on "sentence"

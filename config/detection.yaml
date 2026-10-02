@@ -6,6 +6,7 @@ promise:
   # Title vs each sentence (LaBSE cosine). A sentence "addresses the title" at or above this.
   # Benchmark: same-point pairs averaged 0.54–0.73, unrelated 0.10–0.37 (docs/embedding_benchmark.md).
   mention_threshold: 0.45
+  min_title_words: 3         # shorter titles (e.g. a file name) carry no checkable promise
   late_after_s: 30.0          # title promise first addressed after this -> flag
   high_after_s: 60.0
 
@@ -19,17 +20,24 @@ repetition:
   # same-point similarity (0.54–0.73) and its highest same-topic-new-information pair (0.61).
   flag_threshold: 0.60
   high_threshold: 0.70
+  # ...and above this quantile of THIS video's own segment similarities (a single-topic
+  # lecture is similar to itself everywhere; only its outliers are repeats)
+  video_quantile: 0.90
+  max_flags: 5
 
 low_information:
   # information_gain below this for at least min_run_s of consecutive speech
   gain_threshold: 0.35
+  video_quantile: 0.20      # ...and below this quantile of the video's own gain
   min_run_s: 24.0
 
 pacing:
   slow_ratio: 0.70            # words/sec below 70% of this video's own median
+  min_segment_s: 5.0          # never judge pace on tiny segments
 
 silence:
-  mid_video_silence_s: 6.0    # a silence segment this long after the intro
+  mid_video_silence_s: 6.0    # consecutive no-speech time this long after the intro
+  music_led_speech_share: 0.4 # below this share of speech, silence may be the format
   speech_silence_ratio: 0.5   # >= half of a speech segment is silence
 
 visual:

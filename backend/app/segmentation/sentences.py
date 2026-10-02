@@ -54,9 +54,15 @@ def build_sentences(words: list[Word], cfg: dict[str, Any]) -> list[Sentence]:
             elif gap >= cfg["silence_gap_s"]:
                 reason = "silence"
             else:
-                long_enough = w.end - words[start].start >= cfg["pause_min_sentence_s"]
+                run = w.end - words[start].start
+                long_enough = run >= cfg["pause_min_sentence_s"]
                 if w.paragraph_break or (gap >= cfg["pause_gap_s"] and long_enough):
                     reason = "pause"
+                elif w.phrase_break and run >= cfg["phrase_min_sentence_s"]:
+                    # unpunctuated ASR (common in Hindi): Whisper's own phrase boundary
+                    reason = "phrase"
+                elif run >= cfg["max_sentence_s"]:
+                    reason = "max_length"
         if reason is None:
             continue
         sentences.append(

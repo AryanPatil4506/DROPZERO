@@ -17,9 +17,10 @@ class Word(BaseModel):
     end: float
     confidence: float | None = None
     paragraph_break: bool = False  # script mode: word ends a paragraph
+    phrase_break: bool = False  # ASR: word ends one of Whisper's own phrase segments
 
 
-SentenceEnd = Literal["punct", "pause", "silence", "end"]
+SentenceEnd = Literal["punct", "pause", "phrase", "max_length", "silence", "end"]
 
 
 class Sentence(BaseModel):

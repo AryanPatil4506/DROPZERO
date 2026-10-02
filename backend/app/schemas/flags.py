@@ -33,7 +33,8 @@ class Edit(BaseModel):
     target_time: float | None = None  # MOVE destination (original timeline)
     reason: str
     rewrite_text: str | None = None
-    simulatable: bool  # CUT/MOVE change the feature sequence; others are advice only
+    # CUT/MOVE for causes the model has features for; everything else is advice only
+    simulatable: bool
 
 
 class Flag(BaseModel):

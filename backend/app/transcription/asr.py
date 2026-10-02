@@ -71,6 +71,13 @@ class FasterWhisperBackend:
                 )
         return self._model
 
+    def detect_language(self, audio: np.ndarray) -> tuple[str, float]:
+        """Language of the first 30 s of audio: (code, probability)."""
+        model = self._load()
+        with GPU_LOCK:
+            lang, prob, _ = model.detect_language(audio[: 30 * 16000])
+        return lang, float(prob)
+
     def transcribe(self, audio: np.ndarray, language: str | None) -> dict[str, Any]:
         model = self._load()
         segs, info = model.transcribe(
@@ -114,6 +121,8 @@ def raw_to_transcript(
 ) -> Transcript:
     words: list[Word] = []
     for seg in raw["segments"]:
+        if words:
+            words[-1].phrase_break = True  # previous Whisper segment ended
         for w in seg.get("words", []):
             text = w["word"].strip()
             if not text:

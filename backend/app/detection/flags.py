@@ -20,7 +20,12 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.0"
+RULES_VERSION = "rules-1.2"
+
+# Causes the retention model has features for. Only their CUT/MOVE edits are simulated; for
+# others (silent intro, title promise, silence, visuals) a simulated curve would only reflect
+# segments shifting position, so those edits are advice only.
+MODELLED = {"repetition", "low_information", "pacing", "model_risk"}
 
 
 def mmss(t: float) -> str:
@@ -53,6 +58,20 @@ def promise_check(title: str, t: Transcript, embedder: Embedder, cfg: dict) -> P
     )
 
 
+def _runs(items, pred):
+    """Consecutive items for which pred is true, as lists."""
+    runs, cur = [], []
+    for x in items:
+        if pred(x):
+            cur.append(x)
+        elif cur:
+            runs.append(cur)
+            cur = []
+    if cur:
+        runs.append(cur)
+    return runs
+
+
 class _Builder:
     def __init__(self) -> None:
         self.flags: list[Flag] = []
@@ -67,7 +86,7 @@ class _Builder:
         e = Edit(
             id=f"e{len(self.edits) + 1}",
             flag_id=f.id,
-            simulatable=kw["action"] in ("CUT", "MOVE"),
+            simulatable=kw["action"] in ("CUT", "MOVE") and f.category in MODELLED,
             **kw,
         )
         self.edits.append(e)
@@ -143,7 +162,10 @@ def detect(
 
     # ---- late title promise (payoff delay)
     pc = cfg["promise"]
-    if promise.first_mention_s is None or promise.first_mention_s > pc["late_after_s"]:
+    title_words = len(promise.title.split())
+    if title_words >= pc["min_title_words"] and (
+        promise.first_mention_s is None or promise.first_mention_s > pc["late_after_s"]
+    ):
         when = promise.first_mention_s
         high = when is None or when > pc["high_after_s"]
         lo, hi = 0.0, when if when is not None else min(60.0, t.duration_s)
@@ -188,30 +210,41 @@ def detect(
                 rewrite_text=s.text,
             )
 
-    # ---- repetition (segment level, >= 20 s apart)
+    # ---- repetition: judged against THIS video's own similarity baseline (a single-topic
+    # lecture is similar to itself everywhere), at most max_flags, strongest first
     rc = cfg["repetition"]
+    sims = [feats[s.index].repetition_similarity for s in speech]
+    sims = [x for x in sims if x is not None]
+    rep_thr = rc["flag_threshold"]
+    if sims:
+        rep_thr = max(rep_thr, float(np.quantile(sims, rc["video_quantile"])))
+    cands = []
     for s in speech:
         fe = feats[s.index]
-        if fe.repetition_similarity is None or fe.repetition_similarity < rc["flag_threshold"]:
+        if fe.repetition_similarity is None or fe.repetition_similarity < rep_thr:
             continue
         m = segments[fe.repetition_match_segment]
         # a section echoing the title promise is the payoff, not a repeat
         if promise.first_mention_s is not None and m.start <= promise.first_mention_s < m.end:
             continue
+        cands.append((s, fe, m))
+    cands = sorted(cands, key=lambda x: -x[1].repetition_similarity)[: rc["max_flags"]]
+    for s, fe, m in sorted(cands, key=lambda x: x[0].start):
         ev = [
             Evidence(
                 label="Similarity to earlier section",
                 value=fe.repetition_similarity,
                 ref_start=m.start,
                 ref_end=m.end,
-            )
+            ),
+            Evidence(
+                label="This video's usual similarity (90th percentile)", value=round(rep_thr, 4)
+            ),
         ]
         if fe.semantic_novelty is not None:
             ev.append(
                 Evidence(label="New information vs everything before", value=fe.semantic_novelty)
             )
-        if fe.repetition_count > 1:
-            ev.append(Evidence(label="Earlier sections it resembles", value=fe.repetition_count))
         f = b.flag(
             start=s.start,
             end=s.end,
@@ -220,110 +253,137 @@ def detect(
             source=src(True, s.start, s.end),
             risk_score=round(min(1.0, fe.repetition_similarity), 3),
             title=f"Repeats {mmss(m.start)}–{mmss(m.end)}",
-            explanation=f"This section says much the same as {mmss(m.start)}–"
-            f"{mmss(m.end)} (similarity {fe.repetition_similarity}).",
+            explanation=f"This section says much the same as {mmss(m.start)}–{mmss(m.end)} "
+            f"(similarity {fe.repetition_similarity}, above this video's usual level).",
             evidence=ev,
         )
-        # smallest range that removes the repeat: the matched sentences in this segment
-        ms = [x for x in fe.repetition_matches]
-        cut_lo = min((x.start for x in ms), default=s.speech_start or s.start)
-        cut_hi = max((x.end for x in ms), default=s.speech_end or s.end)
+        # smallest range that removes the repeat: matched sentences, clipped to this segment
+        lo_s = s.speech_start if s.speech_start is not None else s.start
+        hi_s = s.speech_end if s.speech_end is not None else s.end
+        cut_lo = max(lo_s, min((x.start for x in fe.repetition_matches), default=lo_s))
+        cut_hi = min(hi_s, max((x.end for x in fe.repetition_matches), default=hi_s))
+        if cut_hi - cut_lo < 1.0:
+            cut_lo, cut_hi = lo_s, hi_s
         b.edit(
             f,
             action="CUT",
             start=cut_lo,
             end=cut_hi,
-            reason=f"Cut {mmss(cut_lo)}–{mmss(cut_hi)}: repeats {mmss(m.start)}–" f"{mmss(m.end)}",
+            reason=f"Cut {mmss(cut_lo)}–{mmss(cut_hi)}: repeats {mmss(m.start)}–{mmss(m.end)}",
         )
 
-    # ---- low new information: consecutive speech segments with low gain
+    # ---- low new information: runs below an absolute AND this video's own low level
     lc = cfg["low_information"]
-    run: list[Segment] = []
-    for s in speech + [None]:
-        g = feats[s.index].information_gain if s is not None else None
-        if s is not None and g is not None and g < lc["gain_threshold"]:
-            run.append(s)
-            continue
-        if run and run[-1].end - run[0].start >= lc["min_run_s"]:
-            lo, hi = run[0].start, run[-1].end
-            gains = [feats[x.index].information_gain for x in run]
-            f = b.flag(
-                start=lo,
-                end=hi,
-                severity="medium",
-                category="low_information",
-                source=src(True, lo, hi),
-                risk_score=0.5,
-                title=f"Little new information for {hi - lo:.0f} s",
-                explanation=f"{mmss(lo)}–{mmss(hi)} adds little beyond the previous " "minute.",
-                evidence=[
-                    Evidence(label="Duration", value=round(hi - lo, 1), unit="s"),
-                    Evidence(label="Lowest information gain", value=round(min(gains), 4)),
-                ],
-            )
-            worst = min(run, key=lambda x: feats[x.index].information_gain)
-            b.edit(
-                f,
-                action="SHORTEN",
-                start=worst.start,
-                end=worst.end,
-                reason=f"Shorten {mmss(worst.start)}–{mmss(worst.end)}, the least new part",
-            )
-        run = []
+    gains_all = [feats[s.index].information_gain for s in speech]
+    gains_all = [g for g in gains_all if g is not None]
+    gain_thr = lc["gain_threshold"]
+    if gains_all:
+        gain_thr = min(gain_thr, float(np.quantile(gains_all, lc["video_quantile"])))
 
-    # ---- pacing, silence, visuals (per segment)
-    for s in segments:
-        fe = feats[s.index]
-        if (
+    def low_gain(s: Segment) -> bool:
+        g = feats[s.index].information_gain
+        return g is not None and g < gain_thr
+
+    for run in _runs(speech, low_gain):
+        lo, hi = run[0].start, run[-1].end
+        if hi - lo < lc["min_run_s"]:
+            continue
+        gains = [feats[x.index].information_gain for x in run]
+        f = b.flag(
+            start=lo,
+            end=hi,
+            severity="medium",
+            category="low_information",
+            source=src(True, lo, hi),
+            risk_score=0.5,
+            title=f"Little new information for {hi - lo:.0f} s",
+            explanation=f"{mmss(lo)}–{mmss(hi)} adds little beyond the previous minute, even by "
+            "this video's own standard.",
+            evidence=[
+                Evidence(label="Duration", value=round(hi - lo, 1), unit="s"),
+                Evidence(label="Lowest information gain", value=round(min(gains), 4)),
+            ],
+        )
+        worst = min(run, key=lambda x: feats[x.index].information_gain)
+        b.edit(
+            f,
+            action="SHORTEN",
+            start=worst.start,
+            end=worst.end,
+            reason=f"Shorten {mmss(worst.start)}–{mmss(worst.end)}, the least new part",
+        )
+
+    # ---- slow pacing: merged runs of segments long enough to judge
+    pace_cfg = cfg["pacing"]
+
+    def slow(s: Segment) -> bool:
+        p = feats[s.index].pace_ratio
+        return (
             s.kind == "speech"
-            and fe.pace_ratio is not None
-            and fe.pace_ratio < cfg["pacing"]["slow_ratio"]
-        ):
-            f = b.flag(
-                start=s.start,
-                end=s.end,
-                severity="medium",
-                category="pacing",
-                source=src(True, s.start, s.end),
-                risk_score=0.4,
-                title="Slower than your average pace",
-                explanation=f"Speaking rate here is {fe.pace_ratio:.0%} of this video's "
-                "own average.",
-                evidence=[Evidence(label="Pace vs your average", value=fe.pace_ratio)],
-            )
-            b.edit(
-                f,
-                action="SHORTEN",
-                start=s.start,
-                end=s.end,
-                reason="Tighten pauses or trim this section",
-            )
-        if (
-            s.kind == "silence"
-            and s.start > hook_end
-            and s.end - s.start >= cfg["silence"]["mid_video_silence_s"]
-        ):
-            f = b.flag(
-                start=s.start,
-                end=s.end,
-                severity="medium",
-                category="silence",
-                source=src(True, s.start, s.end),
-                risk_score=0.5,
-                title=f"{s.end - s.start:.0f} s without speech",
-                explanation="A long stretch with no speech; fine if something important "
-                "is shown, otherwise viewers drift.",
-                evidence=[
-                    Evidence(label="No speech for", value=round(s.end - s.start, 1), unit="s")
-                ],
-            )
-            b.edit(
-                f,
-                action="CUT",
-                start=s.start + 0.5,
-                end=s.end - 0.5,
-                reason=f"Trim the silence {mmss(s.start)}–{mmss(s.end)}",
-            )
+            and s.end - s.start >= pace_cfg["min_segment_s"]
+            and p is not None
+            and p < pace_cfg["slow_ratio"]
+        )
+
+    for run in _runs(segments, slow):
+        lo, hi = run[0].start, run[-1].end
+        slowest = min(feats[x.index].pace_ratio for x in run)
+        f = b.flag(
+            start=lo,
+            end=hi,
+            severity="medium",
+            category="pacing",
+            source=src(True, lo, hi),
+            risk_score=0.4,
+            title="Slower than your average pace",
+            explanation=f"Speaking rate drops to {slowest:.0%} of this video's own average.",
+            evidence=[
+                Evidence(label="Slowest pace vs your average", value=slowest),
+                Evidence(label="Duration", value=round(hi - lo, 1), unit="s"),
+            ],
+        )
+        b.edit(f, action="SHORTEN", start=lo, end=hi, reason="Tighten pauses or trim this section")
+
+    # ---- long stretches without speech: consecutive silence segments merged into one flag
+    sil_cfg = cfg["silence"]
+    speech_s = sum((s.speech_end or s.end) - (s.speech_start or s.start) for s in speech)
+    speech_share = speech_s / max(t.duration_s, 1e-6)
+    music_led = speech_share < sil_cfg["music_led_speech_share"]
+    for run in _runs(segments, lambda s: s.kind == "silence" and s.start >= hook_end):
+        lo, hi = run[0].start, run[-1].end
+        if hi - lo < sil_cfg["mid_video_silence_s"]:
+            continue
+        note = (
+            " (this video is mostly music/visuals, so this may simply be the format)"
+            if music_led
+            else "; otherwise viewers drift"
+        )
+        f = b.flag(
+            start=lo,
+            end=hi,
+            severity="medium",
+            category="silence",
+            source=src(True, lo, hi),
+            risk_score=0.3 if music_led else 0.5,
+            title=f"{hi - lo:.0f} s without speech",
+            explanation="No speech here. Fine if something worth watching is on screen"
+            + note
+            + ".",
+            evidence=[
+                Evidence(label="No speech for", value=round(hi - lo, 1), unit="s"),
+                Evidence(label="Share of video with speech", value=round(speech_share, 3)),
+            ],
+        )
+        b.edit(
+            f,
+            action="CUT",
+            start=lo + 0.5,
+            end=hi - 0.5,
+            reason=f"Trim the silence {mmss(lo)}–{mmss(hi)} to a short beat",
+        )
+
+    # ---- static picture
+    for s in segments:
         a = av_by.get(s.index)
         if a and a.longest_static_s is not None and a.longest_static_s >= cfg["visual"]["static_s"]:
             f = b.flag(

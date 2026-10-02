@@ -30,6 +30,8 @@ _REASON_TO_BOUNDARY: dict[str, Boundary] = {
     "punct": "sentence",
     "pause": "pause",
     "silence": "pause",
+    "phrase": "pause",
+    "max_length": "forced_split",
     "end": "end",
 }
 
