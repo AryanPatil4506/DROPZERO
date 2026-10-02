@@ -6,7 +6,7 @@ export default function NotFound() {
       <div>
         <p className="eyebrow">404</p>
         <h1 className="mt-2 text-2xl font-medium">This page doesn't exist</h1>
-        <Link to="/" className="pill-ghost mt-5">Back to projects</Link>
+        <Link to="/projects" className="pill-ghost mt-5">Back to projects</Link>
       </div>
     </div>
   );

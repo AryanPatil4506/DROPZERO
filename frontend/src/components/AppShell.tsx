@@ -31,10 +31,10 @@ export default function AppShell() {
   return (
     <div className="flex min-h-svh">
       <aside className="sticky top-0 flex h-svh w-[76px] shrink-0 flex-col items-center gap-3 py-5">
-        <Link to="/" aria-label="DROPZERO projects" className="mb-4">
+        <Link to="/projects" aria-label="DROPZERO projects" className="mb-4">
           <LogoMark className="size-8" />
         </Link>
-        <RailLink to="/" end label="Projects">
+        <RailLink to="/projects" end label="Projects">
           <IconGrid className="size-5" />
         </RailLink>
         {projectId && (

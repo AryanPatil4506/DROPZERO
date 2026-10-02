@@ -64,7 +64,7 @@ export default function SimulatePage() {
   return (
     <div className="mx-auto max-w-[1400px] space-y-4 p-5">
       <nav className="flex items-center gap-2 text-sm text-ink-3">
-        <Link to="/" className="hover:text-ink">Projects</Link>
+        <Link to="/projects" className="hover:text-ink">Projects</Link>
         <IconChevron className="size-3.5" />
         <Link to={`/projects/${id}`} className="hover:text-ink">{project.data?.title ?? "Project"}</Link>
         <IconChevron className="size-3.5" />

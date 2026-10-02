@@ -25,13 +25,14 @@ npm run lint         # eslint
 
 | Route | Screen |
 |---|---|
+| `/` | Redirects to the landing page (`/landing/index.html`) |
 | `/login` | Sign-in (demo session, see below) |
-| `/` | Projects list |
+| `/projects` | Projects list |
 | `/new` | Upload video/script, then a live stage stepper while the job runs |
 | `/projects/:id` | Dashboard: video full-bleed in the background, glass panels in front (analysis, transcript, flags, "Why would I leave?"), transport, Timeline / Edit plan shelf |
 | `/projects/:id/simulate?edits=e1,e2` | Original vs simulated curves, edit checklist, model-estimated deltas |
 | `/validation` | Metrics vs baseline, drop detection ("41 of 71 detected"), actual vs predicted overlay |
-| `/landing/index.html` | Static marketing page (from `public/landing/`), links to `/login` |
+| `/landing/index.html` | Static marketing page (from `public/landing/`), the first page visitors see; "Sign in" goes to `/login` |
 
 ## Judge demo path
 

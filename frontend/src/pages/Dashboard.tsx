@@ -219,7 +219,7 @@ export default function Dashboard() {
         <div className="pointer-events-none relative grid h-full grid-cols-[minmax(270px,310px)_minmax(0,1fr)_minmax(300px,350px)] grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 [&>*]:pointer-events-auto">
           {/* header */}
           <header className="col-span-2 flex min-w-0 items-center gap-x-2.5 px-1">
-            <Link to="/" className="text-sm text-ink-3 hover:text-ink">Projects</Link>
+            <Link to="/projects" className="text-sm text-ink-3 hover:text-ink">Projects</Link>
             <IconChevron className="size-3.5 shrink-0 text-ink-3" />
             <h1 className="min-w-[120px] truncate text-[19px] font-medium tracking-tight [text-shadow:0_2px_16px_rgba(0,0,0,0.6)]">{p.title}</h1>
             {estimated && <EstimatedBadge />}
@@ -258,7 +258,7 @@ export default function Dashboard() {
                   <button type="button" aria-label="Next project" onClick={() => go(1)} className="grid size-7 place-items-center rounded-full text-ink-2 hover:text-ink">
                     <IconChevron className="size-3.5" />
                   </button>
-                  <Link to="/" aria-label="Close project" className="grid size-7 place-items-center rounded-full text-ink-2 hover:text-ink">
+                  <Link to="/projects" aria-label="Close project" className="grid size-7 place-items-center rounded-full text-ink-2 hover:text-ink">
                     <IconClose className="size-3.5" />
                   </Link>
                 </div>
