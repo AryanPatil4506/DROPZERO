@@ -44,7 +44,11 @@ def load_model(path: Path = MODEL_PATH) -> dict:
         raise ModelMissing("no trained model; run python scripts/train_model.py")
     with path.open("rb") as f:
         art = pickle.load(f)
-    if art["features"] != FEATURES or art.get("model_cols") != MODEL_COLS or "calib" not in art:
+    if (
+        art["features"] != FEATURES
+        or art.get("model_cols") != MODEL_COLS
+        or not isinstance(art.get("calib"), dict)
+    ):
         raise ModelMissing("model artifact does not match this code; retrain it")
     return art
 
@@ -60,7 +64,7 @@ def segment_rates(art: dict, X: np.ndarray) -> np.ndarray:
 def curve_from_rates(art: dict, rates: np.ndarray, durations: np.ndarray) -> np.ndarray:
     """Calibrated, monotone retention at each segment end."""
     raw = curve_from_hazard(rate_to_hazard(rates, durations))
-    r = art["calib"].predict(raw)
+    r = raw ** art["calib"]["k"]  # global rate multiplier fitted on training lectures
     return np.minimum.accumulate(np.clip(r, 0, 1))
 
 

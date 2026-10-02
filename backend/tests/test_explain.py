@@ -86,3 +86,18 @@ def test_invented_numbers_fall_back_to_template():
     out = explain_flag(llm, _flag(), EDITS, fixture_transcript("en"), "en", load_config("llm"))
     assert out.source == "template" and out.rejected == ["40%"] and llm.calls == 2
     assert out.fix.startswith("Cut 01:53–02:07")
+
+
+def test_list_values_are_joined():
+    reply = json.dumps(
+        {
+            "reason": "Repeats 00:49–01:03.",
+            "why_viewers_leave": ["One.", "Two."],
+            "fix": "Cut 01:53–02:07.",
+            "rewrite": None,
+        }
+    )
+    out = explain_flag(
+        FakeLLM([reply]), _flag(), EDITS, fixture_transcript("en"), "en", load_config("llm")
+    )
+    assert out.source == "llm" and out.why_viewers_leave == "One. Two."

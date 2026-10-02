@@ -15,7 +15,6 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
 from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
-from sklearn.isotonic import IsotonicRegression
 
 from backend.app.config import config_hash, load_config
 from backend.app.features.text.embedder import SentenceTransformerEmbedder
@@ -308,7 +307,7 @@ def main() -> None:
     )
     all_cols = MODEL_COLS
     version = (
-        "mooc-hgb2-"
+        "mooc-hgb3-"
         + config_hash(
             [cfg, FEATURES, MODEL_COLS, FEATURE_SCHEMA_VERSION, [lec["ccid"] for lec in train]]
         )[:8]
@@ -320,10 +319,14 @@ def main() -> None:
 
     # calibration of the cumulative curve level, fitted on TRAIN only
     p_tr = predict_all(model, train, all_cols)
-    iso = IsotonicRegression(y_min=0, y_max=1, out_of_bounds="clip").fit(
-        np.concatenate([curve_from_hazard(p) for p in p_tr]),
-        np.concatenate([lec["actual_R"] for lec in train]),
-    )
+    # one global rate multiplier k: R_cal = R_raw ** k (smooth, keeps R(0) = 1, so simulated
+    # edits change the curve continuously). Fitted on TRAIN by least squares over a grid.
+    raw_tr = np.concatenate([curve_from_hazard(p) for p in p_tr])
+    act_tr = np.concatenate([lec["actual_R"] for lec in train])
+    ks = np.linspace(0.1, 2.0, 191)
+    k = float(ks[np.argmin([np.mean((raw_tr**k - act_tr) ** 2) for k in ks])])
+    iso = {"k": round(k, 3)}
+    print(f"calibration rate multiplier k = {k:.3f}")
     art = {"model": model, "calib": iso}
     q_lo, q_hi = cfg["model"]["band_quantiles"]
     band = band_offsets(train, art, cfg["model"]["band_bins"], q_lo, q_hi)

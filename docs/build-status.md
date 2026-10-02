@@ -1,6 +1,6 @@
 # DROPZERO build status
 
-**As of 2026-10-03.** Build order: steps 1–8 done (simulation included); next: LLM wording (7b), promise ledger polish, validation page data, demo prep.
+**As of 2026-10-03.** Build order: steps 1–8 done, plus model v2, exposure-based simulation, editor (trim/cut/speed), LLM flag explanations. Next: demo prep on the RTX 5050.
 
 ## Done
 
@@ -24,20 +24,24 @@ Endpoints added: `GET /api/projects/{id}/features/text`, `GET /api/projects/{id}
 Endpoints added: `GET /api/projects/{id}/prediction`, `GET /api/projects/{id}/flags`,
 `POST /api/projects/{id}/simulate`, `GET /api/validation`.
 
-## Validation (model `mooc-hgb-060572ff`, 220 held-out lectures)
+## Validation (model `mooc-hgb3-0e371ea6`, 220 held-out lectures)
 
-| | Model | Category-average baseline |
+| | Model v2 | Category-average baseline |
 |---|---|---|
-| Curve MAE / RMSE | **0.201 / 0.246** | 0.220 / 0.265 |
-| Pearson / Spearman (curve) | **0.60 / 0.58** | 0.53 / 0.51 |
-| Major drops detected (±10 s) | **1,397 of 1,660** | 1,306 of 1,660 |
-| Drop flags precision / F1 | **0.42 / 0.56** | 0.41 / 0.54 |
-| Ranking which segments lose most (Spearman, within video) | 0.16 | **0.17** |
+| Curve MAE / RMSE | **0.172 / 0.207** | 0.220 / 0.265 |
+| Pearson / Spearman (curve) | **0.58 / 0.58** | 0.53 / 0.51 |
+| Median end retention (actual 0.30) | **0.30** | — |
+| Major drops detected (±10 s) | 1,100 of 1,660 | 1,306 of 1,660 |
+| Drop flags precision / F1 | **0.48 / 0.56** | 0.41 / 0.54 |
+| 10–90% band covers actual | 76% | — |
+| Ranking which segments lose most (within video) | 0.18 | **0.17** |
 
-Honest reading: the model beats the baseline on the curve and on drop detection, but not on
-ranking which segments lose the most viewers. Ablations: position carries most of the signal;
-content feature groups have small, mixed effects on lecture data. The 10–90% band covers 94% of
-actual points (conservative). Data caveat: Chinese online-course lectures, not YouTube.
+Model v2 (vs v1): the training target keeps re-watching (v1 clipped it and under-predicted the level:
+0.12 vs 0.30), direction constraints from research priors (Guo et al. 2014: engagement rises with
+speaking rate; repetition and low new information raise drop risk), one global rate multiplier
+calibrated on training lectures, an empirical band, and a dedicated drop classifier for flags.
+Honest misses: the drop classifier catches fewer drops than the baseline (higher precision, lower
+recall), and the curve does not beat the baseline at ranking segments within a video.
 
 Two model fixes made during development (both for correctness, not tuned on test results):
 1. Predict a per-second rate instead of a per-segment drop (simulations had depended on segment
@@ -106,3 +110,16 @@ source of real in-video drop-off found was MOOCCubeX (THU-KEG, GPL-3.0). Its wat
 which parts of each lecture every viewer played, and its captions carry timestamps. Rebuild:
 `python scripts/build_mooc_curves.py` then `python scripts/train_model.py` (raw data in the
 gitignored `data/raw/mooccubex/`, about 3.9 GB).
+
+## Added in the final sprint
+
+- **Simulation v2 (exposure model):** a cut, trim or speed-up removes the viewer's exposure to that
+  time's predicted drop risk; untouched content keeps its prediction (no re-segmentation noise).
+  Custom editor edits (`custom_edits`: CUT / TRIM_START / TRIM_END / SPEED) are simulated too.
+- **LLM explanations:** `POST /api/projects/{id}/flags/{fid}/explain`, local Qwen3-1.7B
+  (Apache-2.0). Input is the evidence object; every number in the answer must exist in the
+  evidence, else retry then template fallback (`source` says which). On the team videos all
+  tested answers passed the check. About 10–35 s per flag on the GPU, cached.
+- **Flags:** dead air (quiet audio) vs music/visuals without speech; cut points never inside a word.
+- **Not built (roadmap):** real before/after render, promise ledger beyond the title, plain-LLM
+  baseline comparison.

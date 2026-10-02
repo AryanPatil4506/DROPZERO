@@ -1,17 +1,17 @@
 {
  "dataset": "MOOCCubeX lecture-viewing logs: real in-video drop-off of 310,360 viewers on Chinese online-course lectures (not YouTube)",
- "model_version": "mooc-hgb-060572ff",
+ "model_version": "mooc-hgb3-0e371ea6",
  "feature_schema_version": "text-1.0",
  "n_videos_train": 980,
  "n_videos_test": 220,
  "split": "held out by lecture (fixed hash); thresholds chosen on train only",
  "metrics": {
-  "mae": 0.2006,
-  "rmse": 0.2464,
-  "pearson": 0.597,
+  "mae": 0.1717,
+  "rmse": 0.2075,
+  "pearson": 0.58,
   "spearman": 0.582,
-  "hazard_spearman_pooled": 0.115,
-  "hazard_spearman_within_video_mean": 0.16
+  "hazard_spearman_pooled": 0.169,
+  "hazard_spearman_within_video_mean": 0.176
  },
  "baseline": {
   "name": "Category-average curve (mean drop by position)",
@@ -25,12 +25,12 @@
  "detection": {
   "tolerance_s": 10.0,
   "major_drop_hazard": 0.05,
-  "precision": 0.422,
-  "recall": 0.842,
-  "f1": 0.562,
-  "detected": 1397,
+  "precision": 0.481,
+  "recall": 0.663,
+  "f1": 0.558,
+  "detected": 1100,
   "total": 1660,
-  "predicted": 4965,
+  "predicted": 3404,
   "median_delay_s": 0.0
  },
  "baseline_detection": {
@@ -47,33 +47,38 @@
    0.1,
    0.9
   ],
-  "test_coverage": 0.944
+  "test_coverage": 0.762
  },
+ "level": {
+  "median_end_retention_actual": 0.304,
+  "median_end_retention_predicted": 0.298
+ },
+ "detector": "dedicated drop classifier (major drop = a segment losing >= 5% of its viewers); curve = calibrated rate model",
  "ablations": {
   "position": {
-   "mae": 0.2247,
-   "hazard_spearman_pooled": 0.086,
-   "detection_f1": 0.543
+   "mae": 0.2017,
+   "hazard_spearman_pooled": 0.097,
+   "detection_f1": 0.533
   },
   "pacing": {
-   "mae": 0.1991,
-   "hazard_spearman_pooled": 0.127,
-   "detection_f1": 0.575
+   "mae": 0.1807,
+   "hazard_spearman_pooled": 0.171,
+   "detection_f1": 0.486
   },
   "novelty": {
-   "mae": 0.2012,
-   "hazard_spearman_pooled": 0.116,
-   "detection_f1": 0.551
+   "mae": 0.1772,
+   "hazard_spearman_pooled": 0.17,
+   "detection_f1": 0.488
   },
   "repetition": {
-   "mae": 0.2,
-   "hazard_spearman_pooled": 0.103,
-   "detection_f1": 0.56
+   "mae": 0.1778,
+   "hazard_spearman_pooled": 0.171,
+   "detection_f1": 0.485
   },
   "topics": {
-   "mae": 0.2012,
-   "hazard_spearman_pooled": 0.112,
-   "detection_f1": 0.568
+   "mae": 0.1783,
+   "hazard_spearman_pooled": 0.168,
+   "detection_f1": 0.485
   }
  },
  "examples": [
@@ -209,127 +214,127 @@
    "predicted": [
     {
      "t": 9.8,
-     "retention": 0.8379
+     "retention": 0.8683
     },
     {
      "t": 19.6,
-     "retention": 0.6375
+     "retention": 0.7434
     },
     {
      "t": 29.519,
-     "retention": 0.6233
+     "retention": 0.7269
     },
     {
      "t": 39.479,
-     "retention": 0.613
+     "retention": 0.7254
     },
     {
      "t": 53.319,
-     "retention": 0.597
+     "retention": 0.7109
     },
     {
      "t": 65.039,
-     "retention": 0.5862
+     "retention": 0.6999
     },
     {
      "t": 77.6,
-     "retention": 0.5732
+     "retention": 0.6883
     },
     {
      "t": 90.439,
-     "retention": 0.5614
+     "retention": 0.6804
     },
     {
      "t": 102.56,
-     "retention": 0.5506
+     "retention": 0.673
     },
     {
      "t": 114.0,
-     "retention": 0.5399
+     "retention": 0.6653
     },
     {
      "t": 126.639,
-     "retention": 0.5293
+     "retention": 0.6578
     },
     {
      "t": 139.479,
-     "retention": 0.5187
+     "retention": 0.6492
     },
     {
      "t": 150.8,
-     "retention": 0.5097
+     "retention": 0.6424
     },
     {
      "t": 162.879,
-     "retention": 0.5037
+     "retention": 0.6367
     },
     {
      "t": 176.119,
-     "retention": 0.4975
+     "retention": 0.6328
     },
     {
      "t": 188.239,
-     "retention": 0.4899
+     "retention": 0.6291
     },
     {
      "t": 199.119,
-     "retention": 0.4767
+     "retention": 0.6271
     },
     {
      "t": 212.439,
-     "retention": 0.4688
+     "retention": 0.6173
     },
     {
      "t": 226.119,
-     "retention": 0.4628
+     "retention": 0.6173
     },
     {
      "t": 237.639,
-     "retention": 0.4579
+     "retention": 0.6127
     },
     {
      "t": 246.959,
-     "retention": 0.4525
+     "retention": 0.6088
     },
     {
      "t": 258.439,
-     "retention": 0.446
+     "retention": 0.6036
     },
     {
      "t": 270.56,
-     "retention": 0.4392
+     "retention": 0.5982
     },
     {
      "t": 283.039,
-     "retention": 0.4337
+     "retention": 0.5922
     },
     {
      "t": 295.759,
-     "retention": 0.4267
+     "retention": 0.5667
     },
     {
      "t": 306.92,
-     "retention": 0.4207
+     "retention": 0.5617
     },
     {
      "t": 318.68,
-     "retention": 0.4142
+     "retention": 0.5393
     },
     {
      "t": 330.92,
-     "retention": 0.4073
+     "retention": 0.5344
     },
     {
      "t": 344.56,
-     "retention": 0.3948
+     "retention": 0.529
     },
     {
      "t": 359.079,
-     "retention": 0.3585
+     "retention": 0.4936
     },
     {
      "t": 370.6,
-     "retention": 0.1337
+     "retention": 0.241
     }
    ],
    "drops": [
@@ -443,91 +448,91 @@
    "predicted": [
     {
      "t": 8.899,
-     "retention": 0.8013
+     "retention": 0.8142
     },
     {
      "t": 19.239,
-     "retention": 0.4501
+     "retention": 0.5039
     },
     {
      "t": 28.079,
-     "retention": 0.4405
+     "retention": 0.4897
     },
     {
      "t": 37.8,
-     "retention": 0.4295
+     "retention": 0.4796
     },
     {
      "t": 49.28,
-     "retention": 0.4145
+     "retention": 0.471
     },
     {
      "t": 60.879,
-     "retention": 0.4001
+     "retention": 0.4644
     },
     {
      "t": 73.119,
-     "retention": 0.389
+     "retention": 0.4573
     },
     {
      "t": 87.72,
-     "retention": 0.3826
+     "retention": 0.4514
     },
     {
      "t": 100.56,
-     "retention": 0.3756
+     "retention": 0.4463
     },
     {
      "t": 115.0,
-     "retention": 0.3624
+     "retention": 0.4405
     },
     {
      "t": 127.159,
-     "retention": 0.3581
+     "retention": 0.4336
     },
     {
      "t": 139.359,
-     "retention": 0.3515
+     "retention": 0.4252
     },
     {
      "t": 147.68,
-     "retention": 0.3482
+     "retention": 0.4228
     },
     {
      "t": 159.879,
-     "retention": 0.3435
+     "retention": 0.418
     },
     {
      "t": 172.92,
-     "retention": 0.3367
+     "retention": 0.4141
     },
     {
      "t": 182.6,
-     "retention": 0.332
+     "retention": 0.4093
     },
     {
      "t": 193.68,
-     "retention": 0.3269
+     "retention": 0.4055
     },
     {
      "t": 204.759,
-     "retention": 0.3216
+     "retention": 0.4002
     },
     {
      "t": 218.639,
-     "retention": 0.3148
+     "retention": 0.3961
     },
     {
      "t": 231.4,
-     "retention": 0.3103
+     "retention": 0.3932
     },
     {
      "t": 244.68,
-     "retention": 0.3056
+     "retention": 0.3888
     },
     {
      "t": 258.959,
-     "retention": 0.1842
+     "retention": 0.2375
     }
    ],
    "drops": [
@@ -653,103 +658,103 @@
    "predicted": [
     {
      "t": 9.7,
-     "retention": 0.8394
+     "retention": 0.8695
     },
     {
      "t": 19.4,
-     "retention": 0.6562
+     "retention": 0.748
     },
     {
      "t": 31.519,
-     "retention": 0.6354
+     "retention": 0.7282
     },
     {
      "t": 43.119,
-     "retention": 0.623
+     "retention": 0.7282
     },
     {
      "t": 58.119,
-     "retention": 0.6072
+     "retention": 0.7148
     },
     {
      "t": 69.8,
-     "retention": 0.5967
+     "retention": 0.7047
     },
     {
      "t": 82.28,
-     "retention": 0.5868
+     "retention": 0.697
     },
     {
      "t": 94.2,
-     "retention": 0.5657
+     "retention": 0.6845
     },
     {
      "t": 105.8,
-     "retention": 0.556
+     "retention": 0.664
     },
     {
      "t": 118.28,
-     "retention": 0.5467
+     "retention": 0.6515
     },
     {
      "t": 129.519,
-     "retention": 0.5369
+     "retention": 0.6451
     },
     {
      "t": 143.68,
-     "retention": 0.5281
+     "retention": 0.6364
     },
     {
      "t": 157.079,
-     "retention": 0.5215
+     "retention": 0.6292
     },
     {
      "t": 170.439,
-     "retention": 0.5067
+     "retention": 0.6224
     },
     {
      "t": 183.759,
-     "retention": 0.4997
+     "retention": 0.6167
     },
     {
      "t": 196.439,
-     "retention": 0.4914
+     "retention": 0.6019
     },
     {
      "t": 209.959,
-     "retention": 0.4833
+     "retention": 0.5876
     },
     {
      "t": 222.759,
-     "retention": 0.4707
+     "retention": 0.5827
     },
     {
      "t": 234.56,
-     "retention": 0.4622
+     "retention": 0.5623
     },
     {
      "t": 245.319,
-     "retention": 0.4465
+     "retention": 0.558
     },
     {
      "t": 259.639,
-     "retention": 0.4373
+     "retention": 0.5525
     },
     {
      "t": 270.879,
-     "retention": 0.4316
+     "retention": 0.5483
     },
     {
      "t": 282.839,
-     "retention": 0.4247
+     "retention": 0.5446
     },
     {
      "t": 293.2,
-     "retention": 0.4183
+     "retention": 0.5334
     },
     {
      "t": 305.039,
-     "retention": 0.2061
+     "retention": 0.2636
     }
    ],
    "drops": [
@@ -947,175 +952,175 @@
    "predicted": [
     {
      "t": 14.46,
-     "retention": 0.7703
+     "retention": 0.8119
     },
     {
      "t": 28.92,
-     "retention": 0.567
+     "retention": 0.654
     },
     {
      "t": 42.119,
-     "retention": 0.5494
+     "retention": 0.6359
     },
     {
      "t": 55.28,
-     "retention": 0.5362
+     "retention": 0.6251
     },
     {
      "t": 67.759,
-     "retention": 0.5232
+     "retention": 0.6144
     },
     {
      "t": 76.519,
-     "retention": 0.5145
+     "retention": 0.6099
     },
     {
      "t": 88.2,
-     "retention": 0.5033
+     "retention": 0.6039
     },
     {
      "t": 99.239,
-     "retention": 0.494
+     "retention": 0.598
     },
     {
      "t": 108.56,
-     "retention": 0.4847
+     "retention": 0.5936
     },
     {
      "t": 120.0,
-     "retention": 0.4756
+     "retention": 0.5875
     },
     {
      "t": 132.28,
-     "retention": 0.4671
+     "retention": 0.5807
     },
     {
      "t": 143.8,
-     "retention": 0.459
+     "retention": 0.572
     },
     {
      "t": 156.92,
-     "retention": 0.4523
+     "retention": 0.5521
     },
     {
      "t": 166.119,
-     "retention": 0.4453
+     "retention": 0.5479
     },
     {
      "t": 175.374,
-     "retention": 0.4405
+     "retention": 0.5435
     },
     {
      "t": 186.839,
-     "retention": 0.4347
+     "retention": 0.5396
     },
     {
      "t": 199.119,
-     "retention": 0.4249
+     "retention": 0.5349
     },
     {
      "t": 211.039,
-     "retention": 0.4048
+     "retention": 0.5297
     },
     {
      "t": 221.159,
-     "retention": 0.3988
+     "retention": 0.5238
     },
     {
      "t": 233.56,
-     "retention": 0.3915
+     "retention": 0.5183
     },
     {
      "t": 246.859,
-     "retention": 0.3798
+     "retention": 0.5183
     },
     {
      "t": 258.439,
-     "retention": 0.3741
+     "retention": 0.5123
     },
     {
      "t": 271.4,
-     "retention": 0.3663
+     "retention": 0.5064
     },
     {
      "t": 284.639,
-     "retention": 0.3598
+     "retention": 0.5026
     },
     {
      "t": 297.6,
-     "retention": 0.3496
+     "retention": 0.4947
     },
     {
      "t": 310.319,
-     "retention": 0.3454
+     "retention": 0.4935
     },
     {
      "t": 319.079,
-     "retention": 0.3414
+     "retention": 0.4893
     },
     {
      "t": 332.6,
-     "retention": 0.3361
+     "retention": 0.4838
     },
     {
      "t": 346.119,
-     "retention": 0.3298
+     "retention": 0.4789
     },
     {
      "t": 358.639,
-     "retention": 0.3245
+     "retention": 0.4739
     },
     {
      "t": 370.8,
-     "retention": 0.3206
+     "retention": 0.4719
     },
     {
      "t": 385.079,
-     "retention": 0.3105
+     "retention": 0.4521
     },
     {
      "t": 397.36,
-     "retention": 0.3071
+     "retention": 0.4508
     },
     {
      "t": 409.8,
-     "retention": 0.2961
+     "retention": 0.4447
     },
     {
      "t": 421.4,
-     "retention": 0.2949
+     "retention": 0.4416
     },
     {
      "t": 433.839,
-     "retention": 0.2882
+     "retention": 0.4336
     },
     {
      "t": 444.959,
-     "retention": 0.2822
+     "retention": 0.4307
     },
     {
      "t": 458.879,
-     "retention": 0.2822
+     "retention": 0.4286
     },
     {
      "t": 469.639,
-     "retention": 0.2808
+     "retention": 0.4286
     },
     {
      "t": 482.239,
-     "retention": 0.2654
+     "retention": 0.428
     },
     {
      "t": 495.519,
-     "retention": 0.2509
+     "retention": 0.4075
     },
     {
      "t": 505.36,
-     "retention": 0.1189
+     "retention": 0.2496
     },
     {
      "t": 515.239,
-     "retention": 0.0116
+     "retention": 0.0837
     }
    ],
    "drops": [
@@ -1337,203 +1342,203 @@
    "predicted": [
     {
      "t": 11.4,
-     "retention": 0.8468
+     "retention": 0.8749
     },
     {
      "t": 23.159,
-     "retention": 0.6763
+     "retention": 0.7313
     },
     {
      "t": 34.439,
-     "retention": 0.6359
+     "retention": 0.7022
     },
     {
      "t": 47.959,
-     "retention": 0.6121
+     "retention": 0.673
     },
     {
      "t": 60.479,
-     "retention": 0.6024
+     "retention": 0.6574
     },
     {
      "t": 71.28,
-     "retention": 0.5943
+     "retention": 0.6509
     },
     {
      "t": 83.519,
-     "retention": 0.5836
+     "retention": 0.6432
     },
     {
      "t": 94.479,
-     "retention": 0.5668
+     "retention": 0.6364
     },
     {
      "t": 108.6,
-     "retention": 0.5564
+     "retention": 0.6235
     },
     {
      "t": 119.479,
-     "retention": 0.5462
+     "retention": 0.6179
     },
     {
      "t": 131.839,
-     "retention": 0.5367
+     "retention": 0.6077
     },
     {
      "t": 144.479,
-     "retention": 0.5265
+     "retention": 0.5944
     },
     {
      "t": 155.36,
-     "retention": 0.4992
+     "retention": 0.589
     },
     {
      "t": 166.0,
-     "retention": 0.4905
+     "retention": 0.5838
     },
     {
      "t": 177.879,
-     "retention": 0.4822
+     "retention": 0.5783
     },
     {
      "t": 190.4,
-     "retention": 0.4759
+     "retention": 0.5726
     },
     {
      "t": 203.2,
-     "retention": 0.4682
+     "retention": 0.5664
     },
     {
      "t": 215.36,
-     "retention": 0.4629
+     "retention": 0.5651
     },
     {
      "t": 230.079,
-     "retention": 0.4465
+     "retention": 0.5583
     },
     {
      "t": 242.239,
-     "retention": 0.4387
+     "retention": 0.5528
     },
     {
      "t": 254.68,
-     "retention": 0.4301
+     "retention": 0.5329
     },
     {
      "t": 264.2,
-     "retention": 0.4257
+     "retention": 0.5291
     },
     {
      "t": 273.68,
-     "retention": 0.4162
+     "retention": 0.5254
     },
     {
      "t": 284.6,
-     "retention": 0.3945
+     "retention": 0.5217
     },
     {
      "t": 298.319,
-     "retention": 0.3712
+     "retention": 0.5168
     },
     {
      "t": 310.68,
-     "retention": 0.3635
+     "retention": 0.5124
     },
     {
      "t": 322.92,
-     "retention": 0.3269
+     "retention": 0.5091
     },
     {
      "t": 337.519,
-     "retention": 0.3216
+     "retention": 0.5053
     },
     {
      "t": 349.0,
-     "retention": 0.3177
+     "retention": 0.5024
     },
     {
      "t": 362.28,
-     "retention": 0.3132
+     "retention": 0.4991
     },
     {
      "t": 374.0,
-     "retention": 0.2969
+     "retention": 0.4989
     },
     {
      "t": 385.039,
-     "retention": 0.2955
+     "retention": 0.4956
     },
     {
      "t": 397.56,
-     "retention": 0.2837
+     "retention": 0.4919
     },
     {
      "t": 408.72,
-     "retention": 0.2823
+     "retention": 0.4861
     },
     {
      "t": 422.759,
-     "retention": 0.2709
+     "retention": 0.4821
     },
     {
      "t": 434.959,
-     "retention": 0.2683
+     "retention": 0.4812
     },
     {
      "t": 446.2,
-     "retention": 0.2486
+     "retention": 0.4644
     },
     {
      "t": 450.959,
-     "retention": 0.2467
+     "retention": 0.4631
     },
     {
      "t": 458.999,
-     "retention": 0.2434
+     "retention": 0.4608
     },
     {
      "t": 467.039,
-     "retention": 0.2401
+     "retention": 0.4584
     },
     {
      "t": 479.879,
-     "retention": 0.2382
+     "retention": 0.4533
     },
     {
      "t": 491.639,
-     "retention": 0.2204
+     "retention": 0.4321
     },
     {
      "t": 505.519,
-     "retention": 0.2185
+     "retention": 0.4286
     },
     {
      "t": 516.319,
-     "retention": 0.2164
+     "retention": 0.4264
     },
     {
      "t": 530.959,
-     "retention": 0.2141
+     "retention": 0.4215
     },
     {
      "t": 544.439,
-     "retention": 0.2095
+     "retention": 0.4073
     },
     {
      "t": 557.2,
-     "retention": 0.2035
+     "retention": 0.407
     },
     {
      "t": 570.36,
-     "retention": 0.2035
+     "retention": 0.4032
     },
     {
      "t": 584.72,
-     "retention": 0.1964
+     "retention": 0.3512
     },
     {
      "t": 596.56,
-     "retention": 0.0411
+     "retention": 0.0808
     }
    ],
    "drops": [
@@ -1651,95 +1656,95 @@
    "predicted": [
     {
      "t": 5.159,
-     "retention": 0.8956
+     "retention": 0.9203
     },
     {
      "t": 17.159,
-     "retention": 0.5516
+     "retention": 0.6342
     },
     {
      "t": 27.68,
-     "retention": 0.5433
+     "retention": 0.6316
     },
     {
      "t": 39.479,
-     "retention": 0.5247
+     "retention": 0.6157
     },
     {
      "t": 54.119,
-     "retention": 0.5119
+     "retention": 0.6047
     },
     {
      "t": 67.519,
-     "retention": 0.4795
+     "retention": 0.5857
     },
     {
      "t": 80.8,
-     "retention": 0.4698
+     "retention": 0.5788
     },
     {
      "t": 90.36,
-     "retention": 0.4634
+     "retention": 0.5738
     },
     {
      "t": 101.28,
-     "retention": 0.4558
+     "retention": 0.5682
     },
     {
      "t": 112.119,
-     "retention": 0.4489
+     "retention": 0.5627
     },
     {
      "t": 122.759,
-     "retention": 0.4426
+     "retention": 0.5573
     },
     {
      "t": 134.759,
-     "retention": 0.4355
+     "retention": 0.5503
     },
     {
      "t": 144.639,
-     "retention": 0.4256
+     "retention": 0.5414
     },
     {
      "t": 157.239,
-     "retention": 0.421
+     "retention": 0.5349
     },
     {
      "t": 169.28,
-     "retention": 0.4153
+     "retention": 0.5303
     },
     {
      "t": 179.759,
-     "retention": 0.4078
+     "retention": 0.5269
     },
     {
      "t": 189.039,
-     "retention": 0.4051
+     "retention": 0.5236
     },
     {
      "t": 203.0,
-     "retention": 0.3984
+     "retention": 0.5162
     },
     {
      "t": 216.8,
-     "retention": 0.3919
+     "retention": 0.5131
     },
     {
      "t": 227.72,
-     "retention": 0.3786
+     "retention": 0.5015
     },
     {
      "t": 239.92,
-     "retention": 0.3721
+     "retention": 0.4993
     },
     {
      "t": 251.0,
-     "retention": 0.3672
+     "retention": 0.4965
     },
     {
      "t": 264.639,
-     "retention": 0.1714
+     "retention": 0.2599
     }
    ],
    "drops": [

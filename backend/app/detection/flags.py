@@ -20,7 +20,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.4"
+RULES_VERSION = "rules-1.5"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -449,8 +449,14 @@ def detect(
     # ---- model-only high risk
     if cfg["model"]["flag_model_only"]:
         covered = [(f.start, f.end) for f in b.flags]
+        only_model = [
+            r
+            for r in pred.segments
+            if r.risk == "high" and not any(lo < r.end and hi > r.start for lo, hi in covered)
+        ]
+        keep = {r.index for r in sorted(only_model, key=lambda r: -r.p_drop)[:3]}
         for r in pred.segments:
-            if r.risk != "high" or any(lo < r.end and hi > r.start for lo, hi in covered):
+            if r.index not in keep:
                 continue
             b.flag(
                 start=r.start,

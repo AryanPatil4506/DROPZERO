@@ -163,6 +163,8 @@ class LocalLLM:
 
 
 def _parse(text: str) -> dict | None:
+    """First JSON object in the reply; list values (models often return sentence lists) are
+    joined into one string."""
     m = re.search(r"\{.*\}", text, re.S)
     if not m:
         return None
@@ -170,11 +172,15 @@ def _parse(text: str) -> dict | None:
         d = json.loads(m.group(0))
     except json.JSONDecodeError:
         return None
-    return (
-        d
-        if all(isinstance(d.get(k), str) for k in ("reason", "why_viewers_leave", "fix"))
-        else None
+    if not isinstance(d, dict):
+        return None
+    for k, v in list(d.items()):
+        if isinstance(v, list):
+            d[k] = " ".join(str(x) for x in v)
+    ok = all(
+        isinstance(d.get(k), str) and d[k].strip() for k in ("reason", "why_viewers_leave", "fix")
     )
+    return d if ok else None
 
 
 def explain_flag(
