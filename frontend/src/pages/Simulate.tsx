@@ -49,7 +49,7 @@ export default function SimulatePage() {
 
   const requested = params.get("edits");
   const selected = useMemo(
-    () => (requested != null ? requested.split(",").filter(Boolean) : edits.map((e) => e.id)),
+    () => (requested != null ? requested.split(",").filter(Boolean) : edits.filter((e) => e.simulatable !== false).map((e) => e.id)),
     [requested, edits],
   );
   const sim = useSimulation(id, selected);
@@ -60,8 +60,6 @@ export default function SimulatePage() {
   };
 
   const rows = useMemo(() => (sim.data ? mergeCurves(sim.data.original, sim.data.simulated) : []), [sim.data]);
-  const mockIgnoresSelection =
-    !!sim.data?._mock && selected.length !== edits.length;
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-4 p-5">
@@ -86,10 +84,19 @@ export default function SimulatePage() {
             <MockBadge note={sim.data?._mock} />
           </div>
           {selected.length === 0 && <div className="mt-6"><EmptyState title="Select at least one edit to simulate." /></div>}
-          {sim.isPending && selected.length > 0 && <div className="grid h-80 place-items-center"><Spinner label="Running simulation" /></div>}
+          {sim.isPending && selected.length > 0 && <div className="grid h-80 place-items-center"><Spinner label="Re-running the model on the edited sequence (a few seconds)" /></div>}
           {sim.isError && (isNotFound(sim.error) ? (
             <div className="mt-6"><EmptyState title="Simulation isn't available for this project yet." /></div>
-          ) : <div className="mt-6"><ErrorBox error={sim.error} title="Simulation failed" /></div>)}
+          ) : <div className="mt-6 space-y-3">
+              <ErrorBox error={sim.error} title="Couldn't simulate this selection" />
+              <button
+                type="button"
+                className="pill-ghost"
+                onClick={() => setParams({ edits: edits.filter((e) => e.simulatable !== false).map((e) => e.id).join(",") }, { replace: true })}
+              >
+                Use all suggested edits
+              </button>
+            </div>)}
           {sim.data && (
             <>
               <div className="mt-4 h-80">
@@ -155,18 +162,29 @@ export default function SimulatePage() {
               {edits.map((e) => (
                 <li key={e.id}>
                   <label className="flex cursor-pointer gap-3 rounded-2xl bg-white/[0.04] p-3 hover:bg-white/[0.07]">
-                    <input type="checkbox" checked={selected.includes(e.id)} onChange={() => toggle(e.id)} className="mt-0.5 size-4 accent-[var(--color-accent)]" />
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(e.id)}
+                      disabled={e.simulatable === false}
+                      onChange={() => toggle(e.id)}
+                      className="mt-0.5 size-4 accent-[var(--color-accent)] disabled:opacity-30"
+                    />
                     <span className="text-[13px]">
                       <span className="font-medium text-ink">{editSentence(e.action, e.start, e.end, e.target_time)}</span>
                       <span className="block text-ink-2">{e.reason}</span>
-                      <span className="mt-1 inline-block rounded bg-white/[0.06] px-1.5 text-[10px] font-semibold tracking-wide text-ink-3">{ACTION_LABEL[e.action].toUpperCase()}</span>
+                      <span className="mt-1 inline-block rounded bg-white/[0.06] px-1.5 text-[10px] font-semibold tracking-wide text-ink-3">
+                        {ACTION_LABEL[e.action].toUpperCase()}
+                        {e.simulatable === false && " · advice only, not simulated"}
+                      </span>
                     </span>
                   </label>
                 </li>
               ))}
             </ul>
-            {mockIgnoresSelection && (
-              <p className="mt-3 text-xs text-[#f6d391]">Mock mode returns one fixed simulation regardless of which edits are ticked.</p>
+            {!!sim.data?.skipped_edit_ids?.length && (
+              <p className="mt-3 text-xs text-[#f6d391]">
+                Not applied: {sim.data.skipped_edit_ids.join(", ")} (overlapping or advice-only edits).
+              </p>
             )}
           </section>
         </aside>

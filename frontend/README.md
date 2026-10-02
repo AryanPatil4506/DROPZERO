@@ -1,7 +1,8 @@
 # DROPZERO frontend
 
 React 18 + Vite + TypeScript, Tailwind CSS v4, Recharts, TanStack Query, React Router.
-Built against `docs/frontend-brief.md`; mock data lives in `mock/`.
+Built against `docs/frontend-brief.md`. Mock mode serves the recorded API responses in `mock/`
+(regenerate with `python scripts/export_api_samples.py`).
 
 ## Run
 
@@ -64,11 +65,13 @@ segment bar and transcript) → **Simulate fix** → original vs simulated → r
   file picker (the file stays in the browser).
 - **Sign-in is a demo session.** There is no auth API yet, so any valid email + non-empty password
   stores a flag in `sessionStorage` for the tab. Nothing is sent or stored server-side.
-- **Mock mode shows a banner** and every screen that displays contract numbers shows a
-  "Mock · placeholder numbers" badge (driven by the `_mock` field). Don't screenshot mock numbers.
-- Contract mocks exist only for the English sample; the Hindi and Hinglish samples show the
-  transcript, segments and topics with a "no prediction yet" state, as the live API will before the
-  model step ships.
+- **Mock mode shows a banner.** Responses with a `_mock` field (placeholder numbers) also get a
+  "Mock · placeholder numbers" badge. Recorded simulations cover all suggested edits together; other
+  combinations need the live backend, and the UI says so.
+- **Flag source tags:** *Model* (validated retention model), *Evidence rule* (not validated against
+  retention data) or *Model + rule*. Only `simulatable` edits (CUT/MOVE) are offered for simulation.
+- The validation page shows the baseline beside every metric, including the drop-ranking rows where
+  the model does not beat it, plus detection vs baseline, band coverage and ablations.
 - Chart colours were checked for contrast and colour-blind separation on the dark surface:
   predicted `#6a8fe0`, simulated `#2aa37e`, original `#8a8a93`; risk red/amber always carry a text label.
 - API gaps found while building are listed in `CONTRACT_REQUESTS.md`.

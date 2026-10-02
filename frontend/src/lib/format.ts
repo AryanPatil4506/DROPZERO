@@ -8,7 +8,7 @@ export const range = (start: number, end: number) => `${mmss(start)}–${mmss(en
 
 export const pct = (v: number, digits = 0) => `${(v * 100).toFixed(digits)}%`;
 
-export function evidenceValue(value: number | string, unit?: string): string {
+export function evidenceValue(value: number | string, unit?: string | null): string {
   if (typeof value === "string") return unit ? `${value} ${unit}` : value;
   if (unit === "s") return value >= 60 ? `${mmss(value)}` : `${value.toFixed(value < 10 ? 1 : 0)} s`;
   const text = Number.isInteger(value) ? String(value) : value.toFixed(2);
@@ -27,6 +27,19 @@ export const FLAG_CATEGORY_LABEL: Record<string, string> = {
   pacing: "Pacing",
   fillers: "Filler words",
   silence: "Silence",
+  model_risk: "Higher drop risk (model)",
+};
+
+export const SOURCE_LABEL: Record<string, string> = {
+  model: "Model",
+  rule: "Evidence rule",
+  "model+rule": "Model + rule",
+};
+
+export const SOURCE_HINT: Record<string, string> = {
+  model: "From the retention model, validated on held-out real viewing data.",
+  rule: "A direct evidence check (repetition, late title promise, slow hook…). Not validated against retention data.",
+  "model+rule": "The retention model and an evidence check both point here.",
 };
 
 export const ACTION_LABEL: Record<string, string> = {

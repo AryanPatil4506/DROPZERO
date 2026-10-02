@@ -1,7 +1,7 @@
 import type { ComponentType, SVGProps } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Action, Edit, Evidence, Flag } from "../../api/types";
-import { ACTION_LABEL, editSentence, evidenceValue, FLAG_CATEGORY_LABEL, mmss, range } from "../../lib/format";
+import { ACTION_LABEL, editSentence, evidenceValue, FLAG_CATEGORY_LABEL, mmss, range, SOURCE_HINT, SOURCE_LABEL } from "../../lib/format";
 import { IconHook, IconKeep, IconMove, IconRewrite, IconScissors, IconShorten, IconVisual } from "../icons";
 import { SeverityTag } from "../ui";
 import { useTimeline } from "./timeline-context";
@@ -87,6 +87,7 @@ export default function RiskDrawer({
   }
 
   const flagEdits = edits.filter((e) => flag.edit_ids.includes(e.id));
+  const simIds = flagEdits.filter((e) => e.simulatable !== false).map((e) => e.id);
   const cutEdit = flagEdits.find((e) => e.action === "CUT" || e.action === "SHORTEN") ?? flagEdits[0];
   const showingCut = !!cut && !!cutEdit && cut.start === cutEdit.start && cut.end === cutEdit.end;
   const activeActions = new Set(flagEdits.map((e) => e.action));
@@ -94,7 +95,14 @@ export default function RiskDrawer({
   return (
     <section className="glass rounded-[26px] p-5" aria-label="Risk details" aria-live="polite">
       <div className="flex items-center justify-between gap-3">
-        <SeverityTag severity={flag.severity} />
+        <span className="flex items-center gap-2">
+          <SeverityTag severity={flag.severity} />
+          {flag.source && (
+            <span className={`chip h-5 text-[10.5px] ${flag.source === "rule" ? "" : "border-pred/50 text-[#a9c0f2]"}`} title={SOURCE_HINT[flag.source]}>
+              {SOURCE_LABEL[flag.source] ?? flag.source}
+            </span>
+          )}
+        </span>
         <button type="button" onClick={() => seek(flag.start)} className="text-[13px] text-ink-2 tabular-nums hover:text-ink">
           {mmss(flag.start)} – {mmss(flag.end)}
         </button>
@@ -184,8 +192,9 @@ export default function RiskDrawer({
         <button
           type="button"
           className="pill-accent"
-          disabled={flagEdits.length === 0}
-          onClick={() => navigate(`/projects/${projectId}/simulate?edits=${flag.edit_ids.join(",")}`)}
+          disabled={simIds.length === 0}
+          title={simIds.length === 0 ? (flagEdits.length ? "This edit is advice only; it can't be simulated" : "No edit to simulate") : undefined}
+          onClick={() => navigate(`/projects/${projectId}/simulate?edits=${simIds.join(",")}`)}
         >
           Simulate fix
         </button>

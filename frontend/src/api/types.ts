@@ -129,7 +129,17 @@ export interface Prediction extends MockMarker {
   timing_source: TimingSource;
   label: string;
   points: CurvePoint[];
-  segments: { segment_id: string; index: number; start: number; end: number; p_drop: number; risk: Risk }[];
+  segments: {
+    segment_id: string;
+    index: number;
+    start: number;
+    end: number;
+    p_drop: number;
+    p_drop_low?: number;
+    p_drop_high?: number;
+    /** relative to a typical video at the same position */
+    risk: Risk;
+  }[];
 }
 
 export type FlagCategory =
@@ -140,14 +150,15 @@ export type FlagCategory =
   | "visual_monotony"
   | "pacing"
   | "fillers"
-  | "silence";
+  | "silence"
+  | "model_risk";
 
 export interface Evidence {
   label: string;
   value: number | string;
-  unit?: string;
-  ref_start?: number;
-  ref_end?: number;
+  unit?: string | null;
+  ref_start?: number | null;
+  ref_end?: number | null;
 }
 
 export interface Flag {
@@ -156,6 +167,8 @@ export interface Flag {
   end: number;
   severity: "high" | "medium";
   category: FlagCategory;
+  /** model = validated retention model; rule = evidence check not validated on retention data */
+  source?: "model" | "rule" | "model+rule";
   risk_score: number;
   title: string;
   explanation: string;
@@ -175,9 +188,23 @@ export interface Edit {
   target_time: number | null;
   reason: string;
   rewrite_text: string | null;
+  /** only CUT/MOVE can be simulated; others are advice */
+  simulatable?: boolean;
+}
+
+export interface PromiseCheck {
+  title: string;
+  first_mention_s: number | null;
+  first_mention_text: string | null;
+  best_match_s: number | null;
+  best_similarity: number | null;
 }
 
 export interface FlagsResponse extends MockMarker {
+  project_id?: string;
+  model_version?: string;
+  rules_version?: string;
+  promise?: PromiseCheck;
   flags: Flag[];
   edits: Edit[];
 }
@@ -185,6 +212,8 @@ export interface FlagsResponse extends MockMarker {
 export interface Simulation extends MockMarker {
   label: string;
   applied_edit_ids: string[];
+  /** overlapping or advice-only edits that were not applied */
+  skipped_edit_ids?: string[];
   original: CurvePoint[];
   simulated: CurvePoint[];
   original_duration_s: number;
@@ -197,16 +226,33 @@ export interface Metrics {
   rmse: number;
   pearson: number;
   spearman: number;
+  hazard_spearman_pooled?: number;
+  hazard_spearman_within_video_mean?: number;
+}
+
+export interface Detection {
+  precision: number;
+  recall: number;
+  f1: number;
+  detected: number;
+  total: number;
+  predicted?: number;
+  median_delay_s?: number | null;
 }
 
 export interface Validation extends MockMarker {
   dataset: string;
   model_version: string;
+  feature_schema_version?: string;
+  n_videos_train?: number;
   n_videos_test: number;
   split: string;
   metrics: Metrics;
   baseline: Metrics & { name: string };
-  detection: { tolerance_s: number; precision: number; recall: number; f1: number; detected: number; total: number };
+  detection: Detection & { tolerance_s: number; major_drop_hazard?: number };
+  baseline_detection?: Detection;
+  band?: { quantiles: number[]; test_coverage: number };
+  ablations?: Record<string, { mae: number; hazard_spearman_pooled: number; detection_f1: number }>;
   examples: {
     video_id: string;
     title: string;

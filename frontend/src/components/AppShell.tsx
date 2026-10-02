@@ -72,7 +72,7 @@ export default function AppShell() {
       <div className="flex h-svh min-w-0 flex-1 flex-col">
         {USE_MOCKS && (
           <div role="note" className="mx-3 mt-3 rounded-full border border-med/30 bg-med/10 px-4 py-1.5 text-center text-xs text-[#f6d391]">
-            Mock mode: shapes come from <code className="font-mono">frontend/mock/</code>. Predicted numbers are placeholders — not results, not for screenshots or slides.
+            Mock mode: showing recorded API responses from <code className="font-mono">frontend/mock/</code> (no backend running). Uploads map onto the bundled samples.
           </div>
         )}
         <main className="min-h-0 flex-1 overflow-y-auto">

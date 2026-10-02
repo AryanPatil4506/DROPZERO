@@ -1,6 +1,5 @@
-// Mock API: serves the JSON files in frontend/mock/ (VITE_USE_MOCKS=true).
-// Contract mocks (prediction, flags, simulate, validation) exist only for the English sample
-// project; other projects return 404 for those endpoints, as the live API would before step 5.
+// Mock API: serves the recorded API responses in frontend/mock/ (VITE_USE_MOCKS=true), so the UI
+// runs without the backend. Regenerate them with `python scripts/export_api_samples.py`.
 import {
   ApiError,
   type FlagsResponse,
@@ -32,19 +31,17 @@ const sampleProjects = new Map<string, { sample: Sample; project: Project }>(
   }),
 );
 
-const prediction = file<Prediction>("contract/prediction.json");
-
 function sampleFor(id: string): Sample {
   const hit = sampleProjects.get(id);
   if (!hit) throw new ApiError(404, "Project not found");
   return hit.sample;
 }
 
-function contract<T>(id: string, path: string): T {
-  if (id !== prediction.project_id) {
-    throw new ApiError(404, "Prediction not available for this project yet (mock data covers the English sample only).");
-  }
-  return file<T>(`contract/${path}`);
+/** Per-sample model output; 404 when a sample has no such file (as the live API before analysis). */
+function sampleFile<T>(id: string, name: string): T {
+  const path = `${sampleFor(id)}/${name}`;
+  if (files[`/mock/${path}`] === undefined) throw new ApiError(404, `No ${name.replace(".json", "")} for this project yet`);
+  return file<T>(path);
 }
 
 const delay = <T,>(value: T, ms = 220) => new Promise<T>((resolve) => setTimeout(() => resolve(value), ms));
@@ -57,7 +54,7 @@ const JOB_SECONDS = 4.5;
 
 function sampleIdFor(language: string): string {
   for (const [id, { sample }] of sampleProjects) if (sample === language) return id;
-  return prediction.project_id;
+  return [...sampleProjects.keys()][0];
 }
 
 export const api = {
@@ -115,15 +112,19 @@ export const api = {
   getTranscript: (id: string) => attempt(() => file<Transcript>(`${sampleFor(id)}/transcript.json`)),
   getSegments: (id: string) => attempt(() => file<Segment[]>(`${sampleFor(id)}/segments.json`)),
   getTextFeatures: (id: string) => attempt(() => file<TextFeatures>(`${sampleFor(id)}/features_text.json`)),
-  getPrediction: (id: string) => attempt(() => contract<Prediction>(id, "prediction.json")),
-  getFlags: (id: string) => attempt(() => contract<FlagsResponse>(id, "flags.json")),
+  getPrediction: (id: string) => attempt(() => sampleFile<Prediction>(id, "prediction.json")),
+  getFlags: (id: string) => attempt(() => sampleFile<FlagsResponse>(id, "flags.json")),
   simulate: (id: string, editIds: string[]) =>
     attempt(() => {
-      const sim = contract<Simulation>(id, "simulate.json");
-      // The mock has one fixed result; report what was requested so the UI stays truthful.
-      return { ...sim, applied_edit_ids: editIds };
+      // Recorded responses hold one simulation per sample (all suggested edits). Return it only
+      // when that exact set is requested, so the UI never shows a curve for different edits.
+      const sim = sampleFile<Simulation>(id, "simulate.json");
+      const want = [...editIds].sort().join(",");
+      const have = [...sim.applied_edit_ids, ...(sim.skipped_edit_ids ?? [])].sort().join(",");
+      if (want !== have) throw new ApiError(409, "Mock mode has a recorded simulation only for all suggested edits together. Run the backend to simulate other combinations.");
+      return sim;
     }, 500),
-  getValidation: () => attempt(() => file<Validation>("contract/validation.json")),
+  getValidation: () => attempt(() => file<Validation>("validation.json")),
   mediaUrl: (id: string) => `/api/projects/${id}/media`,
 };
 

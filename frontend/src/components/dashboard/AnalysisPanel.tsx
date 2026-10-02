@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { Flag, Project, Segment, TextFeatures } from "../../api/types";
-import { CATEGORY_LABEL, LANGUAGE_LABEL } from "../../lib/format";
+import type { Flag, Project, PromiseCheck, Segment, TextFeatures } from "../../api/types";
+import { CATEGORY_LABEL, LANGUAGE_LABEL, mmss } from "../../lib/format";
 import { IconChevron } from "../icons";
 import { Segmented } from "../ui";
 import { useTimeline } from "./timeline-context";
@@ -11,13 +11,15 @@ export default function AnalysisPanel({
   flags,
   segments,
   features,
+  promise,
 }: {
   project: Project;
   flags: Flag[];
   segments: Segment[];
   features: TextFeatures | null;
+  promise?: PromiseCheck;
 }) {
-  const { previewEdited, setPreviewEdited, skipRanges } = useTimeline();
+  const { previewEdited, setPreviewEdited, skipRanges, seek } = useTimeline();
   const [more, setMore] = useState(false);
   const high = flags.filter((f) => f.severity === "high").length;
   const fillers = features?.segments.reduce((n, s) => n + s.filler_count, 0);
@@ -58,6 +60,17 @@ export default function AnalysisPanel({
           </div>
         ))}
       </dl>
+      {promise && (
+        <button
+          type="button"
+          onClick={() => promise.first_mention_s != null && seek(promise.first_mention_s)}
+          className="mt-1.5 w-full rounded-xl bg-white/[0.05] px-2.5 py-1.5 text-left text-[12px] text-ink-2 hover:bg-white/[0.08]"
+          title={promise.first_mention_text ?? undefined}
+        >
+          Title promise first addressed at{" "}
+          <span className="font-medium text-ink tabular-nums">{promise.first_mention_s != null ? mmss(promise.first_mention_s) : "— not found"}</span>
+        </button>
+      )}
       <button type="button" onClick={() => setMore((m) => !m)} className="mx-auto mt-1.5 flex items-center gap-1 text-[12px] text-ink-3 hover:text-ink" aria-expanded={more}>
         <IconChevron className={`size-3 transition-transform ${more ? "-rotate-90" : "rotate-90"}`} />
         {more ? "Show less" : "Show more"}

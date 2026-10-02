@@ -9,10 +9,9 @@ Added on 2026-10-03 in `backend/app/api/projects.py` (details and tests in `docs
 auto-play the video in the background. Without it, video projects fall back to a *Load local copy*
 picker that plays the user's file from the browser.
 
-## 2. Prediction and flags for every project
-Mocks cover only the English sample. For the Hindi/Hinglish samples (and any new project) the UI
-shows "No retention prediction for this project yet" on a 404. Please keep **404** (not 500 or an
-empty 200) for "model step hasn't run", so the UI can tell "unavailable" apart from "no flags".
+## 2. Prediction and flags for every project — done
+All three samples now have real model output. Please keep **404** (not 500 or an empty 200) for
+"model step hasn't run", so the UI can tell "unavailable" apart from "no flags".
 
 ## 3. Topic labels
 `features/text` → `topics[]` has `start/end/first_segment/last_segment` but no name, so the topic
@@ -31,9 +30,9 @@ GET  /api/auth/me                            → 200 { user } | 401
 ```
 401 from any endpoint would then redirect to `/login`.
 
-## 5. Simulation honours `edit_ids` (live API)
-The mock returns one fixed simulation whatever is ticked, and the UI says so. The live endpoint
-should recompute for exactly the `edit_ids` sent, and echo them in `applied_edit_ids`.
+## 5. Simulation honours `edit_ids` — done (live API)
+The live endpoint recomputes for the `edit_ids` sent. Mock mode only has the recorded all-edits
+simulation and returns a clear error for other combinations.
 
 ## 6. Simulate custom cuts
 Creators can mark their own cuts on the timeline (Edit plan → Mark in / Mark out). They are kept in

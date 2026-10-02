@@ -86,7 +86,7 @@ export default function RetentionChart({
   };
 
   return (
-    <div className="relative cursor-crosshair" style={{ height }} onClick={onClick}>
+    <div className="relative shrink-0 cursor-crosshair" style={{ height }} onClick={onClick}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={rows} margin={{ top: 8, right: PLOT_RIGHT, bottom: 0, left: 0 }}>
           <defs>

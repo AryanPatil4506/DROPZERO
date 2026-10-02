@@ -16,6 +16,7 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
   const { time, seek, acceptedEditIds, toggleEdit, setAcceptedEditIds, customCuts, addCustomCut, removeCustomCut, previewEdited, setPreviewEdited, skipRanges } =
     useTimeline();
   const [markIn, setMarkIn] = useState<number | null>(null);
+  const simulatableAccepted = edits.filter((e) => acceptedEditIds.includes(e.id) && e.simulatable !== false).map((e) => e.id);
 
   const exportPlan = () => {
     const plan = {
@@ -63,6 +64,7 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
               <span className="shrink-0 rounded bg-white/[0.06] px-1.5 text-[10px] font-semibold tracking-wide text-ink-3">
                 {ACTION_LABEL[e.action].toUpperCase()}
                 {!SKIPPABLE.has(e.action) && " · not previewed"}
+                {e.simulatable === false && " · advice"}
               </span>
             </li>
           );
@@ -107,7 +109,7 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
         <button type="button" className={`pill-btn h-9 text-[13px] ${previewEdited ? "bg-accent text-[#160700]" : "border border-line-2 bg-white/5 text-ink hover:bg-white/10"}`} disabled={skipRanges.length === 0} onClick={() => setPreviewEdited(!previewEdited)} aria-pressed={previewEdited}>
           {previewEdited ? "Previewing with cuts" : "Preview with cuts"}
         </button>
-        <button type="button" className="pill-accent h-9 text-[13px]" disabled={acceptedEditIds.length === 0} onClick={() => navigate(`/projects/${project.id}/simulate?edits=${acceptedEditIds.join(",")}`)}>
+        <button type="button" className="pill-accent h-9 text-[13px]" disabled={simulatableAccepted.length === 0} onClick={() => navigate(`/projects/${project.id}/simulate?edits=${simulatableAccepted.join(",")}`)}>
           Simulate accepted edits
         </button>
         <button type="button" className="pill-btn h-9 text-[13px] text-ink-2 hover:text-ink" disabled={acceptedEditIds.length === 0 && customCuts.length === 0} onClick={exportPlan}>

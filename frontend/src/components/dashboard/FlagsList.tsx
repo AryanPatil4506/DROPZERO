@@ -48,6 +48,7 @@ export default function FlagsList({ flags }: { flags: Flag[] }) {
               <span className="min-w-0 flex-1 truncate text-[13px]">
                 <span className="sr-only">{f.severity} severity. </span>
                 {FLAG_CATEGORY_LABEL[f.category] ?? f.category}
+                {f.source && <span className="ml-1.5 text-[11px] opacity-60">· {f.source === "rule" ? "rule" : f.source === "model" ? "model" : "model + rule"}</span>}
               </span>
             </button>
           </li>

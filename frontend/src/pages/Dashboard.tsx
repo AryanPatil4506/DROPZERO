@@ -26,7 +26,7 @@ import { mmss } from "../lib/format";
 
 const ZOOMS = [1, 2, 4];
 const SKIPPABLE = new Set(["CUT", "SHORTEN"]);
-const SHELF_BODY = "h-[184px]";
+const SHELF_BODY = "h-[208px]";
 
 export default function Dashboard() {
   const { id = "" } = useParams();
@@ -268,7 +268,7 @@ export default function Dashboard() {
 
           {/* left: analysis + transcript */}
           <div className="flex min-h-0 flex-col gap-3">
-            <AnalysisPanel project={p} flags={flags} segments={segments.data ?? []} features={features.data ?? null} />
+            <AnalysisPanel project={p} flags={flags} segments={segments.data ?? []} features={features.data ?? null} promise={flagsQ.data?.promise} />
             <div className="min-h-0 flex-1">
               {transcript.isPending && <div className="glass rounded-[26px] p-4"><Spinner label="Loading transcript" /></div>}
               {transcript.isError && <ErrorBox error={transcript.error} title="Couldn't load the transcript" />}
@@ -369,12 +369,12 @@ export default function Dashboard() {
                     )}
                   </div>
                   {prediction.data && (
-                    <p className="mt-auto flex flex-wrap items-center gap-2 px-1 pt-1 text-[11px] text-ink-3">
+                    <p className="mt-auto flex flex-wrap items-center gap-x-2 px-1 pt-1 text-[11px] leading-snug text-ink-3">
                       <span>{prediction.data.label}</span>
                       <span aria-hidden>·</span>
-                      <span>model {prediction.data.model_version}</span>
+                      <span className="shrink-0">model {prediction.data.model_version}</span>
                       <span aria-hidden>·</span>
-                      <span className="tabular-nums">{mmss(duration)}</span>
+                      <span className="shrink-0 tabular-nums">{mmss(duration)}</span>
                     </p>
                   )}
                 </div>
