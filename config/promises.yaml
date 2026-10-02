@@ -1,0 +1,22 @@
+# Promise ledger (feature #8 / #20): promises made early in the video and when they are paid off.
+# Cue phrases are matched case-insensitively inside sentences of the first `window_s` seconds.
+window_s: 75.0
+cues:
+  en: ["by the end", "i'll show you", "i will show you", "you'll see", "you will see",
+       "you'll learn", "you will learn", "in this video", "today we", "today i", "stay till",
+       "stick around", "later in this video", "i'm going to show", "we're going to", "we will"]
+  hinglish: ["is video mein", "is video me", "aaj hum", "aaj main", "end tak", "end mein",
+             "dikhaunga", "dikhaungi", "bataunga", "bataungi", "sikhenge", "dekhenge", "samjhenge"]
+  hi: ["इस वीडियो में", "आज हम", "आज मैं", "आखिर में", "अंत तक", "दिखाऊंगा", "दिखाऊंगी",
+       "बताऊंगा", "बताऊंगी", "सीखेंगे", "देखेंगे", "समझेंगे"]
+# Payoff = first later sentence (at least min_gap_s after the promise) whose LaBSE similarity to
+# the promise (cue phrase removed) is >= match_threshold. Benchmark: same-point pairs averaged
+# 0.54–0.73, unrelated 0.10–0.37 (docs/embedding_benchmark.md).
+min_gap_s: 15.0
+match_threshold: 0.45
+# ...or, relative to this video: >= mean + relative_std_k * std of the promise's similarity
+# to all later sentences, and never below relative_floor. Checked on 2 fixtures only.
+relative_std_k: 2.0
+relative_floor: 0.35
+late_delay_s: 90.0      # kept, but this long after the promise -> "late"
+max_promises: 4

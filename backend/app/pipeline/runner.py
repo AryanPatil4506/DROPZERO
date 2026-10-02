@@ -13,6 +13,7 @@ from typing import Any
 
 from backend.app.config import load_config
 from backend.app.detection.flags import detect, promise_check
+from backend.app.detection.promises import build_ledger
 from backend.app.features.av import detect_cuts, extract_av_features
 from backend.app.features.text.embedder import Embedder, SentenceTransformerEmbedder
 from backend.app.features.text.extract import extract_text_features
@@ -218,7 +219,10 @@ def _detect(svc: Services, p: Project, work: Path, ctx: dict) -> None:
     t = ctx["transcript"]
     promise = promise_check(p.title, t, svc.embedder, cfg["promise"])
     av = ctx.get("av_features")
-    res = detect(t, ctx["segments"], ctx["text_features"], ctx["prediction"], promise, cfg, av)
+    ledger = build_ledger(t, promise, svc.embedder, load_config("promises"))
+    res = detect(
+        t, ctx["segments"], ctx["text_features"], ctx["prediction"], promise, cfg, av, ledger
+    )
     svc.db.put_artifact(p.id, "flags", res.rules_version, res.model_dump_json())
 
 

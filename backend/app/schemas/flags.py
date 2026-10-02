@@ -63,10 +63,27 @@ class PromiseCheck(BaseModel):
     best_similarity: float | None
 
 
+Status = Literal["kept", "late", "open"]
+
+
+class PromiseItem(BaseModel):
+    text: str
+    source: Literal["title", "intro"]
+    made_at: float
+    made_end: float
+    payoff_at: float | None
+    payoff_end: float | None
+    payoff_text: str | None
+    similarity: float | None
+    delay_s: float | None
+    status: Status
+
+
 class FlagsResponse(BaseModel):
     project_id: str
     model_version: str
     rules_version: str
     promise: PromiseCheck
+    ledger: list[PromiseItem] = []
     flags: list[Flag]
     edits: list[Edit]

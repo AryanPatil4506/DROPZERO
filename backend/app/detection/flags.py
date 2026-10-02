@@ -15,12 +15,19 @@ import numpy as np
 from backend.app.features.text.embedder import Embedder
 from backend.app.schemas.av_features import AVFeatureSet
 from backend.app.schemas.features import TextFeatureSet
-from backend.app.schemas.flags import Edit, Evidence, Flag, FlagsResponse, PromiseCheck
+from backend.app.schemas.flags import (
+    Edit,
+    Evidence,
+    Flag,
+    FlagsResponse,
+    PromiseCheck,
+    PromiseItem,
+)
 from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.5"
+RULES_VERSION = "rules-1.6"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -118,6 +125,7 @@ def detect(
     promise: PromiseCheck,
     cfg: dict,
     av: AVFeatureSet | None = None,
+    ledger: list[PromiseItem] | None = None,
 ) -> FlagsResponse:
     b = _Builder(t.words, cfg["cuts"]["snap_window_s"])
     feats = {f.index: f for f in tf.segments}
@@ -446,6 +454,68 @@ def detect(
                 reason="Add B-roll, a screen recording or a cut here",
             )
 
+    # ---- promise ledger: promises made in the opening that pay off late, or never
+    for pr in ledger or []:
+        if pr.source != "intro" or pr.status == "kept":
+            continue
+        ev = [Evidence(label="Promise", value=pr.text, ref_start=pr.made_at, ref_end=pr.made_end)]
+        if pr.status == "late":
+            ev += [
+                Evidence(
+                    label="Paid off at",
+                    value=round(pr.payoff_at, 1),
+                    unit="s",
+                    ref_start=pr.payoff_at,
+                    ref_end=pr.payoff_end,
+                ),
+                Evidence(label="Delay", value=pr.delay_s, unit="s"),
+                Evidence(label="Payoff match (similarity)", value=pr.similarity),
+            ]
+            title = (
+                f"Promise at {mmss(pr.made_at)} kept only at {mmss(pr.payoff_at)} "
+                f"({mmss(pr.delay_s)} later)"
+            )
+            expl = (
+                "Viewers were promised something early and wait a long time for it; many leave "
+                "before the payoff."
+            )
+        else:
+            title = f"Promise at {mmss(pr.made_at)} is never clearly paid off"
+            expl = (
+                "An open loop: the video promises something it never visibly delivers, which "
+                "costs trust and watch time."
+            )
+        f = b.flag(
+            start=pr.made_at,
+            end=pr.made_end,
+            severity="high" if pr.status == "open" else "medium",
+            category="payoff_delay",
+            source=src(True, pr.made_at, pr.made_end),
+            risk_score=0.7 if pr.status == "open" else 0.6,
+            title=title,
+            explanation=expl,
+            evidence=ev,
+        )
+        if pr.status == "late":
+            b.edit(
+                f,
+                action="MOVE",
+                start=pr.payoff_at,
+                end=pr.payoff_end,
+                target_time=pr.made_end,
+                reason=f"Preview the payoff ({mmss(pr.payoff_at)}) right after the promise, "
+                "then explain how",
+                rewrite_text=pr.payoff_text,
+            )
+        else:
+            b.edit(
+                f,
+                action="REWRITE",
+                start=pr.made_at,
+                end=pr.made_end,
+                reason="Deliver what this line promises, or drop the promise",
+            )
+
     # ---- model-only high risk
     if cfg["model"]["flag_model_only"]:
         covered = [(f.start, f.end) for f in b.flags]
@@ -477,6 +547,7 @@ def detect(
         model_version=pred.model_version,
         rules_version=RULES_VERSION,
         promise=promise,
+        ledger=ledger or [],
         flags=flags,
         edits=b.edits,
     )
