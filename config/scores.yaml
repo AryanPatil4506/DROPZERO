@@ -1,0 +1,7 @@
+# Segment score lanes (DROPZERO internal scores, not validated against retention).
+repetition_floor: 0.60      # repeated (as in the detector) -> content score x penalty
+repetition_penalty: 0.6
+cuts_per_minute_full: 6.0   # this many scene cuts per minute counts as fully varied
+clipping_scale: 100.0       # 1% clipped samples -> audio clipping component at 0
+quiet_db: -8.0              # much quieter than this video's own average
+quiet_penalty: 20.0

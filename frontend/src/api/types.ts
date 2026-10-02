@@ -192,6 +192,27 @@ export interface Edit {
   simulatable?: boolean;
 }
 
+export interface SegmentScore {
+  index: number;
+  start: number;
+  end: number;
+  kind: string;
+  pacing: number | null;
+  content: number | null;
+  visual: number | null;
+  audio: number | null;
+  overall: number | null;
+  inputs: Record<string, number | null>;
+}
+export interface ScoreSet {
+  project_id: string;
+  version: string;
+  label: string;
+  has_video: boolean;
+  snr_db: number | null;
+  segments: SegmentScore[];
+}
+
 export interface PromiseCheck {
   title: string;
   first_mention_s: number | null;

@@ -8,4 +8,4 @@ FEATURE_SCHEMA_VERSION = "text-1.0"
 # No retention model exists yet (Phase 5).
 MODEL_VERSION: str | None = None
 # Phase 4 audio + visual features (video uploads only).
-AV_FEATURE_SCHEMA_VERSION = "av-1.0"
+AV_FEATURE_SCHEMA_VERSION = "av-1.1"

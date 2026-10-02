@@ -44,6 +44,8 @@ def extract_av_features(
             else None
         )
         v = segment_visual(diffs, cuts, fps, s.start, s.end, v_cfg) if has_video else None
+        chunk = samples[int(s.start * SAMPLE_RATE) : int(s.end * SAMPLE_RATE)]
+        clip = round(float(np.mean(np.abs(chunk) >= 0.99)), 5) if len(chunk) else None
         out.append(
             SegmentAVFeatures(
                 segment_id=s.id,
@@ -53,6 +55,7 @@ def extract_av_features(
                 silence_ratio=a.silence_ratio if a else None,
                 energy_db=a.energy_db if a else None,
                 energy_variation_db=a.energy_variation_db if a else None,
+                clipping_ratio=clip,
                 scene_cut_count=v.scene_cut_count if v else None,
                 cuts_per_minute=v.cuts_per_minute if v else None,
                 visual_change_mean=v.visual_change_mean if v else None,
@@ -69,5 +72,6 @@ def extract_av_features(
         sample_fps=fps if has_video else None,
         scene_cuts=cuts,
         silence_threshold_db=round(thr, 3) if len(db) else None,
+        snr_db=round(median - float(np.percentile(db, 5)), 2) if len(voiced) else None,
         segments=out,
     )

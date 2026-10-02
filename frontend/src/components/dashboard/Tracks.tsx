@@ -1,4 +1,7 @@
 import type { ReactNode } from "react";
+import { useParams } from "react-router-dom";
+import { useScores } from "../../api/hooks";
+import type { SegmentScore } from "../../api/types";
 import type { Edit, Flag, Prediction, Segment, Topic } from "../../api/types";
 import { ACTION_LABEL, mmss, range } from "../../lib/format";
 import { PLOT_LEFT, PLOT_RIGHT } from "./RetentionChart";
@@ -49,11 +52,40 @@ export default function Tracks({
 }) {
   const { seek, time, view, cut, selectedFlagId, acceptedEditIds, customCuts } = useTimeline();
   const x = useX();
+  const { id = "" } = useParams();
+  const scores = useScores(id).data;
+  const scoreBg = (v: number | null) =>
+    v == null ? "bg-white/[0.04]" : v >= 65 ? "bg-emerald-500/60" : v >= 40 ? "bg-med/70" : "bg-high/70";
+  const LANES: [string, keyof SegmentScore][] = [["Pace", "pacing"], ["Content", "content"], ["Visual", "visual"], ["Audio", "audio"]];
   const riskOf = (i: number) => prediction?.segments.find((s) => s.index === i)?.risk ?? "low";
   const playhead = ((time - view.start) / (view.end - view.start || 1)) * 100;
 
   return (
     <div className="relative space-y-1">
+      {scores &&
+        LANES.map(([label, key]) => (
+          <Lane key={key} label={label}>
+            {scores.segments.map((s) => {
+              const pos = x(s);
+              if (!pos.visible) return null;
+              const v = s[key] as number | null;
+              const inputs = Object.entries(s.inputs)
+                .filter(([, n]) => n != null)
+                .map(([k, n]) => `${k.replace(/_/g, " ")}: ${n}`)
+                .join("\n");
+              return (
+                <button
+                  key={`${key}-${s.index}`}
+                  type="button"
+                  title={`${label} ${v ?? "n/a"} · ${range(s.start, s.end)} · DROPZERO internal score\n${inputs}`}
+                  onClick={() => seek(s.start)}
+                  className={`absolute top-1 bottom-1 rounded-[4px] border-r-2 border-panel ${scoreBg(v)}`}
+                  style={{ left: pos.left, width: pos.width }}
+                />
+              );
+            })}
+          </Lane>
+        ))}
       <Lane label="Risk">
         {segments.map((s) => {
           const pos = x(s);

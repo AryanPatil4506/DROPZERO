@@ -8,6 +8,7 @@ import {
   type Segment,
   type CustomEdit,
   type Explanation,
+  type ScoreSet,
   type Simulation,
   type TextFeatures,
   type Transcript,
@@ -66,6 +67,7 @@ const live = {
   explain: (id: string, flagId: string, refresh = false) =>
     request<Explanation>(`/projects/${id}/flags/${flagId}/explain${refresh ? "?refresh=true" : ""}`, { method: "POST" }),
   getValidation: () => request<Validation>("/validation"),
+  getScores: (id: string) => request<ScoreSet>(`/projects/${id}/scores`),
   mediaUrl: (id: string) => `/api/projects/${id}/media`,
 };
 

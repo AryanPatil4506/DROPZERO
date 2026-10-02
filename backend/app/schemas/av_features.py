@@ -10,6 +10,7 @@ class SegmentAVFeatures(BaseModel):
     silence_ratio: float | None
     energy_db: float | None  # vs this video's median, so it's "quieter than your average"
     energy_variation_db: float | None
+    clipping_ratio: float | None = None  # share of samples at full scale
     # visual (None when the upload has no video stream)
     scene_cut_count: int | None
     cuts_per_minute: float | None
@@ -27,4 +28,5 @@ class AVFeatureSet(BaseModel):
     sample_fps: float | None
     scene_cuts: list[float]  # seconds
     silence_threshold_db: float | None
+    snr_db: float | None = None  # median voiced loudness above the noise floor (p5)
     segments: list[SegmentAVFeatures]

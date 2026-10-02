@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from backend.app.config import load_config
 from backend.app.deps import get_services
+from backend.app.detection.scores import ScoreSet, compute_scores
 from backend.app.explain.llm import Explanation, explain_flag
 from backend.app.ingestion.probe import ToolMissing, probe
 from backend.app.ingestion.validate import (
@@ -247,6 +248,16 @@ def post_simulate(
         body.custom_edits,
         load_model(),
     )
+
+
+@router.get("/{pid}/scores", response_model=ScoreSet)
+def get_scores(pid: str, svc: Services = Depends(get_services)) -> ScoreSet:
+    """Pacing / content / visual / audio-clarity lanes (internal scores, computed on the fly)."""
+    segs = [Segment.model_validate(x) for x in json.loads(_artifact(svc, pid, "segments"))]
+    tf = TextFeatureSet.model_validate_json(_artifact(svc, pid, "text_features"))
+    raw = svc.db.get_artifact(pid, "av_features")
+    av = AVFeatureSet.model_validate_json(raw) if raw else None
+    return compute_scores(segs, tf, av, load_config("scores"))
 
 
 @router.get("/{pid}/explanations", response_model=dict[str, Explanation])

@@ -25,6 +25,9 @@ export const usePrediction = (id: string) =>
 
 export const useFlags = (id: string) => useQuery({ queryKey: ["flags", id], queryFn: () => api.getFlags(id), retry: noRetryOn404 });
 
+export const useScores = (id: string) =>
+  useQuery({ queryKey: ["scores", id], queryFn: () => api.getScores(id), retry: noRetryOn404 });
+
 export const useValidation = () => useQuery({ queryKey: ["validation"], queryFn: api.getValidation, retry: noRetryOn404 });
 
 export const useSimulation = (id: string, editIds: string[], custom: CustomEdit[] = []) =>
