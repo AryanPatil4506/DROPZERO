@@ -1,4 +1,4 @@
-"""LLM explanations for flags (CLAUDE.md §10): the LLM narrates measured evidence, never invents it.
+"""LLM explanations for flags: the LLM narrates measured evidence, never invents it.
 
 Input: a structured evidence object (flag category, time range, feature values with labels) plus a
 short transcript excerpt. Output: strict JSON {reason, why_viewers_leave, fix, rewrite}.
