@@ -1,0 +1,8 @@
+# Local LLM for flag explanations and rewrites (CLAUDE.md §10). Open licence, runs on this machine.
+# Qwen3-1.7B: Apache-2.0, multilingual (incl. Hindi), ~3.4 GB in fp16.
+model: Qwen/Qwen3-1.7B
+max_new_tokens: 260
+# Greedy decoding: same evidence -> same text.
+do_sample: false
+excerpt_chars: 500
+retries: 1

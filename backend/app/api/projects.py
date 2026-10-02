@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from backend.app.config import load_config
 from backend.app.deps import get_services
+from backend.app.explain.llm import Explanation, explain_flag
 from backend.app.ingestion.probe import ToolMissing, probe
 from backend.app.ingestion.validate import (
     ValidationError,
@@ -246,6 +247,38 @@ def post_simulate(
         body.custom_edits,
         load_model(),
     )
+
+
+@router.get("/{pid}/explanations", response_model=dict[str, Explanation])
+def get_explanations(pid: str, svc: Services = Depends(get_services)) -> dict:
+    raw = svc.db.get_artifact(pid, "explanations")
+    return json.loads(raw) if raw else {}
+
+
+@router.post("/{pid}/flags/{fid}/explain", response_model=Explanation)
+def post_explain(
+    pid: str, fid: str, refresh: bool = False, svc: Services = Depends(get_services)
+) -> Explanation:
+    """LLM explanation of one flag from its evidence (cached). Numbers not present in the
+    evidence are rejected; on failure the deterministic template is returned (source=template)."""
+    p = _project(svc, pid)
+    flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+    flag = next((f for f in flags.flags if f.id == fid), None)
+    if flag is None:
+        raise HTTPException(404, "flag not found")
+    raw = svc.db.get_artifact(pid, "explanations")
+    cache = json.loads(raw) if raw else {}
+    key = f"{fid}:{flags.rules_version}"
+    if key in cache and not refresh:
+        return Explanation.model_validate(cache[key])
+    t = Transcript.model_validate_json(_artifact(svc, pid, "transcript"))
+    lang = t.language_detected if t.language_detected in ("en", "hi") else p.language.value
+    out = explain_flag(svc.llm, flag, flags.edits, t, lang, load_config("llm"))
+    cache[key] = out.model_dump()
+    svc.db.put_artifact(
+        pid, "explanations", flags.rules_version, json.dumps(cache, ensure_ascii=False)
+    )
+    return out
 
 
 _VIDEO_TYPES = {".mp4": "video/mp4", ".m4v": "video/mp4", ".mov": "video/quicktime"}

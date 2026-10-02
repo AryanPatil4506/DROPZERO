@@ -197,3 +197,18 @@ def test_exposure_simulation_cut_trim_speed():
     move = _edit("e2", "MOVE", 80.0, 85.0, target=0.0)
     sim3 = simulate_exposure(segs, fs, t.duration_s, pred.points, [move], ["e2"], [], art)
     assert sim3.skipped_edit_ids == ["e2"]
+
+
+def test_snap_to_pause_only_moves_points_inside_words():
+    from backend.app.detection.flags import snap_to_pause
+    from backend.app.schemas.transcript import Word
+
+    w = [
+        Word(text="a", start=1.0, end=2.0),
+        Word(text="b", start=2.4, end=3.0),
+        Word(text="c", start=5.0, end=6.0),
+    ]
+    assert snap_to_pause(0.5, w, 1.5) == 0.5  # already in a pause
+    assert snap_to_pause(4.0, w, 1.5) == 4.0
+    assert snap_to_pause(1.9, w, 1.5) == 2.2  # inside "a" -> pause after it
+    assert snap_to_pause(2.5, w, 1.5) == 2.2  # inside "b" -> pause before it

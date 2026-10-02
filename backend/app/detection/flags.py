@@ -20,7 +20,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.3"
+RULES_VERSION = "rules-1.4"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -70,10 +70,24 @@ def _runs(items, pred):
     return runs
 
 
+def snap_to_pause(t: float, words, window: float) -> float:
+    """If a cut point falls inside a word, move it to the nearer pause around that word (within
+    window s). Points already in a pause are left alone."""
+    for i, w in enumerate(words):
+        if w.start < t < w.end:
+            before = (words[i - 1].end + w.start) / 2 if i > 0 else w.start
+            after = (w.end + words[i + 1].start) / 2 if i + 1 < len(words) else w.end
+            best = min((before, after), key=lambda x: abs(x - t))
+            return round(best, 3) if abs(best - t) <= window else t
+    return t
+
+
 class _Builder:
-    def __init__(self) -> None:
+    def __init__(self, words=None, snap_window: float = 0.0) -> None:
         self.flags: list[Flag] = []
         self.edits: list[Edit] = []
+        self.words = words or []
+        self.snap_window = snap_window
 
     def flag(self, **kw: Any) -> Flag:
         f = Flag(id=f"f{len(self.flags) + 1}", **kw)
@@ -81,6 +95,11 @@ class _Builder:
         return f
 
     def edit(self, f: Flag, **kw: Any) -> None:
+        if kw["action"] == "CUT" and self.words and self.snap_window > 0:
+            a = snap_to_pause(kw["start"], self.words, self.snap_window)
+            b = snap_to_pause(kw["end"], self.words, self.snap_window)
+            if b > a:
+                kw["start"], kw["end"] = a, b
         e = Edit(
             id=f"e{len(self.edits) + 1}",
             flag_id=f.id,
@@ -100,7 +119,7 @@ def detect(
     cfg: dict,
     av: AVFeatureSet | None = None,
 ) -> FlagsResponse:
-    b = _Builder()
+    b = _Builder(t.words, cfg["cuts"]["snap_window_s"])
     feats = {f.index: f for f in tf.segments}
     av_by = {a.index: a for a in av.segments} if av else {}
     speech = [s for s in segments if s.kind == "speech"]
@@ -351,33 +370,54 @@ def detect(
         lo, hi = run[0].start, run[-1].end
         if hi - lo < sil_cfg["mid_video_silence_s"]:
             continue
-        note = (
-            " (this video is mostly music/visuals, so this may simply be the format)"
-            if music_led
-            else "; otherwise viewers drift"
-        )
+        quiet = [
+            av_by[x.index].silence_ratio
+            for x in run
+            if x.index in av_by and av_by[x.index].silence_ratio is not None
+        ]
+        dead_air = bool(quiet) and float(np.mean(quiet)) >= sil_cfg["dead_air_silence_ratio"]
+        if not quiet:  # script mode / no audio analysis: fall back to the speech-only view
+            dead_air = not music_led
+        if not dead_air and hi - lo < sil_cfg["music_min_s"]:
+            continue  # music / visuals without speech: only long stretches are worth a flag
+        if dead_air:
+            title = f"{hi - lo:.0f} s of dead air"
+            expl = "No speech and almost no sound here; viewers have nothing to hold on to."
+            ev_extra = (
+                [
+                    Evidence(
+                        label="Share of this stretch that is silent audio",
+                        value=round(float(np.mean(quiet)), 3),
+                    )
+                ]
+                if quiet
+                else []
+            )
+        else:
+            title = f"{hi - lo:.0f} s of music/visuals without speech"
+            expl = (
+                "Music or visuals carry this stretch without speech. Fine if something worth "
+                "watching is on screen; long stretches risk losing viewers."
+            )
+            ev_extra = [Evidence(label="Share of video with speech", value=round(speech_share, 3))]
         f = b.flag(
             start=lo,
             end=hi,
             severity="medium",
             category="silence",
             source=src(True, lo, hi),
-            risk_score=0.3 if music_led else 0.5,
-            title=f"{hi - lo:.0f} s without speech",
-            explanation="No speech here. Fine if something worth watching is on screen"
-            + note
-            + ".",
-            evidence=[
-                Evidence(label="No speech for", value=round(hi - lo, 1), unit="s"),
-                Evidence(label="Share of video with speech", value=round(speech_share, 3)),
-            ],
+            risk_score=0.6 if dead_air else 0.3,
+            title=title,
+            explanation=expl,
+            evidence=[Evidence(label="No speech for", value=round(hi - lo, 1), unit="s")]
+            + ev_extra,
         )
         b.edit(
             f,
             action="CUT",
             start=lo + 0.5,
             end=hi - 0.5,
-            reason=f"Trim the silence {mmss(lo)}–{mmss(hi)} to a short beat",
+            reason=f"Trim {mmss(lo)}–{mmss(hi)} to a short beat",
         )
 
     # ---- static picture

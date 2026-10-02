@@ -63,6 +63,7 @@ class Services:
     key: bytes | None
     _asr: AsrBackend | None = None
     _embedder: Embedder | None = None
+    _llm: Any = None
     extra: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -70,6 +71,14 @@ class Services:
         if self._asr is None:
             self._asr = FasterWhisperBackend(load_config("asr"), self.settings.asr_device)
         return self._asr
+
+    @property
+    def llm(self):
+        if self._llm is None:
+            from backend.app.explain.llm import LocalLLM
+
+            self._llm = LocalLLM(load_config("llm"))
+        return self._llm
 
     @property
     def embedder(self) -> Embedder:
@@ -149,6 +158,8 @@ def _transcribe(svc: Services, p: Project, work: Path, ctx: dict) -> None:
         svc.asr, audio, audio_sha256(audio), lang, svc.settings.cache_dir, svc.key
     )
     log.info("ASR %s for project %s", "cache hit" if hit else "ran", p.id)
+    if hasattr(svc.asr, "unload"):
+        svc.asr.unload()
     t = raw_to_transcript(
         raw,
         p.id,

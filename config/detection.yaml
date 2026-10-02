@@ -38,6 +38,8 @@ pacing:
 silence:
   mid_video_silence_s: 6.0    # consecutive no-speech time this long after the intro
   music_led_speech_share: 0.4 # below this share of speech, silence may be the format
+  dead_air_silence_ratio: 0.6 # audio itself silent for >= this share -> dead air
+  music_min_s: 45.0           # music/visuals without speech: flag only this long
   speech_silence_ratio: 0.5   # >= half of a speech segment is silence
 
 visual:
@@ -48,3 +50,6 @@ model:
   # A segment the model rates "high" with no rule evidence still becomes a medium flag:
   # "model-estimated drop risk, no single clear cause".
   flag_model_only: true
+
+cuts:
+  snap_window_s: 1.5          # move cut points into the nearest pause between words

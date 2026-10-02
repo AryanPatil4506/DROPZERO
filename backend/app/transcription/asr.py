@@ -71,6 +71,11 @@ class FasterWhisperBackend:
                 )
         return self._model
 
+    def unload(self) -> None:
+        """Free GPU memory (the explanation LLM shares the 8 GB card). Reloads on next use."""
+        with self._lock:
+            self._model = None
+
     def detect_language(self, audio: np.ndarray) -> tuple[str, float]:
         """Language of the first 30 s of audio: (code, probability)."""
         model = self._load()
