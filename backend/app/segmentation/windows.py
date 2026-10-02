@@ -23,6 +23,7 @@ from typing import Any
 
 from backend.app.schemas.segment import Boundary, Segment
 from backend.app.schemas.transcript import Transcript, Word
+from backend.app.segmentation.sentences import join_tokens
 from backend.app.versions import SEGMENTER_VERSION
 
 _REASON_TO_BOUNDARY: dict[str, Boundary] = {
@@ -189,7 +190,7 @@ def segment_transcript(
                 kind="speech",
                 speech_start=grp[0].start,
                 speech_end=grp[-1].end,
-                text=" ".join(w.text.strip() for w in t.words[ws:we]).strip(),
+                text=join_tokens(w.text for w in t.words[ws:we]),
                 sentence_ids=sorted({u.sentence_idx for u in grp}),
                 word_start=ws,
                 word_end=we,

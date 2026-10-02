@@ -12,6 +12,24 @@ from backend.app.schemas.transcript import Sentence, SentenceEnd, Word
 _CLOSERS = "\"'”’)]}»"
 
 
+def _is_cjk(ch: str) -> bool:
+    o = ord(ch)
+    return 0x3400 <= o <= 0x9FFF or 0x3000 <= o <= 0x303F or 0xFF00 <= o <= 0xFFEF
+
+
+def join_tokens(tokens) -> str:
+    """Join word tokens with spaces, except between two CJK characters (Chinese captions are
+    tokenised per character and must not become spaced-out text)."""
+    out = ""
+    for tok in (t.strip() for t in tokens):
+        if not tok:
+            continue
+        if out and not (_is_cjk(out[-1]) and _is_cjk(tok[0])):
+            out += " "
+        out += tok
+    return out
+
+
 def is_terminal(token: str, cfg: dict[str, Any]) -> bool:
     t = token.strip().rstrip(_CLOSERS)
     if not t:
@@ -46,7 +64,7 @@ def build_sentences(words: list[Word], cfg: dict[str, Any]) -> list[Sentence]:
                 idx=len(sentences),
                 start=words[start].start,
                 end=w.end,
-                text=" ".join(x.text.strip() for x in words[start : i + 1]).strip(),
+                text=join_tokens(x.text for x in words[start : i + 1]),
                 word_start=start,
                 word_end=i + 1,
                 end_reason=reason,

@@ -1,8 +1,8 @@
 """Write real API responses for the frontend to develop against: frontend/mock/<lang>/*.json.
 
 Runs the actual pipeline in-process (script mode, real embedding model) on the fixture scripts.
-Only the *existing* endpoints are exported here; mocks for not-yet-built endpoints are hand-written
-in frontend/mock/contract/ and follow docs/frontend-brief.md.
+Also writes the English responses to frontend/mock/contract/ (kept for paths the frontend already
+uses) and the model's held-out validation report to frontend/mock/validation.json.
 
     python scripts/export_api_samples.py
 """
@@ -58,6 +58,8 @@ def main() -> None:
                     "transcript.json": f"/api/projects/{pid}/transcript",
                     "segments.json": f"/api/projects/{pid}/segments",
                     "features_text.json": f"/api/projects/{pid}/features/text",
+                    "prediction.json": f"/api/projects/{pid}/prediction",
+                    "flags.json": f"/api/projects/{pid}/flags",
                 }
                 for name, url in files.items():
                     r = c.get(url)
@@ -65,7 +67,27 @@ def main() -> None:
                     (d / name).write_text(
                         json.dumps(r.json(), ensure_ascii=False, indent=1), encoding="utf-8"
                     )
+                ids = [
+                    e["id"]
+                    for e in c.get(f"/api/projects/{pid}/flags").json()["edits"]
+                    if e["simulatable"]
+                ]
+                if ids:
+                    r = c.post(f"/api/projects/{pid}/simulate", json={"edit_ids": ids})
+                    r.raise_for_status()
+                    (d / "simulate.json").write_text(
+                        json.dumps(r.json(), ensure_ascii=False, indent=1), encoding="utf-8"
+                    )
+                if lang == "en":
+                    cdir = OUT / "contract"
+                    cdir.mkdir(exist_ok=True)
+                    for name in ("prediction.json", "flags.json", "simulate.json"):
+                        if (d / name).exists():
+                            shutil.copy(d / name, cdir / name)
                 print("wrote", d.relative_to(ROOT))
+            v = c.get("/api/validation").json()
+            for path in (OUT / "validation.json", OUT / "contract" / "validation.json"):
+                path.write_text(json.dumps(v, ensure_ascii=False, indent=1), encoding="utf-8")
     finally:
         app.dependency_overrides.clear()
         svc.db.engine.dispose()

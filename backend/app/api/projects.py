@@ -4,6 +4,7 @@ import shutil
 from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, UploadFile
+from pydantic import BaseModel
 
 from backend.app.config import load_config
 from backend.app.deps import get_services
@@ -17,10 +18,13 @@ from backend.app.ingestion.validate import (
 from backend.app.pipeline.runner import Services, new_job, run_job
 from backend.app.schemas.av_features import AVFeatureSet
 from backend.app.schemas.features import TextFeatureSet
+from backend.app.schemas.flags import FlagsResponse
 from backend.app.schemas.job import Job
+from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.project import Project, ProjectCreate, ProjectStatus, SourceType
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
+from backend.app.simulate.edits import Simulation, simulate
 from backend.app.storage.db import new_id, utcnow
 
 router = APIRouter(prefix="/api/projects", tags=["projects"])
@@ -197,6 +201,34 @@ def get_av_features(pid: str, svc: Services = Depends(get_services)) -> AVFeatur
     if _project(svc, pid).source_type == SourceType.SCRIPT:
         raise HTTPException(404, "audio/visual features need a video upload (script mode)")
     return AVFeatureSet.model_validate_json(_artifact(svc, pid, "av_features"))
+
+
+@router.get("/{pid}/prediction", response_model=Prediction)
+def get_prediction(pid: str, svc: Services = Depends(get_services)) -> Prediction:
+    return Prediction.model_validate_json(_artifact(svc, pid, "prediction"))
+
+
+@router.get("/{pid}/flags", response_model=FlagsResponse)
+def get_flags(pid: str, svc: Services = Depends(get_services)) -> FlagsResponse:
+    return FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+
+
+class SimulateRequest(BaseModel):
+    edit_ids: list[str]
+
+
+@router.post("/{pid}/simulate", response_model=Simulation)
+def post_simulate(
+    pid: str, body: SimulateRequest, svc: Services = Depends(get_services)
+) -> Simulation:
+    t = Transcript.model_validate_json(_artifact(svc, pid, "transcript"))
+    flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+    pred = Prediction.model_validate_json(_artifact(svc, pid, "prediction"))
+    unknown = set(body.edit_ids) - {e.id for e in flags.edits}
+    if unknown or not body.edit_ids:
+        raise HTTPException(422, f"unknown or empty edit ids: {sorted(unknown)}")
+    cfgs = {k: load_config(k) for k in ("segmentation", "text_features", "fillers")}
+    return simulate(t, flags.edits, body.edit_ids, pred.points, svc.embedder, cfgs)
 
 
 @router.delete("/{pid}", status_code=204)

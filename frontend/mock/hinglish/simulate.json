@@ -1,0 +1,162 @@
+{
+ "label": "Simulated: model-estimated effect of these edits on the predicted curve. Not a measured or guaranteed outcome.",
+ "applied_edit_ids": [
+  "e1",
+  "e2"
+ ],
+ "skipped_edit_ids": [],
+ "original": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 8.825,
+   "retention": 0.821,
+   "lower": 0.677,
+   "upper": 1.0
+  },
+  {
+   "t": 16.067,
+   "retention": 0.5078,
+   "lower": 0.2041,
+   "upper": 1.0
+  },
+  {
+   "t": 26.867,
+   "retention": 0.4101,
+   "lower": 0.1446,
+   "upper": 1.0
+  },
+  {
+   "t": 39.617,
+   "retention": 0.3927,
+   "lower": 0.1286,
+   "upper": 1.0
+  },
+  {
+   "t": 49.292,
+   "retention": 0.385,
+   "lower": 0.1221,
+   "upper": 1.0
+  },
+  {
+   "t": 59.192,
+   "retention": 0.3775,
+   "lower": 0.1163,
+   "upper": 1.0
+  },
+  {
+   "t": 69.283,
+   "retention": 0.3701,
+   "lower": 0.1098,
+   "upper": 1.0
+  },
+  {
+   "t": 83.417,
+   "retention": 0.3616,
+   "lower": 0.1042,
+   "upper": 1.0
+  },
+  {
+   "t": 96.167,
+   "retention": 0.3541,
+   "lower": 0.0992,
+   "upper": 1.0
+  },
+  {
+   "t": 108.917,
+   "retention": 0.3465,
+   "lower": 0.0943,
+   "upper": 1.0
+  },
+  {
+   "t": 117.758,
+   "retention": 0.3407,
+   "lower": 0.0911,
+   "upper": 1.0
+  },
+  {
+   "t": 131.25,
+   "retention": 0.332,
+   "lower": 0.0829,
+   "upper": 1.0
+  }
+ ],
+ "simulated": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 8.825,
+   "retention": 0.821,
+   "lower": 0.677,
+   "upper": 1.0
+  },
+  {
+   "t": 16.067,
+   "retention": 0.5078,
+   "lower": 0.2041,
+   "upper": 1.0
+  },
+  {
+   "t": 26.867,
+   "retention": 0.4101,
+   "lower": 0.1448,
+   "upper": 1.0
+  },
+  {
+   "t": 39.617,
+   "retention": 0.3927,
+   "lower": 0.1288,
+   "upper": 1.0
+  },
+  {
+   "t": 52.367,
+   "retention": 0.3827,
+   "lower": 0.1204,
+   "upper": 1.0
+  },
+  {
+   "t": 65.792,
+   "retention": 0.3728,
+   "lower": 0.1128,
+   "upper": 1.0
+  },
+  {
+   "t": 77.258,
+   "retention": 0.3647,
+   "lower": 0.1058,
+   "upper": 1.0
+  },
+  {
+   "t": 90.841,
+   "retention": 0.3562,
+   "lower": 0.1005,
+   "upper": 1.0
+  },
+  {
+   "t": 104.424,
+   "retention": 0.3472,
+   "lower": 0.0954,
+   "upper": 1.0
+  },
+  {
+   "t": 114.166,
+   "retention": 0.3225,
+   "lower": 0.0886,
+   "upper": 1.0
+  }
+ ],
+ "original_duration_s": 131.25,
+ "simulated_duration_s": 114.166,
+ "delta": {
+  "end_retention_pp": -1.0,
+  "avg_retention_pp": 1.2
+ }
+}

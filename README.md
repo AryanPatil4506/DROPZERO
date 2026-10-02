@@ -2,8 +2,9 @@
 
 DROPZERO is an AI-powered pre-publish audience simulator that analyzes a video’s transcript, audio, visuals, pacing, and structure to predict where viewers may lose interest. It explains the likely causes, suggests exact edits, simulates their potential impact on retention, and can compare predictions with real retention data after publishing.
 
-**Status:** build order steps 1–4 done (upload + storage, transcription + segmentation, text
-features, audio + visual features). Details and known gaps: `docs/build-status.md`.
+**Status:** build order steps 1–8 done: upload + storage, transcription + segmentation, text /
+audio / visual features, retention model trained and validated on real viewing data, drop-off
+flags with evidence, edit suggestions, before/after simulation. Details: `docs/build-status.md`. Details and known gaps: `docs/build-status.md`.
 
 Everything runs locally with open-source models (faster-whisper large-v3, a multilingual
 sentence-embedding model). No hosted APIs.
@@ -51,6 +52,10 @@ First analysis downloads model weights into the Hugging Face cache (~3 GB Whispe
 | GET | `/api/projects/{id}/segments` | 5–15 s analysis windows tiling the whole video |
 | GET | `/api/projects/{id}/features/text` | per-segment text features + topic sections |
 | GET | `/api/projects/{id}/features/av` | per-segment audio + visual features, scene cuts (video only) |
+| GET | `/api/projects/{id}/prediction` | model-estimated retention curve with band + per-segment risk |
+| GET | `/api/projects/{id}/flags` | drop-off flags with evidence, title-promise check, suggested edits |
+| POST | `/api/projects/{id}/simulate` | `{"edit_ids": [...]}` → original vs simulated curve (model-estimated) |
+| GET | `/api/validation` | held-out validation report of the current model |
 | DELETE | `/api/projects/{id}` | deletes encrypted media and all derived data |
 
 Example:
@@ -90,9 +95,24 @@ real ASR output. They test segmentation and feature logic only.
 The GPU test needs two real 30 s clips recorded by the team, which are not in git:
 `backend/tests/fixtures/audio/hi_30s.wav` and `hinglish_30s.wav`.
 
+## Model (real viewing data)
+
+The retention model is trained on MOOCCubeX: real per-viewer watch logs of 1,200 online-course
+lectures (Chinese, not YouTube), split by lecture. `models/retention_model.pkl` and
+`models/validation.json` are committed, so the app works without retraining. To rebuild:
+
+```powershell
+# download (~3.9 GB) into data\raw\mooccubex\: relations/video_id-ccid.txt, entities/video.json,
+# relations/user-video.json from https://lfs.aminer.cn/misc/moocdata/data/mooccube2/
+.venv\Scripts\python scripts\build_mooc_curves.py   # real retention curves
+.venv\Scripts\python scripts\train_model.py         # train + held-out validation
+```
+
 ## Scripts
 
 - `scripts/gen_key.py` — new media encryption key.
 - `scripts/make_asr_fixtures.py` — regenerate the synthetic ASR fixtures (deterministic).
+- `scripts/build_mooc_curves.py`, `scripts/train_model.py` — real retention curves, model + validation.
+- `scripts/export_api_samples.py` — real API responses into `frontend/mock/` for UI work.
 - `scripts/embedding_benchmark.py` — compares open multilingual embedding models on
   repeat-vs-progress separation; results in `docs/embedding_benchmark.md`.

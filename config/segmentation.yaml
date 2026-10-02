@@ -1,5 +1,5 @@
 sentences:
-  terminal_punctuation: [".", "?", "!", "।", "॥"]
+  terminal_punctuation: [".", "?", "!", "।", "॥", "。", "？", "！"]
   # Tokens ending in "." that do not end a sentence.
   abbreviations: ["mr.", "mrs.", "ms.", "dr.", "e.g.", "i.e.", "etc.", "vs.", "no.", "st."]
   # Pause fallback for unpunctuated speech (common in Hinglish ASR):

@@ -1,15 +1,17 @@
 {
- "id": "01M3YZD37R86PRZCH9SWXJFP0W",
- "project_id": "01M3YZD368RXTS4B9MBGERA08K",
+ "id": "01M3Z30HQ6YWBK9493G8TBCZ0V",
+ "project_id": "01M3Z30HPFFWGP38P438AGSW4Q",
  "status": "done",
  "stages": [
   "estimate_timing",
   "segment",
-  "text_features"
+  "text_features",
+  "predict",
+  "detect"
  ],
  "stage": null,
  "progress": 1.0,
  "error": null,
- "created_at": "2026-10-02T18:53:08.728401Z",
- "finished_at": "2026-10-02T18:53:26.768944Z"
+ "created_at": "2026-10-02T19:56:11.878463Z",
+ "finished_at": "2026-10-02T19:56:39.229342Z"
 }

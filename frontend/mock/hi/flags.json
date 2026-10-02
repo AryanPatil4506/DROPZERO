@@ -1,0 +1,131 @@
+{
+ "project_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4",
+ "model_version": "mooc-hgb-060572ff",
+ "rules_version": "rules-1.0",
+ "promise": {
+  "title": "घर पर गाढ़ा दही कैसे जमाएं",
+  "first_mention_s": 11.5,
+  "first_mention_text": "मतलब, बहुत लोग पूछते हैं कि उनका दही पतला क्यों जमता है।",
+  "best_match_s": 0.0,
+  "best_similarity": 1.0
+ },
+ "flags": [
+  {
+   "id": "f2",
+   "start": 6.884,
+   "end": 17.355,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 1.0,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.3852,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  },
+  {
+   "id": "f3",
+   "start": 31.457,
+   "end": 42.607,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 0.175,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.035,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  },
+  {
+   "id": "f1",
+   "start": 66.85,
+   "end": 80.727,
+   "severity": "medium",
+   "category": "repetition",
+   "source": "rule",
+   "risk_score": 0.645,
+   "title": "Repeats 00:31–00:43",
+   "explanation": "This section says much the same as 00:31–00:43 (similarity 0.6455).",
+   "evidence": [
+    {
+     "label": "Similarity to earlier section",
+     "value": 0.6455,
+     "unit": null,
+     "ref_start": 31.457,
+     "ref_end": 42.607
+    },
+    {
+     "label": "New information vs everything before",
+     "value": 0.3545,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    },
+    {
+     "label": "Earlier sections it resembles",
+     "value": 2.0,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": [
+    "e1"
+   ]
+  },
+  {
+   "id": "f4",
+   "start": 114.752,
+   "end": 126.232,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 0.194,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.0388,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  }
+ ],
+ "edits": [
+  {
+   "id": "e1",
+   "flag_id": "f1",
+   "action": "CUT",
+   "start": 70.782,
+   "end": 80.327,
+   "target_time": null,
+   "reason": "Cut 01:11–01:20: repeats 00:31–00:43",
+   "rewrite_text": null,
+   "simulatable": true
+  }
+ ]
+}

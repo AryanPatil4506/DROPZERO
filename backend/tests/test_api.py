@@ -66,6 +66,18 @@ def test_script_flow(client, svc, lang):
     assert len(fs["segments"]) == len(segs) and fs["timing_source"] == "estimated"
     p = client.get(f"/api/projects/{pid}").json()
     assert p["status"] == "ready" and p["duration_s"] == segs[-1]["end"]
+    pred = client.get(f"/api/projects/{pid}/prediction").json()
+    assert pred["points"][0] == {"t": 0.0, "retention": 1.0, "lower": 1.0, "upper": 1.0}
+    assert len(pred["segments"]) == len(segs)
+    fl = client.get(f"/api/projects/{pid}/flags").json()
+    assert fl["promise"]["title"] and fl["model_version"] == pred["model_version"]
+    sim_ids = [e["id"] for e in fl["edits"] if e["simulatable"]]
+    if sim_ids:
+        sim = client.post(f"/api/projects/{pid}/simulate", json={"edit_ids": sim_ids}).json()
+        assert "Simulated" in sim["label"] and sim["original"] == pred["points"]
+    assert (
+        client.post(f"/api/projects/{pid}/simulate", json={"edit_ids": ["nope"]}).status_code == 422
+    )
     # script text is stored encrypted only
     enc = svc.store.path(pid, "script").read_bytes()
     assert path.read_bytes()[:30] not in enc
@@ -168,6 +180,12 @@ def test_duration_rejection(client, monkeypatch):
     pid = _create(client)
     r = client.post(f"/api/projects/{pid}/video", files={"file": ("v.mp4", MP4_HEAD * 10)})
     assert r.status_code == 422 and "too short" in r.json()["detail"]
+
+
+def test_validation_endpoint(client):
+    v = client.get("/api/validation").json()
+    assert v["n_videos_test"] > 0 and "not YouTube" in v["dataset"]
+    assert {"mae", "rmse", "pearson", "spearman"} <= set(v["metrics"]) <= set(v["baseline"])
 
 
 def test_analyze_requires_source(client):

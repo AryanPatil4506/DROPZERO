@@ -1,13 +1,14 @@
 from datetime import datetime
 from enum import StrEnum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class Language(StrEnum):
     EN = "en"
     HI = "hi"
     HINGLISH = "hinglish"
+    ZH = "zh"  # validation dataset only (MOOCCubeX lectures); not offered to creators
 
 
 class SourceType(StrEnum):
@@ -35,6 +36,13 @@ class ProjectCreate(BaseModel):
     category: Category
     language: Language
     target_audience: str | None = None
+
+    @field_validator("language")
+    @classmethod
+    def _creator_languages(cls, v: Language) -> Language:
+        if v == Language.ZH:
+            raise ValueError("supported languages: en, hi, hinglish")
+        return v
 
 
 class MediaInfo(BaseModel):

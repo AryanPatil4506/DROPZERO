@@ -1,0 +1,193 @@
+{
+ "project_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4",
+ "model_version": "mooc-hgb-060572ff",
+ "feature_schema_version": "text-1.0",
+ "timing_source": "estimated",
+ "label": "Model-estimated retention (DROPZERO internal score, not YouTube analytics). Model trained on real lecture-viewing data; the shaded band is the likely range.",
+ "points": [
+  {
+   "t": 0.0,
+   "retention": 1.0,
+   "lower": 1.0,
+   "upper": 1.0
+  },
+  {
+   "t": 6.884,
+   "retention": 0.8574,
+   "lower": 0.7329,
+   "upper": 1.0
+  },
+  {
+   "t": 17.355,
+   "retention": 0.5271,
+   "lower": 0.244,
+   "upper": 1.0
+  },
+  {
+   "t": 31.457,
+   "retention": 0.5117,
+   "lower": 0.2131,
+   "upper": 1.0
+  },
+  {
+   "t": 42.607,
+   "retention": 0.4938,
+   "lower": 0.1917,
+   "upper": 1.0
+  },
+  {
+   "t": 55.805,
+   "retention": 0.4809,
+   "lower": 0.179,
+   "upper": 1.0
+  },
+  {
+   "t": 66.85,
+   "retention": 0.4704,
+   "lower": 0.1694,
+   "upper": 1.0
+  },
+  {
+   "t": 80.727,
+   "retention": 0.4581,
+   "lower": 0.1602,
+   "upper": 1.0
+  },
+  {
+   "t": 92.786,
+   "retention": 0.4485,
+   "lower": 0.1525,
+   "upper": 1.0
+  },
+  {
+   "t": 103.027,
+   "retention": 0.44,
+   "lower": 0.1465,
+   "upper": 1.0
+  },
+  {
+   "t": 114.752,
+   "retention": 0.4302,
+   "lower": 0.14,
+   "upper": 1.0
+  },
+  {
+   "t": 126.232,
+   "retention": 0.4135,
+   "lower": 0.127,
+   "upper": 1.0
+  }
+ ],
+ "segments": [
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0000",
+   "index": 0,
+   "start": 0.0,
+   "end": 6.884,
+   "p_drop": 0.1426,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.2671,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0001",
+   "index": 1,
+   "start": 6.884,
+   "end": 17.355,
+   "p_drop": 0.3852,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.6671,
+   "risk": "high"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0002",
+   "index": 2,
+   "start": 17.355,
+   "end": 31.457,
+   "p_drop": 0.0292,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.1265,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0003",
+   "index": 3,
+   "start": 31.457,
+   "end": 42.607,
+   "p_drop": 0.035,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.1006,
+   "risk": "high"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0004",
+   "index": 4,
+   "start": 42.607,
+   "end": 55.805,
+   "p_drop": 0.0261,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0659,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0005",
+   "index": 5,
+   "start": 55.805,
+   "end": 66.85,
+   "p_drop": 0.0218,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0537,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0006",
+   "index": 6,
+   "start": 66.85,
+   "end": 80.727,
+   "p_drop": 0.0262,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0542,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0007",
+   "index": 7,
+   "start": 80.727,
+   "end": 92.786,
+   "p_drop": 0.021,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0481,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0008",
+   "index": 8,
+   "start": 92.786,
+   "end": 103.027,
+   "p_drop": 0.0189,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0394,
+   "risk": "medium"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0009",
+   "index": 9,
+   "start": 103.027,
+   "end": 114.752,
+   "p_drop": 0.0222,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0449,
+   "risk": "low"
+  },
+  {
+   "segment_id": "01M3Z31CS6RKJJPPZB5PW0QEJ4:0010",
+   "index": 10,
+   "start": 114.752,
+   "end": 126.232,
+   "p_drop": 0.0388,
+   "p_drop_low": 0.0,
+   "p_drop_high": 0.0923,
+   "risk": "high"
+  }
+ ]
+}

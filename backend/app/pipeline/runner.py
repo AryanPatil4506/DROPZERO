@@ -12,11 +12,13 @@ from pathlib import Path
 from typing import Any
 
 from backend.app.config import load_config
+from backend.app.detection.flags import detect, promise_check
 from backend.app.features.av import detect_cuts, extract_av_features
 from backend.app.features.text.embedder import Embedder, SentenceTransformerEmbedder
 from backend.app.features.text.extract import extract_text_features
 from backend.app.features.visual.frames import sample_frames
 from backend.app.ingestion.audio import audio_sha256, extract_audio, load_wav
+from backend.app.model.predict import predict
 from backend.app.schemas.job import Job, JobStatus
 from backend.app.schemas.project import Project, ProjectStatus, SourceType
 from backend.app.schemas.segment import Segment
@@ -41,8 +43,16 @@ from backend.app.versions import (
 
 log = logging.getLogger("dropzero.pipeline")
 
-VIDEO_STAGES = ["extract_media", "transcribe", "segment", "text_features", "av_features"]
-SCRIPT_STAGES = ["estimate_timing", "segment", "text_features"]
+VIDEO_STAGES = [
+    "extract_media",
+    "transcribe",
+    "segment",
+    "text_features",
+    "av_features",
+    "predict",
+    "detect",
+]
+SCRIPT_STAGES = ["estimate_timing", "segment", "text_features", "predict", "detect"]
 
 
 @dataclass
@@ -182,6 +192,23 @@ def _text_features(svc: Services, p: Project, work: Path, ctx: dict) -> None:
         ctx["transcript"], segs, svc.embedder, load_config("text_features"), load_config("fillers")
     )
     svc.db.put_artifact(p.id, "text_features", FEATURE_SCHEMA_VERSION, fs.model_dump_json())
+    ctx["text_features"] = fs
+
+
+def _predict(svc: Services, p: Project, work: Path, ctx: dict) -> None:
+    t = ctx["transcript"]
+    pred = predict(ctx["segments"], ctx["text_features"], t.duration_s)
+    svc.db.put_artifact(p.id, "prediction", pred.model_version, pred.model_dump_json())
+    ctx["prediction"] = pred
+
+
+def _detect(svc: Services, p: Project, work: Path, ctx: dict) -> None:
+    cfg = load_config("detection")
+    t = ctx["transcript"]
+    promise = promise_check(p.title, t, svc.embedder, cfg["promise"])
+    av = ctx.get("av_features")
+    res = detect(t, ctx["segments"], ctx["text_features"], ctx["prediction"], promise, cfg, av)
+    svc.db.put_artifact(p.id, "flags", res.rules_version, res.model_dump_json())
 
 
 def _av_features(svc: Services, p: Project, work: Path, ctx: dict) -> None:
@@ -195,11 +222,14 @@ def _av_features(svc: Services, p: Project, work: Path, ctx: dict) -> None:
         load_config("av_features"),
     )
     svc.db.put_artifact(p.id, "av_features", AV_FEATURE_SCHEMA_VERSION, fs.model_dump_json())
+    ctx["av_features"] = fs
 
 
 _STAGES = {
     "extract_media": _extract_media,
     "av_features": _av_features,
+    "predict": _predict,
+    "detect": _detect,
     "transcribe": _transcribe,
     "estimate_timing": _estimate_timing,
     "segment": _segment,

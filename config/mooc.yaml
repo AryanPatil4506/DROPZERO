@@ -1,0 +1,11 @@
+# Real-retention dataset built from MOOCCubeX watch logs (scripts/build_mooc_curves.py).
+# Retention R(t) = share of viewers who *started* the lecture whose watched intervals cover second t.
+# Skipping ahead counts as not watching that part. Not YouTube data: online-course lecture viewing.
+start_tolerance_s: 10.0     # a viewer "started" the lecture if their first watched point is <= this
+min_starters: 100           # lectures with fewer starting viewers are too noisy to use
+min_duration_s: 180         # 3–25 min lectures (duration = last caption end)
+max_duration_s: 1500
+min_caption_lines: 20
+max_videos: 1200            # most-watched qualifying lectures
+# Fixed split by hashed lecture id (never by segment): no lecture appears in both train and test.
+test_fraction: 0.2

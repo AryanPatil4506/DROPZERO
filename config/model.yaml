@@ -1,0 +1,24 @@
+# Retention-risk model (Step 5). Changing anything here changes the model version hash.
+model:
+  max_iter: 300
+  learning_rate: 0.05
+  max_leaf_nodes: 15
+  min_samples_leaf: 40
+  l2_regularization: 1.0
+  random_state: 0
+  band_quantiles: [0.1, 0.9]     # uncertainty band = hazard quantile models
+
+baseline:
+  position_bins: 20               # category-average curve: mean hazard by relative position
+
+detection:
+  # A "major drop" in the actual data: a non-first segment losing at least this share of the
+  # viewers it started with. The intro drop is excluded because position alone predicts it.
+  major_drop_hazard: 0.05
+  tolerance_s: 10.0
+  # Predicted-drop threshold is picked on TRAIN lectures only (best F1), never on test.
+
+risk_levels:
+  # Creator-facing risk from predicted hazard, as quantiles of non-first TRAIN predictions.
+  high_quantile: 0.90
+  medium_quantile: 0.75

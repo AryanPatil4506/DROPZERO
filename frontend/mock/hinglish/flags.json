@@ -1,0 +1,208 @@
+{
+ "project_id": "01M3Z31DFWQ2HYNDJP29QJVKTY",
+ "model_version": "mooc-hgb-060572ff",
+ "rules_version": "rules-1.0",
+ "promise": {
+  "title": "15000 ke under best camera phone?",
+  "first_mention_s": 16.467,
+  "first_mention_text": "Video ke end mein main aapko bataunga ki 15000 ke under kaunsa phone sabse best photos leta hai, aur result shayad aapko surprise karega.",
+  "best_match_s": 0.0,
+  "best_similarity": 1.0
+ },
+ "flags": [
+  {
+   "id": "f4",
+   "start": 8.825,
+   "end": 16.067,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 1.0,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.3814,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  },
+  {
+   "id": "f5",
+   "start": 16.067,
+   "end": 26.867,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 0.962,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.1924,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  },
+  {
+   "id": "f6",
+   "start": 26.867,
+   "end": 39.617,
+   "severity": "medium",
+   "category": "model_risk",
+   "source": "model",
+   "risk_score": 0.213,
+   "title": "Model-estimated drop risk, no single clear cause",
+   "explanation": "The retention model rates this section high-risk, but no specific rule fired. Review it.",
+   "evidence": [
+    {
+     "label": "Model-estimated drop probability",
+     "value": 0.0425,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": []
+  },
+  {
+   "id": "f3",
+   "start": 59.192,
+   "end": 83.417,
+   "severity": "medium",
+   "category": "low_information",
+   "source": "rule",
+   "risk_score": 0.5,
+   "title": "Little new information for 24 s",
+   "explanation": "00:59–01:23 adds little beyond the previous minute.",
+   "evidence": [
+    {
+     "label": "Duration",
+     "value": 24.2,
+     "unit": "s",
+     "ref_start": null,
+     "ref_end": null
+    },
+    {
+     "label": "Lowest information gain",
+     "value": 0.2205,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": [
+    "e3"
+   ]
+  },
+  {
+   "id": "f1",
+   "start": 69.283,
+   "end": 83.417,
+   "severity": "high",
+   "category": "repetition",
+   "source": "rule",
+   "risk_score": 0.872,
+   "title": "Repeats 00:27–00:40",
+   "explanation": "This section says much the same as 00:27–00:40 (similarity 0.872).",
+   "evidence": [
+    {
+     "label": "Similarity to earlier section",
+     "value": 0.872,
+     "unit": null,
+     "ref_start": 26.867,
+     "ref_end": 39.617
+    },
+    {
+     "label": "New information vs everything before",
+     "value": 0.128,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": [
+    "e1"
+   ]
+  },
+  {
+   "id": "f2",
+   "start": 117.758,
+   "end": 131.25,
+   "severity": "medium",
+   "category": "repetition",
+   "source": "rule",
+   "risk_score": 0.6,
+   "title": "Repeats 01:23–01:36",
+   "explanation": "This section says much the same as 01:23–01:36 (similarity 0.6003).",
+   "evidence": [
+    {
+     "label": "Similarity to earlier section",
+     "value": 0.6003,
+     "unit": null,
+     "ref_start": 83.417,
+     "ref_end": 96.167
+    },
+    {
+     "label": "New information vs everything before",
+     "value": 0.3997,
+     "unit": null,
+     "ref_start": null,
+     "ref_end": null
+    }
+   ],
+   "secondary_categories": [],
+   "edit_ids": [
+    "e2"
+   ]
+  }
+ ],
+ "edits": [
+  {
+   "id": "e1",
+   "flag_id": "f1",
+   "action": "CUT",
+   "start": 69.683,
+   "end": 83.017,
+   "target_time": null,
+   "reason": "Cut 01:10–01:23: repeats 00:27–00:40",
+   "rewrite_text": null,
+   "simulatable": true
+  },
+  {
+   "id": "e2",
+   "flag_id": "f2",
+   "action": "CUT",
+   "start": 127.0,
+   "end": 130.75,
+   "target_time": null,
+   "reason": "Cut 02:07–02:11: repeats 01:23–01:36",
+   "rewrite_text": null,
+   "simulatable": true
+  },
+  {
+   "id": "e3",
+   "flag_id": "f3",
+   "action": "SHORTEN",
+   "start": 69.283,
+   "end": 83.417,
+   "target_time": null,
+   "reason": "Shorten 01:09–01:23, the least new part",
+   "rewrite_text": null,
+   "simulatable": false
+  }
+ ]
+}

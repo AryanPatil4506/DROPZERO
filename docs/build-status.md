@@ -1,6 +1,6 @@
 # DROPZERO build status
 
-**As of 2026-10-03.** Build order: steps 1–4 done, step 5 (model) next.
+**As of 2026-10-03.** Build order: steps 1–8 done (simulation included); next: LLM wording (7b), promise ledger polish, validation page data, demo prep.
 
 ## Done
 
@@ -13,6 +13,37 @@
 
 Endpoints added: `GET /api/projects/{id}/features/text`, `GET /api/projects/{id}/features/av`
 (404 in script mode).
+
+| Step | What | Where |
+|---|---|---|
+| 5 | Retention model on **real** viewing data: 1,200 MOOCCubeX lectures (310,360 viewers), split by lecture (980 train / 220 test). Predicts a per-second drop rate per segment, so curves don't depend on how the video is sliced; survival-style curve with a 10–90% band. | `model/`, `scripts/build_mooc_curves.py`, `scripts/train_model.py`, `models/` |
+| 6 | Drop-off detector: model risk (relative to a typical video at the same position) + evidence rules (late title promise, slow hook, repetition, low new information, pacing, silence, static picture). Every flag has timestamps, evidence, explanation and a `source` label. | `detection/`, `config/detection.yaml` |
+| 7 | Edit suggestions (deterministic rules): CUT / MOVE / SHORTEN / REWRITE / ADD_VISUAL with timestamps and reasons. Explanations are templates built only from evidence values. LLM wording not added yet. | `detection/flags.py` |
+| 8 | Before/after simulation: CUT/MOVE applied to the transcript timeline, then the same segmentation, features and model are rerun. Labelled "Simulated / model-estimated". | `simulate/` |
+
+Endpoints added: `GET /api/projects/{id}/prediction`, `GET /api/projects/{id}/flags`,
+`POST /api/projects/{id}/simulate`, `GET /api/validation`.
+
+## Validation (model `mooc-hgb-060572ff`, 220 held-out lectures)
+
+| | Model | Category-average baseline |
+|---|---|---|
+| Curve MAE / RMSE | **0.201 / 0.246** | 0.220 / 0.265 |
+| Pearson / Spearman (curve) | **0.60 / 0.58** | 0.53 / 0.51 |
+| Major drops detected (±10 s) | **1,397 of 1,660** | 1,306 of 1,660 |
+| Drop flags precision / F1 | **0.42 / 0.56** | 0.41 / 0.54 |
+| Ranking which segments lose most (Spearman, within video) | 0.16 | **0.17** |
+
+Honest reading: the model beats the baseline on the curve and on drop detection, but not on
+ranking which segments lose the most viewers. Ablations: position carries most of the signal;
+content feature groups have small, mixed effects on lecture data. The 10–90% band covers 94% of
+actual points (conservative). Data caveat: Chinese online-course lectures, not YouTube.
+
+Two model fixes made during development (both for correctness, not tuned on test results):
+1. Predict a per-second rate instead of a per-segment drop (simulations had depended on segment
+   boundaries).
+2. Removed segment length as a model input (it had learned an artefact of counting lecture
+   starters in the first 10 s; one moved line swung a simulation by +16 points).
 
 ## Embedding model
 
@@ -48,12 +79,13 @@ locally.
 6. **Visual features are low-level** (cuts and motion on 64×36 grayscale). No content
    understanding, no B-roll detection yet.
 7. Not built: thumbnail upload (field reserved), video streaming for the player.
-8. Nothing is committed to git yet.
+8. Rule-based flags (repetition etc.) are not validated against retention data; the model alone is.
+9. Plain-LLM baseline ("why not ChatGPT?") not run yet.
 
-## Blocker for steps 5 and 10 (model + validation)
+## Data used for steps 5 and 10
 
-The retention model and the validation page need **real audience-retention curves**: the
-per-video "Audience retention" export from YouTube Studio (Analytics → Engagement → Audience
-retention → export). Without them, step 5 can only be a transparent hand-weighted baseline, and
-validation (a judging criterion) has nothing to measure against. See the conversation notes for
-options.
+No team member has a YouTube channel, so no YouTube retention exports exist. The only public
+source of real in-video drop-off found was MOOCCubeX (THU-KEG, GPL-3.0). Its watch logs record
+which parts of each lecture every viewer played, and its captions carry timestamps. Rebuild:
+`python scripts/build_mooc_curves.py` then `python scripts/train_model.py` (raw data in the
+gitignored `data/raw/mooccubex/`, about 3.9 GB).
