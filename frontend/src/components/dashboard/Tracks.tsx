@@ -23,10 +23,10 @@ function useX() {
   };
 }
 
-function Lane({ label, children }: { label: string; children: ReactNode }) {
+function Lane({ label, children, thin = false }: { label: string; children: ReactNode; thin?: boolean }) {
   return (
-    <div className="relative flex h-[22px] items-center">
-      <span className="absolute left-0 w-[46px] pr-2 text-right text-[10px] font-medium tracking-wide text-ink-3 uppercase">{label}</span>
+    <div className={`relative flex items-center ${thin ? "h-[11px]" : "h-[22px]"}`}>
+      <span className={`absolute left-0 w-[46px] pr-2 text-right font-medium tracking-wide text-ink-3 uppercase ${thin ? "text-[8.5px] leading-none" : "text-[10px]"}`}>{label}</span>
       <div className="relative h-full flex-1" style={{ marginLeft: PLOT_LEFT, marginRight: PLOT_RIGHT }}>
         {children}
       </div>
@@ -42,7 +42,9 @@ export default function Tracks({
   flags,
   edits,
   onPickFlag,
+  lanes = "structure",
 }: {
+  lanes?: "structure" | "scores";
   segments: Segment[];
   prediction: Prediction | null;
   topics: Topic[];
@@ -53,39 +55,16 @@ export default function Tracks({
   const { seek, time, view, cut, selectedFlagId, acceptedEditIds, customCuts } = useTimeline();
   const x = useX();
   const { id = "" } = useParams();
-  const scores = useScores(id).data;
+  const scoreData = useScores(id).data;
+  const scores = lanes === "scores" ? scoreData : undefined;
   const scoreBg = (v: number | null) =>
-    v == null ? "bg-white/[0.04]" : v >= 65 ? "bg-emerald-500/60" : v >= 40 ? "bg-med/70" : "bg-high/70";
+    v == null ? "bg-white/[0.04]" : v >= 65 ? "bg-ok/70" : v >= 40 ? "bg-med/70" : "bg-high/70";
   const LANES: [string, keyof SegmentScore][] = [["Pace", "pacing"], ["Content", "content"], ["Visual", "visual"], ["Audio", "audio"]];
   const riskOf = (i: number) => prediction?.segments.find((s) => s.index === i)?.risk ?? "low";
   const playhead = ((time - view.start) / (view.end - view.start || 1)) * 100;
 
   return (
     <div className="relative space-y-1">
-      {scores &&
-        LANES.map(([label, key]) => (
-          <Lane key={key} label={label}>
-            {scores.segments.map((s) => {
-              const pos = x(s);
-              if (!pos.visible) return null;
-              const v = s[key] as number | null;
-              const inputs = Object.entries(s.inputs)
-                .filter(([, n]) => n != null)
-                .map(([k, n]) => `${k.replace(/_/g, " ")}: ${n}`)
-                .join("\n");
-              return (
-                <button
-                  key={`${key}-${s.index}`}
-                  type="button"
-                  title={`${label} ${v ?? "n/a"} · ${range(s.start, s.end)} · DROPZERO internal score\n${inputs}`}
-                  onClick={() => seek(s.start)}
-                  className={`absolute top-1 bottom-1 rounded-[4px] border-r-2 border-panel ${scoreBg(v)}`}
-                  style={{ left: pos.left, width: pos.width }}
-                />
-              );
-            })}
-          </Lane>
-        ))}
       <Lane label="Risk">
         {segments.map((s) => {
           const pos = x(s);
@@ -118,6 +97,8 @@ export default function Tracks({
         )}
       </Lane>
 
+      {lanes === "structure" && (
+        <>
       <Lane label="Topic">
         {topics.map((t, i) => {
           const pos = x(t);
@@ -180,6 +161,35 @@ export default function Tracks({
         {edits.length === 0 && customCuts.length === 0 && <span className="text-[11px] text-ink-3">No suggested edits</span>}
       </Lane>
 
+        </>
+      )}
+      {scores && (
+        <div className="space-y-[3px] pt-1" aria-label="Score lanes (DROPZERO internal scores)">
+          {LANES.map(([label, key]) => (
+            <Lane key={key} label={label} thin>
+              {scores.segments.map((s) => {
+                const pos = x(s);
+                if (!pos.visible) return null;
+                const v = s[key] as number | null;
+                const inputs = Object.entries(s.inputs)
+                  .filter(([, n]) => n != null)
+                  .map(([k, n]) => `${k.replace(/_/g, " ")}: ${n}`)
+                  .join("\n");
+                return (
+                  <button
+                    key={`${key}-${s.index}`}
+                    type="button"
+                    title={`${label} ${v ?? "n/a"} · ${range(s.start, s.end)} · DROPZERO internal score\n${inputs}`}
+                    onClick={() => seek(s.start)}
+                    className={`absolute inset-y-0 rounded-[3px] border-r-2 border-panel ${scoreBg(v)}`}
+                    style={{ left: pos.left, width: pos.width }}
+                  />
+                );
+              })}
+            </Lane>
+          ))}
+        </div>
+      )}
       {/* playhead across the lanes */}
       {playhead >= 0 && playhead <= 100 && (
         <div className="pointer-events-none absolute inset-y-0" style={{ left: PLOT_LEFT, right: PLOT_RIGHT }}>
