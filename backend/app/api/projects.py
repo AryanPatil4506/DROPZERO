@@ -1,9 +1,11 @@
 import hashlib
 import json
+import re
 import shutil
 from pathlib import Path
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, UploadFile
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from backend.app.config import load_config
@@ -229,6 +231,61 @@ def post_simulate(
         raise HTTPException(422, f"unknown or empty edit ids: {sorted(unknown)}")
     cfgs = {k: load_config(k) for k in ("segmentation", "text_features", "fillers")}
     return simulate(t, flags.edits, body.edit_ids, pred.points, svc.embedder, cfgs)
+
+
+_VIDEO_TYPES = {".mp4": "video/mp4", ".m4v": "video/mp4", ".mov": "video/quicktime"}
+_RANGE = re.compile(r"^bytes=(\d*)-(\d*)$")
+
+
+def _parse_range(header: str | None, size: int) -> tuple[int, int] | None:
+    """Single byte range per RFC 9110 (`bytes=a-b`, `bytes=a-`, `bytes=-n`). None = whole file."""
+    if not header:
+        return None
+    m = _RANGE.match(header.strip())
+    if not m or (not m[1] and not m[2]):
+        raise HTTPException(416, "unsupported Range", headers={"Content-Range": f"bytes */{size}"})
+    if not m[1]:  # suffix: last n bytes
+        start, end = max(size - int(m[2]), 0), size - 1
+    else:
+        start = int(m[1])
+        end = min(int(m[2]), size - 1) if m[2] else size - 1
+    if start >= size or start > end:
+        raise HTTPException(
+            416, "range not satisfiable", headers={"Content-Range": f"bytes */{size}"}
+        )
+    return start, end
+
+
+@router.get("/{pid}/media")
+def get_media(
+    pid: str, request: Request, svc: Services = Depends(get_services)
+) -> StreamingResponse:
+    """The uploaded video for the dashboard player, decrypted on the fly. Supports HTTP Range
+    (206) so the browser can seek. Nothing decrypted is written to disk."""
+    p = _project(svc, pid)
+    store = _require_store(svc)
+    if p.source_type != SourceType.VIDEO or not store.exists(pid, "original"):
+        raise HTTPException(404, "no video for this project (script mode or not uploaded)")
+    size = store.plaintext_size(pid, "original")
+    if size == 0:
+        raise HTTPException(404, "uploaded video is empty")
+    media_type = _VIDEO_TYPES.get(Path(p.source_filename or "").suffix.lower(), "video/mp4")
+    headers = {
+        "Accept-Ranges": "bytes",
+        "Cache-Control": "no-store",  # unpublished video: don't leave copies in browser caches
+        "Content-Disposition": "inline",
+    }
+    rng = _parse_range(request.headers.get("range"), size)
+    start, end = rng if rng else (0, size - 1)
+    headers["Content-Length"] = str(end - start + 1)
+    if rng:
+        headers["Content-Range"] = f"bytes {start}-{end}/{size}"
+    return StreamingResponse(
+        store.iter_range(pid, "original", start, end),
+        status_code=206 if rng else 200,
+        media_type=media_type,
+        headers=headers,
+    )
 
 
 @router.delete("/{pid}", status_code=204)

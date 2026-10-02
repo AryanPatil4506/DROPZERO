@@ -203,7 +203,7 @@ interface Metrics { mae: number; rmse: number; pearson: number; spearman: number
 interface Detection { precision: number; recall: number; f1: number; detected: number;
   total: number; predicted: number; median_delay_s: number | null }
 
-// GET /api/projects/{id}/media   → video bytes with HTTP Range (NOT BUILT YET; use a local file)
+// GET /api/projects/{id}/media   → video bytes with HTTP Range (built; see docs/build-status.md)
 ```
 
 **Honesty notes the UI must carry**
