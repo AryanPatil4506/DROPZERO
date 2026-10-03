@@ -109,3 +109,14 @@ def test_too_little_text_is_not_sent_to_the_model():
     llm = FakeLLM([])
     out = rewrite_flag(llm, _flag(0.0, 0.5), t, "en", 2.5, CFG)
     assert out.source == "none" and llm.calls == 0
+
+
+def test_script_check_follows_code_mixed_original():
+    from backend.app.explain.rewrite import script_ok
+
+    mixed = "Hello friends, welcome. The topic is System Call. Last video में हमने देखा था"
+    assert script_ok(mixed, "hi", original=mixed)  # the creator's own mix always passes
+    assert not script_ok(mixed, "hi")  # the old fixed rule refused it
+    assert not script_ok(
+        "यह पूरी तरह से हिंदी में लिखा गया वाक्य है", "hi", original="All English here."
+    )

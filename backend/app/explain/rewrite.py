@@ -23,7 +23,7 @@ from backend.app.schemas.flags import Flag
 from backend.app.schemas.transcript import Transcript
 
 # Bump when the checks or prompt change, so cached rewrites made under older rules are redone.
-REWRITE_VERSION = "rewrite-2"
+REWRITE_VERSION = "rewrite-3"
 
 _DEVANAGARI = re.compile(r"[ऀ-ॿ]")
 _NUM = re.compile(r"\d+(?:[.:]\d+)?%?")
@@ -67,12 +67,22 @@ def _words(text: str) -> int:
     return len(text.split())
 
 
-def script_ok(text: str, language: str) -> bool:
-    deva = len(_DEVANAGARI.findall(text))
+def devanagari_share(text: str) -> float:
     letters = sum(ch.isalpha() for ch in text) or 1
+    return len(_DEVANAGARI.findall(text)) / letters
+
+
+def script_ok(text: str, language: str, original: str | None = None, tol: float = 0.35) -> bool:
+    """Same script mix as the creator's own lines. Hindi transcripts are often code-mixed (one
+    lecture: median 66% Devanagari, some lines 0%), so a fixed per-language rule would refuse a
+    faithful rewrite of a third of its lines. With the original given, the rewrite's Devanagari
+    share must be within `tol` of the original's."""
+    share = devanagari_share(text)
+    if original is not None:
+        return abs(share - devanagari_share(original)) <= tol
     if language == "hi":
-        return deva / letters > 0.5
-    return deva / letters < 0.1  # English and Roman-script Hinglish
+        return share > 0.5
+    return share < 0.1  # English and Roman-script Hinglish
 
 
 def _parse(text: str) -> dict | None:
@@ -128,7 +138,7 @@ def rewrite_flag(
             rejected.append(f"cut too much ({k} words, at least {min_words})")
         if bad := check_numbers(text, allowed):
             rejected.append("added numbers not in the original: " + ", ".join(bad))
-        if not script_ok(text, language):
+        if not script_ok(text, language, original, cfg.get("script_tolerance", 0.35)):
             rejected.append("wrong script for the video's language")
         sim = None
         if not rejected and embedder is not None:

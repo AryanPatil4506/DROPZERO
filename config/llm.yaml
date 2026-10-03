@@ -13,6 +13,7 @@ rewrite:
   max_ratio: 0.8         # rewrite must be at most 80% of the original word count
   retries: 1
   min_ratio: 0.35        # ...and at least 35% of it (over-compressed rewrites drop content)
+  script_tolerance: 0.35 # rewrite's Devanagari share within this of the original lines'
   # Meaning check: LaBSE cosine similarity between original and rewrite. Provisional value, set on
   # 7 hand-checked EN/Hinglish/Hindi examples (garbled or meaning-losing rewrites scored 0.52-0.69,
   # good ones 0.73-0.97). Re-check on real transcripts.
