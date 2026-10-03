@@ -32,6 +32,13 @@
   html {
     color-scheme: dark;
   }
+  /* Native dropdown lists don't follow the dark theme (a translucent select paints its list
+     white on Windows, with our light text on top). Give options explicit colours. */
+  select option,
+  select optgroup {
+    background-color: var(--color-panel);
+    color: var(--color-ink);
+  }
   body {
     @apply bg-bg text-ink font-sans antialiased;
     min-height: 100svh;
