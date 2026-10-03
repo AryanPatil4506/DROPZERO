@@ -18,7 +18,10 @@ from backend.app.features.text.lexical import (
     repeated_words,
     tokens,
 )
+from backend.app.features.text.phrases import phrase_occurrences, repeated_phrases, segment_pauses
 from backend.app.schemas.features import (
+    PhraseRepeat,
+    PhraseStat,
     RepetitionMatch,
     SegmentTextFeatures,
     TextFeatureSet,
@@ -70,6 +73,21 @@ def extract_text_features(
         if t.sentences
         else []
     )
+
+    # ---- exact repeated phrases (evidence only)
+    ph_cfg = text_cfg["phrases"]
+    stop = frozenset(w.lower() for lst in ph_cfg["stopwords"].values() for w in lst)
+    occ = phrase_occurrences(sent_tokens, lex.filler_words, stop, ph_cfg)
+    top = repeated_phrases(occ, ph_cfg["min_count"])
+    top_set = set(top)
+    # sentence -> [(phrase, k-th occurrence)] for the listed phrases, said again (k >= 1)
+    sent_repeats: dict[int, list[tuple[str, int]]] = {}
+    for p in top:
+        for k, o in enumerate(occ[p]):
+            if k:
+                sent_repeats.setdefault(o.sentence, []).append((p, k))
+    timed = t.timing_source != "estimated"
+    long_pause = text_cfg["pauses"]["long_pause_s"]
 
     # ---- segment-level semantic, speech segments only
     speech = [s for s in segments if s.kind == "speech"]
@@ -135,6 +153,16 @@ def extract_text_features(
         k = pos.get(seg.index)
         rep = seg_rep[k] if k is not None else None
         is_speech = seg.kind == "speech"
+        pz = segment_pauses(t.words[seg.word_start : seg.word_end], long_pause) if timed else None
+        reps = {}
+        for i in sids:
+            for p, _k in sent_repeats.get(i, []):
+                if p in top_set and p not in reps:
+                    first = t.sentences[occ[p][0].sentence].start
+                    reps[p] = PhraseRepeat(
+                        phrase=p, at=t.sentences[i].start, count=len(occ[p]), first_at=first
+                    )
+        phrase_reps = sorted(reps.values(), key=lambda r: (-r.count, r.at, r.phrase))
         out.append(
             SegmentTextFeatures(
                 segment_id=seg.id,
@@ -164,6 +192,10 @@ def extract_text_features(
                 repetition_matches=seg_matches[: rep_cfg["max_matches_per_segment"]],
                 topic_shift=_r(shift[k]) if k is not None else None,
                 topic_boundary=seg.index in bounds,
+                longest_pause_s=pz.longest_pause_s if pz else None,
+                longest_pause_at=pz.longest_pause_at if pz else None,
+                long_pause_count=pz.long_pause_count if pz else 0,
+                phrase_repeats=phrase_reps[: ph_cfg["max_per_segment"]],
             )
         )
 
@@ -193,4 +225,12 @@ def extract_text_features(
         baseline_words_per_second=_r(baseline),
         segments=out,
         topics=topics,
+        repeated_phrases=[
+            PhraseStat(
+                phrase=p,
+                count=len(occ[p]),
+                times=[t.sentences[o.sentence].start for o in occ[p][:10]],
+            )
+            for p in top[: ph_cfg["max_video_list"]]
+        ],
     )

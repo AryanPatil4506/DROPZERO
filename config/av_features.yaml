@@ -24,3 +24,15 @@ audio:
   # i.e. relative to this video's own loudness, not an absolute level.
   silence_db_below_p95: 35.0
   # Energy is supporting evidence only: low energy is not "boring".
+
+pitch:
+  # YIN F0 tracking (backend/app/features/audio/pitch.py). 70-400 Hz covers adult speaking voices.
+  frame_ms: 40
+  hop_ms: 20
+  fmin_hz: 70
+  fmax_hz: 400
+  threshold: 0.15          # CMND dip below this = a clear period (YIN paper's usual value)
+  batch_frames: 2048       # memory only; does not change results
+  smooth_frames: 5         # median filter against single-frame octave jumps
+  # A segment's range (p90 - p10, semitones) is measured only on this much voiced speech.
+  min_voiced_s: 2.0

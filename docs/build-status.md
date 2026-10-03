@@ -153,3 +153,31 @@ Measured on the three sample scripts (12 flags): 8 rewrites accepted (similarity
 (garbled or meaning-losing Hindi rewrites scored 0.52-0.69). Hindi quality from the 1.7B model is
 the weakest; one accepted Hindi rewrite was still slightly awkward, so the UI asks the creator to
 read Hindi output carefully. Tests: `backend/tests/test_rewrite.py` (stub LLM and embedder).
+
+## Delivery evidence: pitch, pauses, repeated phrases (added 2026-10-03)
+
+Three deterministic signals about *how* lines are delivered. They add evidence bullets to existing
+flags and inputs to the score lanes; they never create a flag on their own, and the retention model
+does not use them (it was trained without them). Not validated against retention data.
+
+- **Pitch range** (`features/audio/pitch.py`, `av-1.2`): YIN F0 tracking in numpy (no new
+  dependency; about 2 s per 15 minutes of audio), voiced frames only, p90 - p10 in semitones per
+  segment, compared with this video's own median range. Flags in segments below 60% of the
+  video's typical range get "Pitch range vs your average (flatter delivery)". It also feeds the
+  Audio score lane (`scores-1.1`).
+- **Pauses between words** (`features/text/phrases.py`, `text-1.1`): longest gap between
+  consecutive words and the number of gaps of 1.5 s or more. ASR timing only (None in script
+  mode). Whisper stretches words over short pauses, so measured gaps are a lower bound.
+- **Repeated exact phrases** (`text-1.1`): three-word phrases inside sentences said 3+ times
+  (fillers break a phrase, at most one stopword; English, Hindi and Hinglish stopword lists in
+  `config/text_features.yaml`). Added only to repetition, low-information, pacing and model-risk
+  flags, because topic terms legitimately repeat in a lecture.
+
+Config: `config/av_features.yaml` (`pitch`), `config/text_features.yaml` (`pauses`, `phrases`),
+`config/detection.yaml` (`delivery`). Rules version `rules-1.7`. Re-analyse a project to get them.
+Retraining the model will rebuild its feature cache because the text feature schema version changed.
+
+Checked on a real 4.5-minute English narration: pitch ranges 8-16 semitones (median 12.9), the
+flattest segment at 65% of the video's own range (no flag bullet, threshold 60%); no phrase said
+3+ times and no pause of 1.5 s or more, so no extra bullets. Tests:
+`backend/tests/test_delivery_features.py` (synthetic tones for pitch, Hindi and Hinglish phrases).

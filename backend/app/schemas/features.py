@@ -17,6 +17,21 @@ class RepetitionMatch(BaseModel):
     similarity: float
 
 
+class PhraseRepeat(BaseModel):
+    """Evidence: an exact phrase said in this segment that was already said earlier."""
+
+    phrase: str
+    at: float  # start of the sentence that says it here
+    count: int  # times said in the whole video
+    first_at: float  # start of the sentence that first says it
+
+
+class PhraseStat(BaseModel):
+    phrase: str
+    count: int
+    times: list[float]  # sentence starts, first 10
+
+
 class SegmentTextFeatures(BaseModel):
     segment_id: str
     index: int
@@ -52,6 +67,12 @@ class SegmentTextFeatures(BaseModel):
     topic_shift: float | None  # 1 - cosine to the previous speech segment
     topic_boundary: bool  # a new topic section starts here
 
+    # delivery evidence (text-1.1; not used by the model). None in script mode for pauses.
+    longest_pause_s: float | None = None  # longest gap between consecutive words
+    longest_pause_at: float | None = None
+    long_pause_count: int = 0  # gaps >= pauses.long_pause_s
+    phrase_repeats: list[PhraseRepeat] = []  # repeated exact phrases said again here
+
 
 class TopicSection(BaseModel):
     index: int
@@ -70,3 +91,4 @@ class TextFeatureSet(BaseModel):
     baseline_words_per_second: float | None
     segments: list[SegmentTextFeatures]
     topics: list[TopicSection]
+    repeated_phrases: list[PhraseStat] = []  # most repeated exact phrases in the video

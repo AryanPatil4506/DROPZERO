@@ -52,3 +52,24 @@ claims:
     en: [two, three, four, five, six, seven, eight, nine, ten, hundred, thousand, million, billion, percent, twice, double, half]
     hi: [दो, तीन, चार, पांच, पाँच, छह, सात, आठ, नौ, दस, सौ, हज़ार, हजार, लाख, करोड़, प्रतिशत, आधा, दुगना]
     hinglish: [teen, char, chaar, paanch, panch, chhe, saat, aath, nau, das, sau, hazaar, hazar, lakh, crore, percent, aadha, double]
+
+pauses:
+  # Gaps between consecutive words inside a segment (ASR word timestamps; None in script mode,
+  # where timing is estimated). Whisper tends to stretch words over short pauses, so measured
+  # gaps are a lower bound.
+  long_pause_s: 1.5
+
+phrases:
+  # Exact repeated three-word phrases within sentences: verbal tics and re-explanations
+  # ("so basically what", "system call ka"). Fillers break a phrase; a phrase may contain at most
+  # max_stopwords of the words below. Topic terms legitimately repeat in a lecture, so this is
+  # evidence next to the semantic repetition check, never a flag by itself.
+  n: 3
+  min_count: 3             # said at least this many times in the video
+  max_stopwords: 1
+  max_per_segment: 3
+  max_video_list: 10
+  stopwords:
+    en: [the, a, an, and, or, but, of, to, in, "on", at, for, with, is, are, was, were, be, been, it, its, "it's", this, that, these, those, i, you, we, they, he, she, my, your, our, so, as, by, from, not, do, does, did, have, has, had, will, would, can, could, just, then, there, here, if, about, into, than, also, very, me, us, them]
+    hi: [का, की, के, को, में, से, है, हैं, था, थी, थे, और, या, पर, भी, तो, ही, यह, वह, ये, वो, हम, आप, मैं, जो, कि, ना, नहीं, हो, कर, एक]
+    hinglish: [ka, ki, ke, ko, me, mein, se, hai, hain, tha, thi, the, aur, ya, par, bhi, to, toh, hi, yeh, ye, woh, wo, hum, aap, main, jo, na, nahi, ho, kar, ek]

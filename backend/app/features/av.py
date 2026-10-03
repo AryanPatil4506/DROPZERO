@@ -6,6 +6,13 @@ import numpy as np
 
 from backend.app.config import config_hash
 from backend.app.features.audio.energy import frame_db, segment_audio, silence_threshold_db
+from backend.app.features.audio.pitch import (
+    segment_pitch,
+    smooth_semitones,
+    to_semitones,
+    voiced_mask,
+    yin_f0,
+)
 from backend.app.features.visual.scenes import frame_diffs, scene_cuts, segment_visual
 from backend.app.ingestion.audio import SAMPLE_RATE
 from backend.app.schemas.av_features import AVFeatureSet, SegmentAVFeatures
@@ -36,8 +43,22 @@ def extract_av_features(
     voiced = db[db >= thr]
     median = float(np.median(voiced)) if len(voiced) else 0.0
     fps = v_cfg["sample_fps"]
+    p_cfg = cfg["pitch"]
+    f0, p_hop = yin_f0(samples, SAMPLE_RATE, p_cfg)
+    voiced = voiced_mask(f0, p_hop, db, hop_s, thr)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        semis = smooth_semitones(to_semitones(f0), p_cfg["smooth_frames"])
+    pitches = [
+        segment_pitch(semis, voiced, p_hop, s.start, s.end, p_cfg["min_voiced_s"]) for s in segments
+    ]
+    ranges = [
+        p.pitch_range_st
+        for p, s in zip(pitches, segments, strict=True)
+        if p.pitch_range_st is not None and s.kind == "speech"
+    ]
+    range_median = float(np.median(ranges)) if ranges else None
     out = []
-    for s in segments:
+    for s, pt in zip(segments, pitches, strict=True):
         a = (
             segment_audio(db, hop_s, thr, median, s.start, s.end, a_cfg["frame_ms"] / 1000)
             if len(db)
@@ -56,6 +77,12 @@ def extract_av_features(
                 energy_db=a.energy_db if a else None,
                 energy_variation_db=a.energy_variation_db if a else None,
                 clipping_ratio=clip,
+                pitch_range_st=pt.pitch_range_st,
+                pitch_range_ratio=(
+                    round(pt.pitch_range_st / range_median, 3)
+                    if pt.pitch_range_st is not None and range_median
+                    else None
+                ),
                 scene_cut_count=v.scene_cut_count if v else None,
                 cuts_per_minute=v.cuts_per_minute if v else None,
                 visual_change_mean=v.visual_change_mean if v else None,
@@ -73,5 +100,7 @@ def extract_av_features(
         scene_cuts=cuts,
         silence_threshold_db=round(thr, 3) if len(db) else None,
         snr_db=round(median - float(np.percentile(db, 5)), 2) if len(voiced) else None,
+        pitch_median_hz=(round(float(np.median(f0[voiced])), 1) if voiced.any() else None),
+        pitch_range_median_st=round(range_median, 3) if range_median is not None else None,
         segments=out,
     )
