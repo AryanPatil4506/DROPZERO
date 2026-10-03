@@ -1766,5 +1766,35 @@
     }
    ]
   }
- ]
+ ],
+ "llm_baseline": {
+  "what": "Top-k drop points per lecture, scored against real major drops (segment losing >= 5% of its viewers, +-10 s, first segment excluded)",
+  "lectures": 40,
+  "k": 5,
+  "llm_model": "Qwen/Qwen3-1.7B",
+  "note": "The plain LLM sees only the timestamped transcript. It is the same small local open-source model the app uses, not a frontier chatbot; a larger LLM may do better.",
+  "methods": {
+   "dropzero": {
+    "precision": 0.655,
+    "recall": 0.334,
+    "drops_found": 99,
+    "drops_total": 296,
+    "points_named": 200
+   },
+   "llm": {
+    "precision": 0.56,
+    "recall": 0.213,
+    "drops_found": 63,
+    "drops_total": 296,
+    "points_named": 200
+   },
+   "baseline": {
+    "precision": 0.615,
+    "recall": 0.318,
+    "drops_found": 94,
+    "drops_total": 296,
+    "points_named": 200
+   }
+  }
+ }
 }
