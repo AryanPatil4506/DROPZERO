@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Projects from "./pages/Projects";
 import ComparePage from "./pages/Compare";
 import SimulatePage from "./pages/Simulate";
+import AbTestPage from "./pages/AbTest";
 import ValidationPage from "./pages/Validation";
 
 function RequireSession() {
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/projects/:id/simulate" element={<SimulatePage />} />
           <Route path="/projects/:id/compare" element={<ComparePage />} />
           <Route path="/validation" element={<ValidationPage />} />
+          <Route path="/ab" element={<AbTestPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Route>

@@ -125,6 +125,10 @@ export const api = {
       return sim;
     }, 500),
   getValidation: () => attempt(() => file<Validation>("validation.json")),
+  abTest: () =>
+    attempt(() => {
+      throw new ApiError(409, "The A/B simulator needs the live backend.");
+    }),
   getScores: () =>
     attempt(() => {
       throw new ApiError(404, "Score lanes need the live backend.");

@@ -213,6 +213,37 @@ export interface ScoreSet {
   segments: SegmentScore[];
 }
 
+export interface ABRequest {
+  title: string;
+  language: string;
+  script_a: string;
+  script_b: string;
+  name_a: string;
+  name_b: string;
+}
+export interface ABMetric {
+  key: string;
+  label: string;
+  a: number | string | null;
+  b: number | string | null;
+  better: "lower" | "higher" | "info";
+  winner: "a" | "b" | "tie" | "n/a";
+  note?: string | null;
+}
+export interface ABVariant {
+  name: string;
+  duration_s: number;
+  points: CurvePoint[];
+  hook_flags: string[];
+}
+export interface ABResult {
+  label: string;
+  a: ABVariant;
+  b: ABVariant;
+  metrics: ABMetric[];
+  summary: string;
+}
+
 export interface PromiseCheck {
   title: string;
   first_mention_s: number | null;

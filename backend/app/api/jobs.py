@@ -3,10 +3,12 @@ import json
 from fastapi import APIRouter, Depends, HTTPException
 
 from backend.app import versions
+from backend.app.abtest import ABRequest, ABResult, compare
 from backend.app.deps import get_services
 from backend.app.ingestion.probe import ToolMissing, find_tool
 from backend.app.pipeline.runner import Services
 from backend.app.schemas.job import Job
+from backend.app.schemas.project import Language
 from backend.app.settings import REPO_ROOT
 
 router = APIRouter(prefix="/api", tags=["jobs"])
@@ -18,6 +20,14 @@ def get_job(job_id: str, svc: Services = Depends(get_services)) -> Job:
     if job is None:
         raise HTTPException(404, "job not found")
     return job
+
+
+@router.post("/ab-test", response_model=ABResult)
+def post_ab_test(body: ABRequest, svc: Services = Depends(get_services)) -> ABResult:
+    """Hook A/B simulator: two script versions compared in memory (nothing stored)."""
+    if body.language == Language.ZH:
+        raise HTTPException(422, "supported languages: en, hi, hinglish")
+    return compare(body, svc.embedder)
 
 
 @router.get("/validation")
