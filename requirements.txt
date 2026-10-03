@@ -16,6 +16,7 @@ av<17
 nvidia-cublas-cu12; platform_system != "Darwin"
 nvidia-cudnn-cu12>=9,<10; platform_system != "Darwin"
 sentence-transformers>=3
+Pillow>=10       # CLIP image preprocessing (on-screen content analysis)
 # torch: install the CUDA build separately, see README.md
 
 # Dev
