@@ -100,3 +100,16 @@ def test_iter_range_detects_tampering(key, tmp_path):
     dest.write_bytes(bytes(blob))
     with pytest.raises(InvalidTag):
         list(store.iter_range("p", "original", 60, 63))
+
+
+def test_paused_stream_does_not_block_delete(key, tmp_path):
+    """A browser can hold a <video> stream open; deleting the project must still remove the file."""
+    store = MediaStore(tmp_path / "media", key)
+    dest = store.path("p", "original")
+    dest.parent.mkdir(parents=True)
+    with dest.open("wb") as d:
+        encrypt_stream(key, io.BytesIO(os.urandom(100)), d, chunk=16)
+    gen = store.iter_range("p", "original", 0, 99)
+    next(gen)  # stream started, then paused
+    store.delete_project("p")
+    assert not dest.exists()

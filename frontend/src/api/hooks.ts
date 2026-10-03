@@ -57,3 +57,16 @@ export function useInvalidateProject() {
     [qc],
   );
 }
+
+/** Polls a render every 1.5 s until it finishes. */
+export const useRender = (id: string, renderId: string | null) =>
+  useQuery({
+    queryKey: ["render", id, renderId],
+    queryFn: () => api.getRender(id, renderId!),
+    enabled: !!renderId,
+    retry: noRetryOn404,
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      return status === "done" || status === "failed" ? false : 1500;
+    },
+  });

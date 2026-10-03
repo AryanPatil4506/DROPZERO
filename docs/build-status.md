@@ -123,3 +123,33 @@ gitignored `data/raw/mooccubex/`, about 3.9 GB).
 - **Flags:** dead air (quiet audio) vs music/visuals without speech; cut points never inside a word.
 - **Not built (roadmap):** real before/after render, promise ledger beyond the title, plain-LLM
   baseline comparison.
+
+## Before/after render (added 2026-10-03)
+
+`POST /api/projects/{id}/render` (same body as `/simulate`) builds an edited copy of the edit plan
+with FFmpeg; `GET /api/projects/{id}/renders/{render_id}` reports status and
+`.../renders/{render_id}/media` streams it with HTTP Range. Code: `backend/app/render/`
+(`plan.py` reuses the simulator's `to_ops`, so the render and the simulated curve remove the same
+seconds; MOVE edits are rendered but not simulated). One pass: trim, speed (video `setpts`, audio
+`atempo`), 15 ms audio fades at every join, concat, height capped at 720p (`config/render.yaml`).
+NVENC first, CPU (libx264) fallback. Output is encrypted in the media store as
+`render-<plan key>`, cached per plan, purged with the project; the decrypted working copy is always
+deleted. Tests: `backend/tests/test_render.py` (plan logic + a real ffmpeg render through the API).
+
+Also fixed: `MediaStore.iter_range` now opens the file per chunk, so a browser holding a video
+stream open no longer blocks deleting a project on Windows (regression test added).
+
+## Rewrite suggestions for weak sections (added 2026-10-03)
+
+`POST /api/projects/{id}/flags/{flag_id}/rewrite` (cached; `?refresh=true` to redo): the local
+LLM (Qwen3-1.7B) rewrites the whole sentences under a flag, tighter, in the video's language. Code:
+`backend/app/explain/rewrite.py`, settings in `config/llm.yaml` → `rewrite`. A rewrite is shown only
+if it passes every check: no numbers absent from the original, at most 80% and at least 35% of the
+original word count, same script (Devanagari for Hindi, Roman for Hinglish/English), and LaBSE
+meaning similarity >= 0.70. Otherwise the response is `source: "none"` with the reasons.
+
+Measured on the three sample scripts (12 flags): 8 rewrites accepted (similarity 0.72-0.97),
+4 refused. The similarity threshold is provisional: it was set on 7 hand-checked examples
+(garbled or meaning-losing Hindi rewrites scored 0.52-0.69). Hindi quality from the 1.7B model is
+the weakest; one accepted Hindi rewrite was still slightly awkward, so the UI asks the creator to
+read Hindi output carefully. Tests: `backend/tests/test_rewrite.py` (stub LLM and embedder).

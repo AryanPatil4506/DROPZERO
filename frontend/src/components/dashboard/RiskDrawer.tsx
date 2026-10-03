@@ -1,7 +1,8 @@
 import { type ComponentType, type SVGProps, useState } from "react";
 import { api } from "../../api/client";
 import { useNavigate } from "react-router-dom";
-import type { Action, Edit, Evidence, Explanation, Flag } from "../../api/types";
+import { useProject } from "../../api/hooks";
+import type { Action, Edit, Evidence, Explanation, Flag, Rewrite } from "../../api/types";
 import { ACTION_LABEL, editSentence, evidenceValue, FLAG_CATEGORY_LABEL, mmss, range, SOURCE_HINT, SOURCE_LABEL } from "../../lib/format";
 import { IconHook, IconKeep, IconMove, IconRewrite, IconScissors, IconShorten, IconVisual } from "../icons";
 import { SeverityTag } from "../ui";
@@ -53,6 +54,77 @@ function AiExplanation({ projectId, flagId }: { projectId: string; flagId: strin
           <p className="text-ink"><span className="text-ink-3">Fix: </span>{d.fix}</p>
           {d.rewrite && (
             <p className="rounded-xl bg-black/25 px-3 py-2 text-ink"><span className="text-ink-3">Try saying: </span>“{d.rewrite}”</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** "Rewrite this section": the local LLM tightens the flagged lines in the video's language.
+ * The server refuses rewrites that change the meaning, aren't shorter, add numbers or switch script. */
+function AiRewrite({ projectId, flagId }: { projectId: string; flagId: string }) {
+  const language = useProject(projectId).data?.language;
+  const [state, setState] = useState<{ loading: boolean; data?: Rewrite; error?: string }>({ loading: false });
+  const [copied, setCopied] = useState(false);
+  const run = (refresh = false) => {
+    setState({ loading: true });
+    api
+      .rewrite(projectId, flagId, refresh)
+      .then((data) => setState({ loading: false, data }))
+      .catch((e: Error) => setState({ loading: false, error: e.message }));
+  };
+  const d = state.data;
+  return (
+    <div className="mt-3 rounded-[22px] border border-accent/30 bg-accent/[0.06] p-3">
+      <div className="flex items-center justify-between gap-2 px-1">
+        <p className="text-[15px] font-medium">Rewrite this section</p>
+        {!d && (
+          <button type="button" className="pill-ghost h-8 px-3 text-[12.5px]" onClick={() => run()} disabled={state.loading}>
+            {state.loading ? "Rewriting (local model)…" : "Suggest a tighter version"}
+          </button>
+        )}
+        {d && (
+          <button type="button" className="text-[12px] text-ink-3 hover:text-ink" onClick={() => run(true)} disabled={state.loading}>
+            {state.loading ? "Rewriting…" : "Try again"}
+          </button>
+        )}
+      </div>
+      {state.error && <p className="mt-2 px-1 text-xs text-ink-3">{state.error}</p>}
+      {d && (
+        <div className="mt-2 space-y-2 px-1 text-[13.5px]">
+          <p className="text-[12px] text-ink-3">
+            Original {range(d.start, d.end)} · {d.original_words} words
+          </p>
+          <p className="rounded-xl bg-black/20 px-3 py-2 text-ink-2">“{d.original}”</p>
+          {d.rewrite ? (
+            <>
+              <p className="text-[12px] text-ink-3">
+                Suggested · {d.rewrite_words} words
+                {d.est_seconds_saved != null && d.est_seconds_saved > 0 && ` · about ${Math.round(d.est_seconds_saved)} s shorter (estimate)`}
+                {d.meaning_similarity != null && ` · meaning match ${d.meaning_similarity.toFixed(2)}`}
+              </p>
+              <p className="rounded-xl bg-black/30 px-3 py-2 text-ink">“{d.rewrite}”</p>
+              {d.what_changed && <p className="text-[12.5px] text-ink-2">{d.what_changed}</p>}
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  className="pill-ghost h-8 px-3 text-[12.5px]"
+                  onClick={() => {
+                    void navigator.clipboard?.writeText(d.rewrite ?? "").then(() => setCopied(true));
+                  }}
+                >
+                  {copied ? "Copied" : "Copy rewrite"}
+                </button>
+                <span className="text-[11.5px] text-ink-3">
+                  AI suggestion ({d.model}). {language === "hi" ? "Hindi output from this small model is less reliable: read it carefully before using." : "Read it before using."}
+                </span>
+              </div>
+            </>
+          ) : (
+            <p className="text-[12.5px] text-ink-2">
+              No rewrite shown: the model's attempts were refused ({d.rejected.join("; ")}). Try again, or edit the lines yourself.
+            </p>
           )}
         </div>
       )}
@@ -161,6 +233,7 @@ export default function RiskDrawer({
       </ul>
 
       <AiExplanation key={flag.id} projectId={projectId} flagId={flag.id} />
+      <AiRewrite key={`rw-${flag.id}`} projectId={projectId} flagId={flag.id} />
 
       {flag.secondary_categories.length > 0 && (
         <p className="mt-3 flex flex-wrap items-center gap-1.5 text-xs text-ink-3">
