@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { api } from "../../api/client";
 import { useNavigate } from "react-router-dom";
 import type { CustomEdit, Edit, Project } from "../../api/types";
 import { ACTION_LABEL, editSentence, mmss, range } from "../../lib/format";
-import { IconClose, IconDownload } from "../icons";
+import { IconClose, IconDownload, IconVideo } from "../icons";
 import { type CustomCut, useTimeline } from "./timeline-context";
 
 const SKIPPABLE = new Set(["CUT", "SHORTEN"]);
@@ -43,6 +45,18 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
     if (custom.length) q.set("custom", JSON.stringify(custom));
     navigate(`/projects/${project.id}/simulate?${q.toString()}`);
   };
+
+  // Render: every accepted suggestion (moves included: a render can reorder footage) + your edits.
+  const isVideo = project.source_type === "video";
+  const renderM = useMutation({
+    mutationFn: () => api.render(project.id, acceptedEditIds, toCustomEdits(customCuts)),
+    onSuccess: (st) => {
+      const q = new URLSearchParams({ render: st.render_id, edits: simulatableAccepted.join(",") });
+      const custom = toCustomEdits(customCuts);
+      if (custom.length) q.set("custom", JSON.stringify(custom));
+      navigate(`/projects/${project.id}/compare?${q.toString()}`);
+    },
+  });
 
   const exportPlan = () => {
     const plan = {
@@ -146,6 +160,17 @@ export default function EditPlan({ project, edits }: { project: Project; edits: 
         <button type="button" className="pill-accent h-9 text-[13px]" disabled={simulatableAccepted.length === 0 && customCuts.length === 0} onClick={simulate}>
           Simulate my edit plan
         </button>
+        <button
+          type="button"
+          className="pill-btn h-9 border border-accent/60 bg-accent/10 text-[13px] text-ink hover:bg-accent/20"
+          disabled={!isVideo || (acceptedEditIds.length === 0 && customCuts.length === 0) || renderM.isPending}
+          title={isVideo ? "Build an edited copy with FFmpeg and compare it with the original" : "Rendering needs a video project"}
+          onClick={() => renderM.mutate()}
+        >
+          <IconVideo className="size-4" />
+          {renderM.isPending ? "Starting render…" : "Render edited version"}
+        </button>
+        {renderM.isError && <p className="text-[11.5px] text-[#ffb3b4]">{(renderM.error as Error).message}</p>}
         <button type="button" className="pill-btn h-9 text-[13px] text-ink-2 hover:text-ink" disabled={acceptedEditIds.length === 0 && customCuts.length === 0} onClick={exportPlan}>
           <IconDownload className="size-4" />
           Export edit list (JSON)

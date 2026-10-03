@@ -48,6 +48,11 @@ segment bar and transcript) → **Simulate fix** → original vs simulated → r
   show a teleprompter of the current line instead.
 - **Transport:** restart · −10 s · play/pause · +10 s · ✂ edited preview. Clicking the video also
   toggles play/pause.
+- **Render edited version** (Edit plan, video projects): FFmpeg builds an edited copy of the plan
+  (accepted suggestions including moves, plus your trims/cuts/speed-ups) and opens
+  `/projects/:id/compare`: original and edited play side by side with shared play / pause /
+  restart, each with its curve (original prediction / model-simulated edit). The copy is encrypted
+  and purged with the upload; the original is never modified.
 - **Promises** (shelf tab): the promise ledger from `flags.ledger`: each promise made in the title or
   opening, when it pays off, the wait, and its status (kept on time / kept late / open loop). Rows
   seek the timeline; *See fix* opens the matching payoff-delay flag.

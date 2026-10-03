@@ -1,0 +1,12 @@
+# Before/after render: FFmpeg builds an edited copy from the edit plan. Original never modified.
+max_height: 720            # downscale only; never upscale
+audio_fade_ms: 15          # tiny fade at every join so cuts don't click
+min_piece_s: 0.25          # drop slivers shorter than this
+# Encoders tried in order; the first that works is used (NVENC on NVIDIA, CPU fallback).
+encoders:
+  - name: h264_nvenc
+    args: ["-preset", "p4", "-cq", "26", "-b:v", "0"]
+  - name: libx264
+    args: ["-preset", "veryfast", "-crf", "23"]
+audio_args: ["-c:a", "aac", "-b:a", "128k"]
+timeout_s: 1800

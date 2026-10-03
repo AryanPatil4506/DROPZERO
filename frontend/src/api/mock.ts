@@ -133,6 +133,15 @@ export const api = {
     attempt(() => {
       throw new ApiError(409, "AI explanations need the live backend (the local LLM runs there).");
     }),
+  render: () =>
+    attempt(() => {
+      throw new ApiError(409, "Rendering needs the live backend and an uploaded video.");
+    }),
+  getRender: () =>
+    attempt(() => {
+      throw new ApiError(404, "No renders in mock mode.");
+    }),
+  renderUrl: (id: string, renderId: string) => `/api/projects/${id}/renders/${renderId}/media`,
   mediaUrl: (id: string) => `/api/projects/${id}/media`,
 };
 

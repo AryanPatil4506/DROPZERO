@@ -123,3 +123,18 @@ gitignored `data/raw/mooccubex/`, about 3.9 GB).
 - **Flags:** dead air (quiet audio) vs music/visuals without speech; cut points never inside a word.
 - **Not built (roadmap):** real before/after render, promise ledger beyond the title, plain-LLM
   baseline comparison.
+
+## Before/after render (added 2026-10-03)
+
+`POST /api/projects/{id}/render` (same body as `/simulate`) builds an edited copy of the edit plan
+with FFmpeg; `GET /api/projects/{id}/renders/{render_id}` reports status and
+`.../renders/{render_id}/media` streams it with HTTP Range. Code: `backend/app/render/`
+(`plan.py` reuses the simulator's `to_ops`, so the render and the simulated curve remove the same
+seconds; MOVE edits are rendered but not simulated). One pass: trim, speed (video `setpts`, audio
+`atempo`), 15 ms audio fades at every join, concat, height capped at 720p (`config/render.yaml`).
+NVENC first, CPU (libx264) fallback. Output is encrypted in the media store as
+`render-<plan key>`, cached per plan, purged with the project; the decrypted working copy is always
+deleted. Tests: `backend/tests/test_render.py` (plan logic + a real ffmpeg render through the API).
+
+Also fixed: `MediaStore.iter_range` now opens the file per chunk, so a browser holding a video
+stream open no longer blocks deleting a project on Windows (regression test added).

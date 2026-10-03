@@ -168,15 +168,17 @@ class MediaStore:
         if not 0 <= start <= end < size:
             raise ValueError("range outside the file")
         aes = AESGCM(self.key)
-        with path.open("rb") as f:
-            for i in range(start // chunk, end // chunk + 1):
+        for i in range(start // chunk, end // chunk + 1):
+            # Open per chunk: a paused stream (e.g. a browser holding a <video> connection) must
+            # not keep the file open, or deleting the project fails on Windows.
+            with path.open("rb") as f:
                 f.seek(HEADER_LEN + i * (chunk + TAG))
                 blob = _read_full(f, chunk + TAG)
-                nonce = header[8:16] + struct.pack(">I", i)
-                plain = aes.decrypt(nonce, blob, _aad(header, i, i == n - 1))
-                lo = max(start - i * chunk, 0)
-                hi = min(end - i * chunk, len(plain) - 1)
-                yield plain[lo : hi + 1]
+            nonce = header[8:16] + struct.pack(">I", i)
+            plain = aes.decrypt(nonce, blob, _aad(header, i, i == n - 1))
+            lo = max(start - i * chunk, 0)
+            hi = min(end - i * chunk, len(plain) - 1)
+            yield plain[lo : hi + 1]
 
     def exists(self, project_id: str, name: str) -> bool:
         return self.path(project_id, name).exists()

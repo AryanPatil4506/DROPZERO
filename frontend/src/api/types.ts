@@ -323,6 +323,30 @@ export interface Validation extends MockMarker {
   }[];
 }
 
+/** Before/after render of an edit plan (the original file is never modified). */
+export interface RenderPiece {
+  start: number;
+  end: number;
+  factor: number;
+}
+export interface RenderPlan {
+  pieces: RenderPiece[];
+  applied_edit_ids: string[];
+  skipped_edit_ids: string[];
+  applied_custom: CustomEdit[];
+  moved_edit_ids: string[];
+  source_duration_s: number;
+  output_duration_s: number;
+}
+export interface RenderStatus {
+  render_id: string;
+  status: "queued" | "running" | "done" | "failed";
+  error: string | null;
+  encoder: string | null;
+  seconds: number | null;
+  plan: RenderPlan | null;
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(status: number, message: string) {

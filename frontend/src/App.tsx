@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import NewProject from "./pages/NewProject";
 import NotFound from "./pages/NotFound";
 import Projects from "./pages/Projects";
+import ComparePage from "./pages/Compare";
 import SimulatePage from "./pages/Simulate";
 import ValidationPage from "./pages/Validation";
 
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/new" element={<NewProject />} />
           <Route path="/projects/:id" element={<Dashboard />} />
           <Route path="/projects/:id/simulate" element={<SimulatePage />} />
+          <Route path="/projects/:id/compare" element={<ComparePage />} />
           <Route path="/validation" element={<ValidationPage />} />
           <Route path="*" element={<NotFound />} />
         </Route>

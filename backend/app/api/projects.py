@@ -21,6 +21,9 @@ from backend.app.ingestion.validate import (
 )
 from backend.app.model.predict import load_model
 from backend.app.pipeline.runner import Services, new_job, run_job
+from backend.app.render import service as render_service
+from backend.app.render.plan import build_plan
+from backend.app.render.service import RenderStatus
 from backend.app.schemas.av_features import AVFeatureSet
 from backend.app.schemas.features import TextFeatureSet
 from backend.app.schemas.flags import FlagsResponse
@@ -325,10 +328,14 @@ def get_media(
     store = _require_store(svc)
     if p.source_type != SourceType.VIDEO or not store.exists(pid, "original"):
         raise HTTPException(404, "no video for this project (script mode or not uploaded)")
-    size = store.plaintext_size(pid, "original")
-    if size == 0:
-        raise HTTPException(404, "uploaded video is empty")
     media_type = _VIDEO_TYPES.get(Path(p.source_filename or "").suffix.lower(), "video/mp4")
+    return _stream(store, pid, "original", request, media_type)
+
+
+def _stream(store, pid: str, name: str, request: Request, media_type: str) -> StreamingResponse:
+    size = store.plaintext_size(pid, name)
+    if size == 0:
+        raise HTTPException(404, "video is empty")
     headers = {
         "Accept-Ranges": "bytes",
         "Cache-Control": "no-store",  # unpublished video: don't leave copies in browser caches
@@ -340,11 +347,65 @@ def get_media(
     if rng:
         headers["Content-Range"] = f"bytes {start}-{end}/{size}"
     return StreamingResponse(
-        store.iter_range(pid, "original", start, end),
+        store.iter_range(pid, name, start, end),
         status_code=206 if rng else 200,
         media_type=media_type,
         headers=headers,
     )
+
+
+# ---- before/after render: an edited copy built from the edit plan (original never modified)
+
+
+@router.post("/{pid}/render", response_model=RenderStatus, status_code=202)
+def post_render(
+    pid: str, body: SimulateRequest, bg: BackgroundTasks, svc: Services = Depends(get_services)
+) -> RenderStatus:
+    p = _project(svc, pid)
+    _require_store(svc)
+    if p.source_type != SourceType.VIDEO or not svc.store.exists(pid, "original"):
+        raise HTTPException(409, "rendering needs an uploaded video (script projects have none)")
+    flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+    unknown = set(body.edit_ids) - {e.id for e in flags.edits}
+    if unknown or not (body.edit_ids or body.custom_edits):
+        raise HTTPException(422, f"unknown or empty edits: {sorted(unknown)}")
+    duration = p.duration_s or (p.media.duration_s if p.media else 0.0)
+    plan = build_plan(
+        flags.edits,
+        body.edit_ids,
+        body.custom_edits,
+        duration,
+        load_config("render")["min_piece_s"],
+    )
+    if not plan.pieces:
+        raise HTTPException(422, "these edits remove the whole video")
+    st, needs_run = render_service.submit(svc, pid, plan)
+    if needs_run:
+        has_audio = bool(p.media.has_audio) if p.media else True
+        bg.add_task(render_service.run, svc, pid, plan, has_audio)
+    return st
+
+
+@router.get("/{pid}/renders/{rid}", response_model=RenderStatus)
+def get_render(pid: str, rid: str, svc: Services = Depends(get_services)) -> RenderStatus:
+    _project(svc, pid)
+    st = render_service.status(svc, pid, rid)
+    if st is None:
+        raise HTTPException(404, "no such render")
+    return st
+
+
+@router.get("/{pid}/renders/{rid}/media")
+def get_render_media(
+    pid: str, rid: str, request: Request, svc: Services = Depends(get_services)
+) -> StreamingResponse:
+    _project(svc, pid)
+    store = _require_store(svc)
+    if not re.fullmatch(r"[0-9a-f]{16}", rid) or not store.exists(
+        pid, render_service.name_for(rid)
+    ):
+        raise HTTPException(404, "render not ready")
+    return _stream(store, pid, render_service.name_for(rid), request, "video/mp4")
 
 
 @router.delete("/{pid}", status_code=204)
@@ -352,4 +413,5 @@ def delete_project(pid: str, svc: Services = Depends(get_services)) -> None:
     _project(svc, pid)
     if svc.store is not None:
         svc.store.delete_project(pid)
+    render_service.forget(pid)
     svc.db.delete_project(pid)
