@@ -36,7 +36,12 @@ def get_validation() -> dict:
     path = REPO_ROOT / "models" / "validation.json"
     if not path.exists():
         raise HTTPException(404, "no validation report; run python scripts/train_model.py")
-    return json.loads(path.read_text(encoding="utf-8"))
+    report = json.loads(path.read_text(encoding="utf-8"))
+    # plain-LLM baseline (scripts/run_llm_baseline.py): same held-out lectures, same scoring
+    llm = REPO_ROOT / "models" / "llm_baseline.json"
+    if llm.exists():
+        report["llm_baseline"] = json.loads(llm.read_text(encoding="utf-8"))
+    return report
 
 
 @router.get("/health")

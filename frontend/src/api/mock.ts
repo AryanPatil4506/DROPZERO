@@ -2,6 +2,7 @@
 // runs without the backend. Regenerate them with `python scripts/export_api_samples.py`.
 import {
   ApiError,
+  type AvFeatures,
   type FlagsResponse,
   type Job,
   type NewProject,
@@ -111,6 +112,11 @@ export const api = {
     }, 80),
   getTranscript: (id: string) => attempt(() => file<Transcript>(`${sampleFor(id)}/transcript.json`)),
   getSegments: (id: string) => attempt(() => file<Segment[]>(`${sampleFor(id)}/segments.json`)),
+  getAvFeatures: (id: string) => attempt(() => sampleFile<AvFeatures>(id, "features_av.json")),
+  deleteProject: (id: string) =>
+    attempt(() => {
+      sampleProjects.delete(id);
+    }),
   getTextFeatures: (id: string) => attempt(() => file<TextFeatures>(`${sampleFor(id)}/features_text.json`)),
   getPrediction: (id: string) => attempt(() => sampleFile<Prediction>(id, "prediction.json")),
   getFlags: (id: string) => attempt(() => sampleFile<FlagsResponse>(id, "flags.json")),

@@ -445,6 +445,24 @@ h1, h2, h3, p { margin: 0; }
 .step p { color: var(--ink-2); font-size: 14.5px; }
 .step-glyph { margin-top: auto; width: 100%; height: 48px; }
 
+/* ---- feature grid ---- */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 48px 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.feature {
+  padding: 22px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.feature h3 { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; }
+.feature p { margin-top: 10px; color: var(--ink-2); font-size: 14px; }
+
 /* ---- product mock ---- */
 .app-mock {
   margin-top: 48px;
@@ -637,6 +655,7 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 1080px) {
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .step { min-height: 240px; }
+  .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .app-body { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -663,6 +682,7 @@ h1, h2, h3, p { margin: 0; }
 
 @media (max-width: 560px) {
   .steps { grid-template-columns: minmax(0, 1fr); }
+  .features { grid-template-columns: minmax(0, 1fr); }
   .step { min-height: 0; }
   .step h3 { margin-top: 8px; }
   .step-glyph { margin-top: 12px; }

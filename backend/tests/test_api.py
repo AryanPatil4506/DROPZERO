@@ -186,6 +186,8 @@ def test_validation_endpoint(client):
     v = client.get("/api/validation").json()
     assert v["n_videos_test"] > 0 and "not YouTube" in v["dataset"]
     assert {"mae", "rmse", "pearson", "spearman"} <= set(v["metrics"]) <= set(v["baseline"])
+    llm = v["llm_baseline"]  # plain-LLM baseline served next to the model's numbers
+    assert {"dropzero", "llm", "baseline"} <= set(llm["methods"]) and llm["lectures"] > 0
 
 
 def test_analyze_requires_source(client):

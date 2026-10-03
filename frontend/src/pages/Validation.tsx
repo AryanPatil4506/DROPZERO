@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ReferenceDot, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useValidation } from "../api/hooks";
-import type { Detection, Metrics, Validation } from "../api/types";
+import type { Detection, LlmBaseline, Metrics, Validation } from "../api/types";
 import { ErrorBox, MockBadge, Segmented, Spinner } from "../components/ui";
 import { mmss, pct } from "../lib/format";
 
@@ -56,6 +56,54 @@ function DetectionRow({ label, d }: { label: string; d: Detection }) {
       <td className="px-3 tabular-nums">{d.predicted ?? "—"}</td>
       <td className="pl-3 tabular-nums">{d.median_delay_s == null ? "—" : `${d.median_delay_s.toFixed(1)} s`}</td>
     </tr>
+  );
+}
+
+const LLM_ROWS: { key: keyof LlmBaseline["methods"]; label: string }[] = [
+  { key: "dropzero", label: "DROPZERO model" },
+  { key: "llm", label: "Plain LLM (transcript only)" },
+  { key: "baseline", label: "Position baseline" },
+];
+
+function LlmBaselineSection({ b }: { b: LlmBaseline }) {
+  const best = Math.max(...LLM_ROWS.map((r) => b.methods[r.key].drops_found));
+  return (
+    <section className="glass rounded-[28px] p-6" aria-label="Plain-LLM baseline">
+      <h2 className="text-[17px] font-medium">Why not just ask a chatbot?</h2>
+      <p className="mt-1 max-w-3xl text-xs text-ink-3">
+        {b.what}. Each method names its top {b.k} drop points on the same {b.lectures} held-out lectures. LLM: {b.llm_model}. {b.note}
+      </p>
+      <div className="mt-4 overflow-x-auto">
+        <table className="w-full text-left text-sm text-ink-2">
+          <thead className="text-xs text-ink-3">
+            <tr className="border-b border-line">
+              <th className="py-2 pr-4 font-medium" />
+              <th className="px-3 font-medium">Real drops found</th>
+              <th className="px-3 font-medium">Precision</th>
+              <th className="pl-3 font-medium">Recall</th>
+            </tr>
+          </thead>
+          <tbody>
+            {LLM_ROWS.map(({ key, label }) => {
+              const m = b.methods[key];
+              return (
+                <tr key={key} className="border-b border-line last:border-0">
+                  <td className={`py-2.5 pr-4 ${m.drops_found === best ? "font-medium text-ink" : "text-ink"}`}>{label}</td>
+                  <td className="px-3 tabular-nums">
+                    {m.drops_found} / {m.drops_total}
+                  </td>
+                  <td className="px-3 tabular-nums">{m.precision.toFixed(2)}</td>
+                  <td className="pl-3 tabular-nums">{m.recall.toFixed(2)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p className="mt-3 text-xs text-ink-3">
+        Most real drops are still missed by every method: recall stays below {Math.ceil(Math.max(...LLM_ROWS.map((r) => b.methods[r.key].recall)) * 100)}%.
+      </p>
+    </section>
   );
 }
 
@@ -162,6 +210,8 @@ export default function ValidationPage() {
           </table>
         </div>
       </section>
+
+      {d.llm_baseline && <LlmBaselineSection b={d.llm_baseline} />}
 
       {ablations.length > 0 && (
         <section className="glass rounded-[28px] p-6" aria-label="Ablations">
