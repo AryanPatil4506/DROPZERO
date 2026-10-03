@@ -202,3 +202,18 @@ Checked on the real 4.5-minute lightboard lecture: first prompt set labelled it 
 (neon lines on black); adding two generic board/lightboard prompts to *diagram* gave 254 of 271
 frames diagram and the 15 s end card blank. Prompt list is provisional (checked on one video).
 Tests: `backend/tests/test_visual_content.py` (fake encoder; one real-CLIP test under `-m model`).
+
+## Visual compensation rule (added 2026-10-03)
+
+"Flat or slow delivery, but the picture is doing the work." Rule-only pacing, low-information and
+filler flags whose range is mostly covered by strong visuals (6+ scene cuts per minute, or a
+diagram / chart / screen recording / footage that matches the words at least as well as usual) get
+their risk score x0.7 and an evidence line "Visuals may carry this stretch: ... (rule, not
+validated)". Model flags and the predicted curve are never changed. `config/detection.yaml` →
+`visual_compensation`, rules version `rules-1.9`.
+
+**Why it is a rule and not part of the model:** the only real drop-off data we have (MOOCCubeX)
+has no video frames, so there is nothing real to learn a visual effect from. We did not create
+synthetic training examples; that would put invented data into a model we present as validated.
+To learn it properly: collect creators' YouTube retention exports for videos we can also analyse
+visually, add the visual features as model inputs, and run the ablation against the current model.

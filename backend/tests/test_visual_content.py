@@ -128,3 +128,75 @@ def test_real_clip_tells_slide_from_blank():
         img, label_matrix(enc, CFG["types"]), KEYS, CFG["temperature"], CFG["min_confidence"]
     )
     assert out[0] in {"slide_text", "screen"} and out[1] == "blank"
+
+
+# ---------- visual compensation rule (flat delivery, strong visuals)
+
+
+def _comp_inputs(cuts=None, vtype=None, share=None, match=None, source="rule", cat="pacing"):
+    from backend.app.schemas.av_features import AVFeatureSet
+    from backend.app.schemas.flags import Flag
+    from backend.tests.test_delivery_features import _av
+
+    a = _av(1.0, 5.0).model_copy(
+        update={
+            "cuts_per_minute": cuts,
+            "visual_type": vtype,
+            "visual_type_share": share,
+            "speech_match_ratio": match,
+        }
+    )
+    av = AVFeatureSet(
+        project_id="p",
+        av_feature_schema_version="t",
+        config_hash="h",
+        has_video=True,
+        sample_fps=2.0,
+        scene_cuts=[],
+        silence_threshold_db=None,
+        visual_types={"diagram": "Diagram"},
+        segments=[a],
+    )
+    f = Flag(
+        id="f",
+        start=0.0,
+        end=10.0,
+        severity="medium",
+        category=cat,
+        source=source,
+        risk_score=0.4,
+        title="t",
+        explanation="e",
+        evidence=[],
+    )
+    return f, av
+
+
+COMP = load_config("detection")["visual_compensation"]
+
+
+def test_strong_visuals_soften_rule_flag_and_say_why():
+    from backend.app.detection.flags import _visual_compensation
+
+    f, av = _comp_inputs(vtype="diagram", share=0.9, match=1.2)
+    _visual_compensation([f], [_seg(0, 0.0, 10.0)], av, COMP)
+    assert f.risk_score == 0.28
+    assert "Diagram on screen that matches the words" in f.evidence[0].label
+    assert "not validated" in f.evidence[0].label
+    f2, av2 = _comp_inputs(cuts=8.0)
+    _visual_compensation([f2], [_seg(0, 0.0, 10.0)], av2, COMP)
+    assert f2.risk_score == 0.28 and "8 scene cuts per minute" in f2.evidence[0].label
+
+
+def test_weak_visuals_model_flags_and_other_categories_untouched():
+    from backend.app.detection.flags import _visual_compensation
+
+    cases = [
+        _comp_inputs(vtype="talking_head", share=1.0, match=1.5),  # not an explanatory visual
+        _comp_inputs(vtype="diagram", share=0.9, match=0.7),  # diagram, but off-topic
+        _comp_inputs(vtype="diagram", share=0.9, match=1.2, source="model+rule"),
+        _comp_inputs(vtype="diagram", share=0.9, match=1.2, cat="repetition"),
+    ]
+    for f, av in cases:
+        _visual_compensation([f], [_seg(0, 0.0, 10.0)], av, COMP)
+        assert f.risk_score == 0.4 and f.evidence == []

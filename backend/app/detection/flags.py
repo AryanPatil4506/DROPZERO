@@ -27,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.8"
+RULES_VERSION = "rules-1.9"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -551,6 +551,8 @@ def detect(
     _delivery_evidence(b.flags, segments, feats, av_by, cfg["delivery"])
     if av is not None and av.visual_types:
         _visual_evidence(b.flags, b.edits, segments, av, cfg["delivery"])
+    if av is not None:
+        _visual_compensation(b.flags, segments, av, cfg["visual_compensation"])
     flags = sorted(b.flags, key=lambda f: (f.start, f.id))
     return FlagsResponse(
         project_id=t.project_id,
@@ -611,6 +613,48 @@ def _visual_evidence(flags: list[Flag], edits: list[Edit], segments, av, cfg: di
                 e = edit_by.get(eid)
                 if e and e.action == "ADD_VISUAL" and top.visual_type in _VISUAL_FIX:
                     e.reason = _VISUAL_FIX[top.visual_type]
+
+
+def _strong_visual(a, cfg: dict) -> str | None:
+    """Why the picture may hold attention in this segment, or None."""
+    if a.cuts_per_minute is not None and a.cuts_per_minute >= cfg["strong_cuts_per_minute"]:
+        return f"{a.cuts_per_minute:.0f} scene cuts per minute"
+    if (
+        a.visual_type in cfg["strong_types"]
+        and (a.visual_type_share or 0) >= cfg["min_type_share"]
+        and a.speech_match_ratio is not None
+        and a.speech_match_ratio >= cfg["min_match_ratio"]
+    ):
+        return f"{a.visual_type} on screen that matches the words"
+    return None
+
+
+def _visual_compensation(flags: list[Flag], segments, av, cfg: dict) -> None:
+    """Flat or slow delivery matters less when the visuals carry the section (a DROPZERO rule,
+    not validated: the retention model was trained without frames). Rule-only flags in the
+    configured categories get a lower risk score and say why; model flags are left alone."""
+    av_by = {a.index: a for a in av.segments}
+    names = av.visual_types
+    for f in flags:
+        if f.source != "rule" or f.category not in cfg["categories"]:
+            continue
+        inside = [
+            av_by[s.index]
+            for s in segments
+            if s.kind == "speech" and s.start < f.end and s.end > f.start and s.index in av_by
+        ]
+        reasons = [r for r in (_strong_visual(a, cfg) for a in inside) if r]
+        if not inside or len(reasons) * 2 < len(inside):  # most of the flagged range
+            continue
+        why = reasons[0]
+        for key, label in names.items():
+            why = why.replace(f"{key} on screen", f"{label} on screen")
+        f.risk_score = round(f.risk_score * cfg["risk_factor"], 3)
+        f.evidence.append(
+            Evidence(
+                label=f"Visuals may carry this stretch: {why} (rule, not validated)", value="yes"
+            )
+        )
 
 
 def _delivery_evidence(flags: list[Flag], segments, feats, av_by, cfg: dict) -> None:
