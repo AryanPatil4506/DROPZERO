@@ -12,7 +12,7 @@ from backend.app.schemas.av_features import AVFeatureSet
 from backend.app.schemas.features import TextFeatureSet
 from backend.app.schemas.segment import Segment
 
-SCORES_VERSION = "scores-1.0"
+SCORES_VERSION = "scores-1.1"  # 1.1: pitch range in the audio lane
 LABEL = (
     "DROPZERO internal scores (0-100), relative to this video. Not validated against retention "
     "data; hover a block to see what each score is made of."
@@ -66,6 +66,7 @@ def compute_scores(
     p_gain = _pct([f.information_gain for f in sp])
     p_vis = _pct([a.visual_change_mean for a in avs.values()])
     p_var = _pct([a.energy_variation_db for a in avs.values()])
+    p_pitch = _pct([a.pitch_range_st for a in avs.values()])
     rep_sims = [f.repetition_similarity for f in sp if f.repetition_similarity is not None]
     rep_thr = max(cfg["repetition_floor"], float(np.quantile(rep_sims, 0.9))) if rep_sims else 1.0
 
@@ -89,9 +90,10 @@ def compute_scores(
         if speech and a and a.silence_ratio is not None:
             clip = a.clipping_ratio or 0.0
             audio = 100 * (
-                0.4 * (1 - a.silence_ratio)
-                + 0.3 * (p_var(a.energy_variation_db) or 0.5)
-                + 0.3 * (1 - min(1.0, clip * cfg["clipping_scale"]))
+                0.35 * (1 - a.silence_ratio)
+                + 0.2 * (p_var(a.energy_variation_db) or 0.5)
+                + 0.2 * (p_pitch(a.pitch_range_st) or 0.5)
+                + 0.25 * (1 - min(1.0, clip * cfg["clipping_scale"]))
             )
             if a.energy_db is not None and a.energy_db < cfg["quiet_db"]:
                 audio -= cfg["quiet_penalty"]
@@ -117,6 +119,10 @@ def compute_scores(
                     "silence_share": a.silence_ratio if a else None,
                     "loudness_vs_your_average_db": a.energy_db if a else None,
                     "clipping_share": a.clipping_ratio if a else None,
+                    "pitch_range_semitones": a.pitch_range_st if a else None,
+                    "pitch_range_vs_your_average": a.pitch_range_ratio if a else None,
+                    "longest_pause_s": f.longest_pause_s,
+                    "repeated_phrases_said_again": float(len(f.phrase_repeats)),
                 },
             )
         )

@@ -27,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.6"
+RULES_VERSION = "rules-1.7"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -541,6 +541,7 @@ def detect(
                 evidence=[Evidence(label="Model-estimated drop probability", value=r.p_drop)],
             )
 
+    _delivery_evidence(b.flags, segments, feats, av_by, cfg["delivery"])
     flags = sorted(b.flags, key=lambda f: (f.start, f.id))
     return FlagsResponse(
         project_id=t.project_id,
@@ -551,6 +552,50 @@ def detect(
         flags=flags,
         edits=b.edits,
     )
+
+
+def _delivery_evidence(flags: list[Flag], segments, feats, av_by, cfg: dict) -> None:
+    """Supporting evidence from how the lines are delivered: flat pitch, long pauses, phrases
+    said again and again. Appended to existing flags only; never raises or creates a flag."""
+    for f in flags:
+        if f.category == "silence":
+            continue
+        inside = [s for s in segments if s.kind == "speech" and s.start < f.end and s.end > f.start]
+        fe = [feats[s.index] for s in inside]
+        ratios = [
+            (av_by[s.index].pitch_range_ratio, av_by[s.index].pitch_range_st)
+            for s in inside
+            if s.index in av_by and av_by[s.index].pitch_range_ratio is not None
+        ]
+        if ratios:
+            r, st = min(ratios)
+            if r < cfg["flat_pitch_ratio"]:
+                f.evidence.append(
+                    Evidence(label="Pitch range vs your average (flatter delivery)", value=r)
+                )
+                f.evidence.append(Evidence(label="Pitch range here", value=st, unit="semitones"))
+        pauses = [(x.longest_pause_s, x.longest_pause_at) for x in fe if x.longest_pause_s]
+        if pauses:
+            g, at = max(pauses, key=lambda p: (p[0], -(p[1] or 0)))
+            if g >= cfg["pause_s"] and at is not None:
+                f.evidence.append(
+                    Evidence(
+                        label=f"Longest pause between words (at {mmss(at)})", value=g, unit="s"
+                    )
+                )
+        if f.category in cfg["phrase_categories"]:
+            reps = sorted(
+                {r.phrase: r for x in fe for r in x.phrase_repeats}.values(),
+                key=lambda r: (-r.count, r.at),
+            )
+            for r in reps[:2]:
+                f.evidence.append(
+                    Evidence(
+                        label=f'Phrase "{r.phrase}" said (first at {mmss(r.first_at)})',
+                        value=r.count,
+                        unit="times",
+                    )
+                )
 
 
 __all__ = ["detect", "promise_check", "mmss", "RULES_VERSION"]
