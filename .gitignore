@@ -9,3 +9,4 @@ data/private/
 backend/tests/fixtures/audio/*.wav
 data/raw/
 data/processed/
+dist/
