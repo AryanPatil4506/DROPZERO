@@ -20,6 +20,8 @@ class Category(StrEnum):
     TECH = "tech"
     EDUCATION = "education"
     VLOG = "vlog"
+    MUSIC = "music"
+    OTHER = "other"
 
 
 class ProjectStatus(StrEnum):

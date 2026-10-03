@@ -16,7 +16,13 @@ export function evidenceValue(value: number | string, unit?: string | null): str
 }
 
 export const LANGUAGE_LABEL: Record<string, string> = { en: "English", hi: "Hindi", hinglish: "Hinglish" };
-export const CATEGORY_LABEL: Record<string, string> = { tech: "Tech", education: "Education", vlog: "Vlog" };
+export const CATEGORY_LABEL: Record<string, string> = {
+  tech: "Tech",
+  education: "Education",
+  vlog: "Vlog",
+  music: "Music",
+  other: "Other",
+};
 
 export const FLAG_CATEGORY_LABEL: Record<string, string> = {
   slow_hook: "Slow hook",

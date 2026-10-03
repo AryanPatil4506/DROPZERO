@@ -262,3 +262,11 @@ def test_real_ffmpeg_probe_and_audio(client, svc, tmp_path):
     av = client.get(f"/api/projects/{pid}/features/av").json()
     assert len(av["scene_cuts"]) == 1 and abs(av["scene_cuts"][0] - 30.0) <= 0.5
     assert _work_dirs(svc) == []
+
+
+def test_music_and_other_categories(client):
+    for cat in ("music", "other"):
+        r = client.post("/api/projects", json={"title": "x", "category": cat, "language": "en"})
+        assert r.status_code == 201 and r.json()["category"] == cat
+    bad = client.post("/api/projects", json={"title": "x", "category": "sports", "language": "en"})
+    assert bad.status_code == 422

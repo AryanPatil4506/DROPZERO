@@ -24,13 +24,20 @@ from backend.app.detection.flags import mmss  # noqa: E402
 from backend.app.ingestion.audio import extract_audio, load_wav  # noqa: E402
 from backend.app.main import app  # noqa: E402
 
-CATEGORY_HINTS = {"edu": "education", "system": "education", "vlog": "vlog", "tech": "tech"}
+CATEGORY_HINTS = {
+    "edu": "education",
+    "system": "education",
+    "vlog": "vlog",
+    "tech": "tech",
+    "music": "music",
+    "song": "music",
+}
 
 
 def guess(path: Path) -> tuple[str, str]:
     t = path.with_suffix(".title.txt")
     title = t.read_text(encoding="utf-8").strip() if t.exists() else path.stem.replace("_", " ")
-    cat = next((c for k, c in CATEGORY_HINTS.items() if k in path.stem.lower()), "education")
+    cat = next((c for k, c in CATEGORY_HINTS.items() if k in path.stem.lower()), "other")
     return title, cat
 
 

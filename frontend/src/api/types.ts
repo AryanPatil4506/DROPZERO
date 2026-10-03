@@ -1,6 +1,6 @@
 // Mirrors docs/frontend-brief.md §4 and backend/app/schemas/. All times are seconds (float).
 
-export type Category = "tech" | "education" | "vlog";
+export type Category = "tech" | "education" | "vlog" | "music" | "other";
 export type Language = "en" | "hi" | "hinglish";
 export type TimingSource = "asr" | "estimated";
 export type Risk = "low" | "medium" | "high";

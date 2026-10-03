@@ -82,7 +82,7 @@ export default function NewProject() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1.5">
             <span className="block text-sm text-ink-2">Category</span>
-            <Segmented label="Category" value={category} onChange={setCategory} options={[{ value: "tech", label: "Tech" }, { value: "education", label: "Education" }, { value: "vlog", label: "Vlog" }]} />
+            <Segmented label="Category" value={category} onChange={setCategory} options={[{ value: "tech", label: "Tech" }, { value: "education", label: "Education" }, { value: "vlog", label: "Vlog" }, { value: "music", label: "Music" }, { value: "other", label: "Other" }]} />
           </div>
           <div className="space-y-1.5">
             <span className="block text-sm text-ink-2">Language</span>
