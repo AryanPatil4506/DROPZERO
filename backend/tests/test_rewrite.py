@@ -120,3 +120,16 @@ def test_script_check_follows_code_mixed_original():
     assert not script_ok(
         "यह पूरी तरह से हिंदी में लिखा गया वाक्य है", "hi", original="All English here."
     )
+
+
+def test_echoed_timestamp_is_stripped_not_refused():
+    from backend.app.explain.rewrite import strip_echo
+
+    assert (
+        strip_echo("07:43–08:10: So the call goes to the kernel.")
+        == "So the call goes to the kernel."
+    )
+    assert strip_echo("(07:43) So the call goes.") == "So the call goes."
+    assert strip_echo("Lines 7:43 - 8:10 So the call goes.") == "So the call goes."
+    # a time inside the sentence is not an echo: it stays, and the number check decides
+    assert strip_echo("Meet me at 7:43 tomorrow.") == "Meet me at 7:43 tomorrow."

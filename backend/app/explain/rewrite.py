@@ -16,14 +16,13 @@ import re
 
 from pydantic import BaseModel
 
-from backend.app.detection.flags import mmss
 from backend.app.explain.llm import LANG_NAMES, LocalLLM, check_numbers
 from backend.app.features.text.embedder import Embedder
 from backend.app.schemas.flags import Flag
 from backend.app.schemas.transcript import Transcript
 
 # Bump when the checks or prompt change, so cached rewrites made under older rules are redone.
-REWRITE_VERSION = "rewrite-3"
+REWRITE_VERSION = "rewrite-4"
 
 _DEVANAGARI = re.compile(r"[ऀ-ॿ]")
 _NUM = re.compile(r"\d+(?:[.:]\d+)?%?")
@@ -85,6 +84,17 @@ def script_ok(text: str, language: str, original: str | None = None, tol: float 
     return share < 0.1  # English and Roman-script Hinglish
 
 
+# A leading time range or "Lines:" label echoed from a prompt, e.g. "07:43–08:10:" or "(07:43)".
+_ECHO = re.compile(
+    r"^\s*(?:lines\s*)?\(?\s*\d{1,2}:\d{2}(?:\s*[–—-]\s*\d{1,2}:\d{2})?\s*\)?\s*[:,.–—-]*\s*",
+    re.I,
+)
+
+
+def strip_echo(text: str) -> str:
+    return _ECHO.sub("", text.strip(), count=1).strip()
+
+
 def _parse(text: str) -> dict | None:
     m = re.search(r"\{.*\}", text, re.S)
     if not m:
@@ -120,7 +130,9 @@ def rewrite_flag(
     system = SYSTEM.replace("{lang}", LANG_NAMES.get(language, "English")).replace(
         "{max_words}", str(max_words)
     )
-    user = f"Lines ({mmss(start)}–{mmss(end)}, {n} words):\n{original}"
+    # no timestamps in the prompt: the model copied them into the spoken lines, and the
+    # no-new-numbers check then (rightly) refused the rewrite
+    user = f"Lines ({n} words):\n{original}"
     rejected: list[str] = []
     for attempt in range(cfg["retries"] + 1):
         if attempt:
@@ -130,7 +142,7 @@ def rewrite_flag(
         if d is None:
             rejected.append("invalid JSON")
             continue
-        text = d["rewrite"].strip()
+        text = strip_echo(d["rewrite"])
         k = _words(text)
         if k > max_words:
             rejected.append(f"not shorter enough ({k} words, limit {max_words})")
