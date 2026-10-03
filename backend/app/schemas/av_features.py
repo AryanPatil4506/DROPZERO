@@ -21,6 +21,17 @@ class SegmentAVFeatures(BaseModel):
     static_ratio: float | None  # share of sampled frames with almost no change
     longest_static_s: float | None
     seconds_since_cut: float | None  # at segment end
+    # on-screen content (av-1.3; CLIP zero-shot, evidence only)
+    visual_type: str | None = None  # most common content type key in the segment
+    visual_type_share: float | None = None
+    speech_match: float | None = None  # picture vs words, cosine
+    speech_match_ratio: float | None = None  # vs this video's median
+
+
+class VisualRun(BaseModel):
+    start: float
+    end: float
+    type: str  # content type key, or "unclear"
 
 
 class AVFeatureSet(BaseModel):
@@ -34,4 +45,7 @@ class AVFeatureSet(BaseModel):
     snr_db: float | None = None  # median voiced loudness above the noise floor (p5)
     pitch_median_hz: float | None = None  # typical voice pitch over voiced frames
     pitch_range_median_st: float | None = None  # this video's typical segment pitch range
+    visual_model: str | None = None
+    visual_types: dict[str, str] = {}  # key -> display label
+    visual_timeline: list[VisualRun] = []
     segments: list[SegmentAVFeatures]

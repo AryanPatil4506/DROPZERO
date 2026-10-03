@@ -26,6 +26,7 @@
       <nav class="pills" aria-label="Sections">
         <a href="#how">How it works</a>
         <a href="#product">Product</a>
+        <a href="#features">Features</a>
         <a href="#validation">Validation</a>
       </nav>
       <div class="nav-actions">
@@ -253,12 +254,57 @@
     </div>
   </section>
 
+  <!-- ============================== FEATURES ============================== -->
+  <section class="section" id="features">
+    <div class="section-head">
+      <p class="eyebrow">Beyond the curve</p>
+      <h2>From flag to finished edit.</h2>
+      <p class="lede">Everything below runs on your own machine, works in English, Hindi and Hinglish, and labels every estimate as one.</p>
+    </div>
+    <ul class="features">
+      <li class="feature">
+        <h3>Promise ledger</h3>
+        <p>Every promise the opening makes, tracked to its payoff: kept on time, kept late, or never kept. “Demo promised at 00:34, shown at 02:30.”</p>
+      </li>
+      <li class="feature">
+        <h3>Show me what to cut</h3>
+        <p>The smallest range that removes the problem, snapped to pauses between words. Build an edit plan with cuts, trims and speed changes.</p>
+      </li>
+      <li class="feature">
+        <h3>Render the edit</h3>
+        <p>FFmpeg renders an edited copy and plays it next to the original, each with its predicted curve. Your original file is never touched.</p>
+      </li>
+      <li class="feature">
+        <h3>Rewrite, with a meaning check</h3>
+        <p>A local model tightens the flagged lines in your language. Rewrites that change the meaning, add numbers or don’t get shorter are refused.</p>
+      </li>
+      <li class="feature">
+        <h3>Hook A/B simulator</h3>
+        <p>Paste two versions of your opening and compare their simulated curves before you record. A simulation, not a real A/B test, and labelled that way.</p>
+      </li>
+      <li class="feature">
+        <h3>Delivery evidence</h3>
+        <p>Flat pitch against your own range, long pauses between words, phrases said again and again: added as evidence on the flags they explain.</p>
+      </li>
+      <li class="feature">
+        <h3>Creator report</h3>
+        <p>Top issues, exact edits and validation numbers on one printable page, ready to hand to your editor as a PDF.</p>
+      </li>
+      <li class="feature">
+        <h3>Private by default</h3>
+        <p>Uploads are encrypted at rest, deleted on a schedule or on request, and no transcript leaves the machine for a third-party AI service.</p>
+      </li>
+    </ul>
+  </section>
+
+
   <!-- ============================== VALIDATION ============================== -->
   <section class="section split split-rev" id="validation">
     <div class="section-head">
       <p class="eyebrow">Validation</p>
-      <h2>Checked against your real retention.</h2>
-      <p class="lede">Upload your YouTube Studio retention export. DROPZERO lines it up with its prediction, reports the error and correlation, and lists every drop it caught — and every one it missed.</p>
+      <h2>Tested on real viewing data. Misses included.</h2>
+      <p class="lede">The model is trained and tested on real in-video drop-off from 310,360 viewers of online-course lectures, held out by lecture. On 220 unseen lectures it beats the average-curve baseline on curve error (0.172 vs 0.220) and drop precision (0.48 vs 0.41), and catches fewer drops (1,100 vs 1,306 of 1,660). Asked to name drop points, a plain LLM found 63 of 296 real drops; DROPZERO found 99.</p>
+      <p class="lede">Importing your own YouTube Studio retention export is next on the roadmap.</p>
       <ul class="principles">
         <li>Every flag carries a timestamp and the evidence behind it.</li>
         <li>Simulations are labelled as model estimates. No guarantees.</li>
@@ -269,7 +315,7 @@
     <figure class="val-card">
       <figcaption>
         <span class="val-title">Actual vs predicted · example layout</span>
-        <span class="legend legend-inline"><span><i class="key key-actual"></i>Actual (your CSV)</span><span><i class="key key-pred"></i>Predicted</span></span>
+        <span class="legend legend-inline"><span><i class="key key-actual"></i>Actual</span><span><i class="key key-pred"></i>Predicted</span></span>
       </figcaption>
       <svg id="val-svg" viewBox="0 0 520 240" role="img" aria-label="Example layout: actual and predicted retention lines with one caught drop and one missed drop marked"></svg>
     </figure>

@@ -27,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.7"
+RULES_VERSION = "rules-1.9"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -549,6 +549,10 @@ def detect(
             )
 
     _delivery_evidence(b.flags, segments, feats, av_by, cfg["delivery"])
+    if av is not None and av.visual_types:
+        _visual_evidence(b.flags, b.edits, segments, av, cfg["delivery"])
+    if av is not None:
+        _visual_compensation(b.flags, segments, av, cfg["visual_compensation"])
     flags = sorted(b.flags, key=lambda f: (f.start, f.id))
     return FlagsResponse(
         project_id=t.project_id,
@@ -559,6 +563,98 @@ def detect(
         flags=flags,
         edits=b.edits,
     )
+
+
+# what to suggest instead of the picture that is on screen now
+_VISUAL_FIX = {
+    "talking_head": "Cut to a diagram, a screen recording or B-roll here",
+    "slide_text": "Change the slide, or reveal it point by point as you speak",
+    "diagram": "Animate or annotate the diagram, or cut back to camera",
+    "chart": "Highlight the number you are talking about, or zoom into the chart",
+    "screen": "Zoom into the part of the screen you are talking about",
+    "broll": "Switch the footage to match what you are saying",
+    "blank": "Put something on screen: the topic, a diagram or your face",
+}
+
+
+def _visual_evidence(flags: list[Flag], edits: list[Edit], segments, av, cfg: dict) -> None:
+    """What is on screen (CLIP, evidence only): the content type over the flag, and a weak match
+    between picture and words. Sharpens the ADD_VISUAL suggestion for static-picture flags."""
+    av_by = {a.index: a for a in av.segments}
+    names = av.visual_types
+    edit_by = {e.id: e for e in edits}
+    for f in flags:
+        inside = [
+            av_by[s.index]
+            for s in segments
+            if s.start < f.end and s.end > f.start and s.index in av_by
+        ]
+        typed = [a for a in inside if a.visual_type and a.visual_type != "unclear"]
+        if not typed:
+            continue
+        top = max(typed, key=lambda a: (a.end - a.start, -a.index))
+        if f.category in ("visual_monotony", *cfg["visual_match_categories"]):
+            f.evidence.append(
+                Evidence(
+                    label=f"On screen: {names.get(top.visual_type, top.visual_type)}",
+                    value=top.visual_type_share,
+                )
+            )
+        if f.category in cfg["visual_match_categories"]:
+            ratios = [a.speech_match_ratio for a in inside if a.speech_match_ratio is not None]
+            if ratios and min(ratios) < cfg["weak_visual_match_ratio"]:
+                f.evidence.append(
+                    Evidence(
+                        label="Picture matches your words (vs your average)", value=min(ratios)
+                    )
+                )
+        if f.category == "visual_monotony":
+            for eid in f.edit_ids:
+                e = edit_by.get(eid)
+                if e and e.action == "ADD_VISUAL" and top.visual_type in _VISUAL_FIX:
+                    e.reason = _VISUAL_FIX[top.visual_type]
+
+
+def _strong_visual(a, cfg: dict) -> str | None:
+    """Why the picture may hold attention in this segment, or None."""
+    if a.cuts_per_minute is not None and a.cuts_per_minute >= cfg["strong_cuts_per_minute"]:
+        return f"{a.cuts_per_minute:.0f} scene cuts per minute"
+    if (
+        a.visual_type in cfg["strong_types"]
+        and (a.visual_type_share or 0) >= cfg["min_type_share"]
+        and a.speech_match_ratio is not None
+        and a.speech_match_ratio >= cfg["min_match_ratio"]
+    ):
+        return f"{a.visual_type} on screen that matches the words"
+    return None
+
+
+def _visual_compensation(flags: list[Flag], segments, av, cfg: dict) -> None:
+    """Flat or slow delivery matters less when the visuals carry the section (a DROPZERO rule,
+    not validated: the retention model was trained without frames). Rule-only flags in the
+    configured categories get a lower risk score and say why; model flags are left alone."""
+    av_by = {a.index: a for a in av.segments}
+    names = av.visual_types
+    for f in flags:
+        if f.source != "rule" or f.category not in cfg["categories"]:
+            continue
+        inside = [
+            av_by[s.index]
+            for s in segments
+            if s.kind == "speech" and s.start < f.end and s.end > f.start and s.index in av_by
+        ]
+        reasons = [r for r in (_strong_visual(a, cfg) for a in inside) if r]
+        if not inside or len(reasons) * 2 < len(inside):  # most of the flagged range
+            continue
+        why = reasons[0]
+        for key, label in names.items():
+            why = why.replace(f"{key} on screen", f"{label} on screen")
+        f.risk_score = round(f.risk_score * cfg["risk_factor"], 3)
+        f.evidence.append(
+            Evidence(
+                label=f"Visuals may carry this stretch: {why} (rule, not validated)", value="yes"
+            )
+        )
 
 
 def _delivery_evidence(flags: list[Flag], segments, feats, av_by, cfg: dict) -> None:

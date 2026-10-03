@@ -60,3 +60,17 @@ delivery:
   pause_s: 1.5                # longest gap between words inside the flagged range
   # repeated exact phrases are added to these categories only (topic terms repeat everywhere)
   phrase_categories: [repetition, low_information, pacing, model_risk]
+  # on-screen content (CLIP): picture matches the words less than this share of the video's median
+  weak_visual_match_ratio: 0.8
+  visual_match_categories: [low_information, repetition, pacing, model_risk, visual_monotony]
+
+visual_compensation:
+  # "Flat delivery, but the picture is doing the work": a rule, NOT validated against retention
+  # (the training data has no frames). Applies to rule-only flags in these categories; model
+  # flags and the predicted curve are never changed.
+  categories: [pacing, low_information, fillers]
+  strong_cuts_per_minute: 6.0      # frequent cuts ...
+  strong_types: [diagram, chart, screen, broll]
+  min_type_share: 0.6              # ... or mostly an explanatory visual ...
+  min_match_ratio: 1.0             # ... that matches the words at least as well as usual
+  risk_factor: 0.7                 # rule risk score x this

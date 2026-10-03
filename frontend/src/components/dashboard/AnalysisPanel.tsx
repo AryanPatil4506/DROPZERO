@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Flag, Project, PromiseCheck, Segment, TextFeatures } from "../../api/types";
+import type { AvFeatures, Flag, Project, PromiseCheck, Segment, TextFeatures } from "../../api/types";
 import { CATEGORY_LABEL, LANGUAGE_LABEL, mmss } from "../../lib/format";
 import { IconChevron } from "../icons";
 import { Segmented } from "../ui";
@@ -11,12 +11,14 @@ export default function AnalysisPanel({
   flags,
   segments,
   features,
+  av,
   promise,
 }: {
   project: Project;
   flags: Flag[];
   segments: Segment[];
   features: TextFeatures | null;
+  av?: AvFeatures | null;
   promise?: PromiseCheck;
 }) {
   const { previewEdited, setPreviewEdited, skipRanges, seek } = useTimeline();
@@ -37,6 +39,11 @@ export default function AnalysisPanel({
     { label: "Language", value: LANGUAGE_LABEL[project.language] ?? project.language },
     { label: "Category", value: CATEGORY_LABEL[project.category] ?? project.category },
   ];
+  // delivery (measured on this video's audio; supporting evidence, not judged on its own)
+  if (av?.pitch_median_hz != null) extra.push({ label: "Voice pitch", value: `${Math.round(av.pitch_median_hz)} Hz` });
+  if (av?.pitch_range_median_st != null) extra.push({ label: "Pitch range", value: `${av.pitch_range_median_st.toFixed(1)} st` });
+  if (av?.snr_db != null) extra.push({ label: "Speech/noise", value: `${Math.round(av.snr_db)} dB` });
+  const topPhrase = features?.repeated_phrases?.[0];
 
   return (
     <section className="glass rounded-[26px] p-3.5" aria-label="Analysis summary">
@@ -69,6 +76,16 @@ export default function AnalysisPanel({
         >
           Title promise first addressed at{" "}
           <span className="font-medium text-ink tabular-nums">{promise.first_mention_s != null ? mmss(promise.first_mention_s) : "— not found"}</span>
+        </button>
+      )}
+      {more && topPhrase && (
+        <button
+          type="button"
+          onClick={() => seek(topPhrase.times[0])}
+          className="mt-1.5 w-full truncate rounded-xl bg-white/[0.05] px-2.5 py-1.5 text-left text-[12px] text-ink-2 hover:bg-white/[0.08]"
+          title={`Said at ${topPhrase.times.map(mmss).join(", ")}`}
+        >
+          Most repeated phrase <span className="font-medium text-ink">“{topPhrase.phrase}”</span> ×{topPhrase.count}
         </button>
       )}
       <button type="button" onClick={() => setMore((m) => !m)} className="mx-auto mt-1.5 flex items-center gap-1 text-[12px] text-ink-3 hover:text-ink" aria-expanded={more}>

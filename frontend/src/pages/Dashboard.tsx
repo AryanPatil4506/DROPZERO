@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../api/client";
 import { isNotFound } from "../api/errors";
-import { useFlags, usePrediction, useProject, useProjects, useScores, useSegments, useTextFeatures, useTranscript } from "../api/hooks";
+import { useAvFeatures, useFlags, usePrediction, useProject, useProjects, useScores, useSegments, useTextFeatures, useTranscript } from "../api/hooks";
 import type { Flag } from "../api/types";
 import AnalysisPanel from "../components/dashboard/AnalysisPanel";
 import BackgroundStage from "../components/dashboard/BackgroundStage";
@@ -37,6 +37,7 @@ export default function Dashboard() {
   const transcript = useTranscript(id);
   const segments = useSegments(id);
   const features = useTextFeatures(id);
+  const av = useAvFeatures(id);
   const prediction = usePrediction(id);
   const flagsQ = useFlags(id);
 
@@ -277,7 +278,7 @@ export default function Dashboard() {
 
           {/* left: analysis + transcript */}
           <div className="flex min-h-0 flex-col gap-3">
-            <AnalysisPanel project={p} flags={flags} segments={segments.data ?? []} features={features.data ?? null} promise={flagsQ.data?.promise} />
+            <AnalysisPanel project={p} flags={flags} segments={segments.data ?? []} features={features.data ?? null} av={av.data ?? null} promise={flagsQ.data?.promise} />
             <div className="min-h-0 flex-1">
               {transcript.isPending && <div className="glass rounded-[26px] p-4"><Spinner label="Loading transcript" /></div>}
               {transcript.isError && <ErrorBox error={transcript.error} title="Couldn't load the transcript" />}

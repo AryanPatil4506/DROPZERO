@@ -10,4 +10,5 @@ FEATURE_SCHEMA_VERSION = "text-1.1"
 MODEL_VERSION: str | None = None
 # Phase 4 audio + visual features (video uploads only).
 # av-1.2: pitch range per segment (flat vs lively delivery).
-AV_FEATURE_SCHEMA_VERSION = "av-1.2"
+# av-1.3: on-screen content type and picture-speech match (CLIP).
+AV_FEATURE_SCHEMA_VERSION = "av-1.3"

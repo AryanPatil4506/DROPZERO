@@ -113,6 +113,22 @@ export interface TextFeatures {
   baseline_words_per_second: number | null;
   segments: SegmentTextFeatures[];
   topics: Topic[];
+  /** Exact three-word phrases said 3+ times (text-1.1; absent on older analyses). */
+  repeated_phrases?: { phrase: string; count: number; times: number[] }[];
+}
+
+/** Video-level audio summary from GET /features/av (per-segment values are used as flag evidence). */
+export interface AvFeatures {
+  project_id: string;
+  av_feature_schema_version: string;
+  has_video: boolean;
+  snr_db?: number | null;
+  pitch_median_hz?: number | null;
+  pitch_range_median_st?: number | null;
+  /** On-screen content (av-1.3, CLIP zero-shot; evidence only, not used by the model). */
+  visual_model?: string | null;
+  visual_types?: Record<string, string>;
+  visual_timeline?: { start: number; end: number; type: string }[];
 }
 
 export interface CurvePoint {
@@ -332,6 +348,23 @@ export interface Detection {
   median_delay_s?: number | null;
 }
 
+export interface LlmBaselineMethod {
+  precision: number;
+  recall: number;
+  drops_found: number;
+  drops_total: number;
+  points_named: number;
+}
+
+export interface LlmBaseline {
+  what: string;
+  lectures: number;
+  k: number;
+  llm_model: string;
+  note: string;
+  methods: Record<"dropzero" | "llm" | "baseline", LlmBaselineMethod>;
+}
+
 export interface Validation extends MockMarker {
   dataset: string;
   model_version: string;
@@ -345,6 +378,9 @@ export interface Validation extends MockMarker {
   baseline_detection?: Detection;
   band?: { quantiles: number[]; test_coverage: number };
   ablations?: Record<string, { mae: number; hazard_spearman_pooled: number; detection_f1: number }>;
+  /** "Why not just ask a chatbot?": top-k drop points per lecture from DROPZERO, a plain LLM
+   * (timestamped transcript only) and the position baseline, scored the same way. */
+  llm_baseline?: LlmBaseline;
   examples: {
     video_id: string;
     title: string;

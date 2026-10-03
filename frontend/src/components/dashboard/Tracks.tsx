@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { useParams } from "react-router-dom";
-import { useScores } from "../../api/hooks";
+import { useAvFeatures, useScores } from "../../api/hooks";
 import type { SegmentScore } from "../../api/types";
 import type { Edit, Flag, Prediction, Segment, Topic } from "../../api/types";
 import { ACTION_LABEL, mmss, range } from "../../lib/format";
@@ -11,6 +11,18 @@ const RISK_BG: Record<string, string> = {
   high: "bg-high/80 hover:bg-high",
   medium: "bg-med/80 hover:bg-med",
   low: "bg-white/10 hover:bg-white/20",
+};
+
+// on-screen content types (CLIP); muted so the risk colours stay the loudest thing on the timeline
+const SCREEN_BG: Record<string, string> = {
+  talking_head: "bg-white/15",
+  slide_text: "bg-[#8fb3ff]/45",
+  diagram: "bg-[#7fd8b8]/45",
+  chart: "bg-[#c9a8ff]/45",
+  screen: "bg-[#ffd27f]/40",
+  broll: "bg-[#ff9f7f]/40",
+  blank: "bg-white/5",
+  unclear: "bg-white/5",
 };
 
 function useX() {
@@ -56,6 +68,8 @@ export default function Tracks({
   const x = useX();
   const { id = "" } = useParams();
   const scoreData = useScores(id).data;
+  const av = useAvFeatures(id).data;
+  const screen = av?.visual_timeline ?? [];
   const scores = lanes === "scores" ? scoreData : undefined;
   const scoreBg = (v: number | null) =>
     v == null ? "bg-white/[0.04]" : v >= 65 ? "bg-ok/70" : v >= 40 ? "bg-med/70" : "bg-high/70";
@@ -117,6 +131,28 @@ export default function Tracks({
           );
         })}
       </Lane>
+
+      {screen.length > 0 && (
+        <Lane label="Screen" thin>
+          {screen.map((r) => {
+            const pos = x(r);
+            if (!pos.visible) return null;
+            const name = av?.visual_types?.[r.type] ?? r.type;
+            return (
+              <button
+                key={`${r.type}-${r.start}`}
+                type="button"
+                onClick={() => seek(r.start)}
+                title={`On screen: ${name} · ${range(r.start, r.end)}
+Detected automatically (CLIP); supporting evidence, not used by the retention model`}
+                className={`absolute inset-y-0 rounded-[3px] border-r-2 border-panel hover:brightness-150 ${SCREEN_BG[r.type] ?? "bg-white/10"}`}
+                style={{ left: pos.left, width: pos.width }}
+                aria-label={`On screen ${range(r.start, r.end)}: ${name}`}
+              />
+            );
+          })}
+        </Lane>
+      )}
 
       <Lane label="Edits">
         {edits.map((e) => {

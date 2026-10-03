@@ -4,7 +4,7 @@ from backend.app.abtest import ABRequest, compare
 from backend.app.deps import build_services, get_services
 from backend.app.main import app
 from backend.app.schemas.project import Language
-from backend.tests.helpers import FIX, HashingEmbedder
+from backend.tests.helpers import FIX, FakeVisualEncoder, HashingEmbedder
 
 SCRIPT = (FIX / "en_script.txt").read_text(encoding="utf-8")
 # Version B: same body, a tighter hook (no housekeeping, the promise first)
@@ -50,6 +50,7 @@ def test_identical_versions_tie():
 def test_ab_endpoint(settings):
     svc = build_services(settings)
     svc._embedder = HashingEmbedder()
+    svc._vision = FakeVisualEncoder()
     app.dependency_overrides[get_services] = lambda: svc
     try:
         with TestClient(app) as c:
@@ -65,6 +66,7 @@ def test_ab_endpoint(settings):
 def test_ab_compare_two_projects(settings):
     svc = build_services(settings)
     svc._embedder = HashingEmbedder()
+    svc._vision = FakeVisualEncoder()
     app.dependency_overrides[get_services] = lambda: svc
     try:
         with TestClient(app) as c:

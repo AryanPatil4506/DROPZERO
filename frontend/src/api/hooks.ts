@@ -20,6 +20,9 @@ export const useSegments = (id: string) =>
 export const useTextFeatures = (id: string) =>
   useQuery({ queryKey: ["features-text", id], queryFn: () => api.getTextFeatures(id), retry: noRetryOn404 });
 
+export const useAvFeatures = (id: string, enabled = true) =>
+  useQuery({ queryKey: ["features-av", id], queryFn: () => api.getAvFeatures(id), retry: noRetryOn404, enabled });
+
 export const usePrediction = (id: string) =>
   useQuery({ queryKey: ["prediction", id], queryFn: () => api.getPrediction(id), retry: noRetryOn404 });
 

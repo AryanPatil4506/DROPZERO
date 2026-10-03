@@ -12,6 +12,7 @@ import {
   type Explanation,
   type ABRequest,
   type ABResult,
+  type AvFeatures,
   type ScoreSet,
   type Simulation,
   type TextFeatures,
@@ -64,6 +65,8 @@ const live = {
   getTranscript: (id: string) => request<Transcript>(`/projects/${id}/transcript`),
   getSegments: (id: string) => request<Segment[]>(`/projects/${id}/segments`),
   getTextFeatures: (id: string) => request<TextFeatures>(`/projects/${id}/features/text`),
+  getAvFeatures: (id: string) => request<AvFeatures>(`/projects/${id}/features/av`),
+  deleteProject: (id: string) => request<void>(`/projects/${id}`, { method: "DELETE" }),
   getPrediction: (id: string) => request<Prediction>(`/projects/${id}/prediction`),
   getFlags: (id: string) => request<FlagsResponse>(`/projects/${id}/flags`),
   simulate: (id: string, editIds: string[], custom: CustomEdit[] = []) =>
