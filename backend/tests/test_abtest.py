@@ -60,3 +60,35 @@ def test_ab_endpoint(settings):
             assert bad.status_code == 422
     finally:
         app.dependency_overrides.clear()
+
+
+def test_ab_compare_two_projects(settings):
+    svc = build_services(settings)
+    svc._embedder = HashingEmbedder()
+    app.dependency_overrides[get_services] = lambda: svc
+    try:
+        with TestClient(app) as c:
+            ids = []
+            for text in (SCRIPT, SCRIPT_B):
+                pid = c.post(
+                    "/api/projects",
+                    json={
+                        "title": "I Built an AI Agent in 24 Hours",
+                        "category": "tech",
+                        "language": "en",
+                    },
+                ).json()["id"]
+                c.post(f"/api/projects/{pid}/script", json={"text": text})
+                c.post(f"/api/projects/{pid}/analyze")
+                ids.append(pid)
+            r = c.post("/api/projects/ab-compare", json={"project_a": ids[0], "project_b": ids[1]})
+            assert r.status_code == 200, r.text
+            d = r.json()
+            assert "two analysed projects" in d["label"] and d["b"]["name"].endswith("(B)")
+            assert [m["key"] for m in d["metrics"]][:2] == ["r30", "r60"]  # no video signals
+            same = c.post(
+                "/api/projects/ab-compare", json={"project_a": ids[0], "project_b": ids[0]}
+            )
+            assert same.status_code == 422
+    finally:
+        app.dependency_overrides.clear()

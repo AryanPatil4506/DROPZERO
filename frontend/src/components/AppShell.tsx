@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Link, NavLink, Outlet, useMatch, useNavigate } from "react-router-dom";
 import { USE_MOCKS } from "../api/client";
 import { endSession, getSession } from "../lib/session";
-import { IconCheck, IconGrid, IconHook, IconLogout, IconPlus, IconSim, IconTimeline, LogoMark } from "./icons";
+import { IconCheck, IconFile, IconGrid, IconHook, IconLogout, IconPlus, IconSim, IconTimeline, LogoMark } from "./icons";
 
 function RailLink({ to, label, end, children }: { to: string; label: string; end?: boolean; children: ReactNode }) {
   return (
@@ -44,6 +44,9 @@ export default function AppShell() {
             </RailLink>
             <RailLink to={`/projects/${projectId}/simulate`} label="Simulation">
               <IconSim className="size-5" />
+            </RailLink>
+            <RailLink to={`/projects/${projectId}/report`} label="Report (PDF)">
+              <IconFile className="size-5" />
             </RailLink>
           </>
         )}

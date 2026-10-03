@@ -10,6 +10,7 @@ import Projects from "./pages/Projects";
 import ComparePage from "./pages/Compare";
 import SimulatePage from "./pages/Simulate";
 import AbTestPage from "./pages/AbTest";
+import ReportPage from "./pages/Report";
 import ValidationPage from "./pages/Validation";
 
 function RequireSession() {
@@ -34,6 +35,7 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route element={<RequireSession />}>
+        <Route path="/projects/:id/report" element={<ReportPage />} />
         <Route element={<AppShell />}>
           <Route path="/projects" element={<Projects />} />
           <Route path="/new" element={<NewProject />} />

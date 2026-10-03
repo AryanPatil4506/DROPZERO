@@ -8,6 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request,
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+from backend.app.abtest import PROJECT_LABEL, ABResult, compare_signals, signals
 from backend.app.config import load_config
 from backend.app.deps import get_services
 from backend.app.detection.scores import ScoreSet, compute_scores
@@ -262,6 +263,33 @@ def get_scores(pid: str, svc: Services = Depends(get_services)) -> ScoreSet:
     raw = svc.db.get_artifact(pid, "av_features")
     av = AVFeatureSet.model_validate_json(raw) if raw else None
     return compute_scores(segs, tf, av, load_config("scores"))
+
+
+class ABProjectsRequest(BaseModel):
+    project_a: str
+    project_b: str
+
+
+@router.post("/ab-compare", response_model=ABResult)
+def post_ab_compare(body: ABProjectsRequest, svc: Services = Depends(get_services)) -> ABResult:
+    """A/B for uploaded videos (or scripts): compare two analysed projects from their stored
+    results. Instant; adds dead air and scene cuts in the hook when both are videos."""
+    if body.project_a == body.project_b:
+        raise HTTPException(422, "pick two different projects")
+    out = []
+    for pid in (body.project_a, body.project_b):
+        p = _project(svc, pid)
+        t = Transcript.model_validate_json(_artifact(svc, pid, "transcript"))
+        segs = [Segment.model_validate(x) for x in json.loads(_artifact(svc, pid, "segments"))]
+        tf = TextFeatureSet.model_validate_json(_artifact(svc, pid, "text_features"))
+        pred = Prediction.model_validate_json(_artifact(svc, pid, "prediction"))
+        flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+        raw = svc.db.get_artifact(pid, "av_features")
+        av = AVFeatureSet.model_validate_json(raw) if raw else None
+        out.append((p, signals(t, segs, tf, pred, flags, av)))
+    (pa, va), (pb, vb) = out
+    name_a, name_b = pa.title, pb.title if pb.title != pa.title else f"{pb.title} (B)"
+    return compare_signals(va, vb, name_a, name_b, PROJECT_LABEL)
 
 
 @router.get("/{pid}/explanations", response_model=dict[str, Explanation])

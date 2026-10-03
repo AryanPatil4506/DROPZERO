@@ -72,6 +72,8 @@ const live = {
     request<Explanation>(`/projects/${id}/flags/${flagId}/explain${refresh ? "?refresh=true" : ""}`, { method: "POST" }),
   getValidation: () => request<Validation>("/validation"),
   abTest: (body: ABRequest) => request<ABResult>("/ab-test", json(body)),
+  abCompareProjects: (a: string, b: string) =>
+    request<ABResult>("/projects/ab-compare", json({ project_a: a, project_b: b })),
   getScores: (id: string) => request<ScoreSet>(`/projects/${id}/scores`),
   rewrite: (id: string, flagId: string, refresh = false) =>
     request<Rewrite>(`/projects/${id}/flags/${flagId}/rewrite${refresh ? "?refresh=true" : ""}`, { method: "POST" }),

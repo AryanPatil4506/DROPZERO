@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { api } from "../api/client";
+import { useProjects } from "../api/hooks";
 import type { ABMetric, ABResult } from "../api/types";
-import { ErrorBox, Spinner } from "../components/ui";
+import { ErrorBox, Segmented, Spinner } from "../components/ui";
 import { mmss, pct } from "../lib/format";
 
 const LANGS = [
@@ -17,6 +18,7 @@ function fmt(m: ABMetric, v: number | string | null): string {
   if (m.key === "r30" || m.key === "r60") return pct(v);
   if (m.key === "title_at") return mmss(v);
   if (m.key === "pace") return `${Math.round(v * 100)}% of average`;
+  if (m.key === "dead_air") return `${v} s`;
   return String(v);
 }
 
@@ -36,6 +38,17 @@ export default function AbTestPage() {
   const [a, setA] = useState("");
   const [b, setB] = useState("");
   const [state, setState] = useState<{ loading: boolean; data?: ABResult; error?: unknown }>({ loading: false });
+  const [mode, setMode] = useState<"scripts" | "projects">("scripts");
+  const [pa, setPa] = useState("");
+  const [pb, setPb] = useState("");
+  const projects = (useProjects().data ?? []).filter((p) => p.status === "ready");
+  const runProjects = () => {
+    setState({ loading: true });
+    api
+      .abCompareProjects(pa, pb)
+      .then((data) => setState({ loading: false, data }))
+      .catch((error) => setState({ loading: false, error }));
+  };
 
   const ready = title.trim() && a.trim().length >= 20 && b.trim().length >= 20;
   const run = () => {
@@ -65,6 +78,49 @@ export default function AbTestPage() {
         </p>
       </div>
 
+      <Segmented
+        label="What to compare"
+        value={mode}
+        onChange={(v) => {
+          setMode(v);
+          setState({ loading: false });
+        }}
+        options={[
+          { value: "scripts", label: "Paste two scripts" },
+          { value: "projects", label: "Compare two uploads (video or script)" },
+        ]}
+      />
+
+      {mode === "projects" && (
+        <section className="glass space-y-4 rounded-[28px] p-5" aria-label="Uploads to compare">
+          <p className="text-sm text-ink-2">
+            Upload each version of your video as its own project (New analysis), then pick both here. Videos add two signals scripts can't: seconds without speech and scene cuts in the hook.
+          </p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              { v: pa, set: setPa, label: "Version A" },
+              { v: pb, set: setPb, label: "Version B" },
+            ].map((x) => (
+              <label key={x.label} className="flex flex-col gap-1 text-sm text-ink-2">
+                {x.label}
+                <select value={x.v} onChange={(e) => x.set(e.target.value)} className="rounded-xl border border-line-2 bg-white/5 px-3 py-2 text-ink">
+                  <option value="">Choose a project…</option>
+                  {projects.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.title} · {p.source_type === "video" ? "video" : "script"}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+          <button type="button" className="pill-accent h-10 px-5" disabled={!pa || !pb || pa === pb || state.loading} onClick={runProjects}>
+            {state.loading ? "Comparing…" : "Compare uploads"}
+          </button>
+        </section>
+      )}
+
+      {mode === "scripts" && (
       <section className="glass space-y-4 rounded-[28px] p-5" aria-label="Versions to compare">
         <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_200px]">
           <label className="flex flex-col gap-1 text-sm text-ink-2">
@@ -95,6 +151,7 @@ export default function AbTestPage() {
           {state.loading ? "Comparing…" : "Compare versions"}
         </button>
       </section>
+      )}
 
       {state.loading && <div className="grid h-40 place-items-center"><Spinner label="Analysing both versions (a few seconds)" /></div>}
       {state.error != null && <ErrorBox error={state.error} title="Couldn't compare these versions" />}

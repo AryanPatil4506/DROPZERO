@@ -83,6 +83,12 @@ def _analyse(text: str, title: str, lang: Language, emb: Embedder) -> dict:
     pc = promise_check(title, t, emb, det_cfg["promise"])
     ledger = build_ledger(t, pc, emb, load_config("promises"))
     flags = detect(t, segs, tf, pred, pc, det_cfg, None, ledger)
+    return signals(t, segs, tf, pred, flags, None)
+
+
+def signals(t, segs, tf, pred, flags, av) -> dict:
+    """Hook signals from analysed results (a script analysed in memory, or a stored project)."""
+    pc, ledger = flags.promise, flags.ledger
     hook = [f for f in tf.segments if f.start < HOOK_S and f.kind == "speech"]
     paces = [f.pace_ratio for f in hook if f.pace_ratio is not None]
     hook_promises = [p for p in ledger if p.source == "intro" and p.made_at < HOOK_S]
@@ -97,6 +103,20 @@ def _analyse(text: str, title: str, lang: Language, emb: Embedder) -> dict:
         "promise": hook_promises[0].status if hook_promises else "none",
         # only flags with a concrete cause; vague model-only flags don't decide a hook comparison
         "flags60": [f for f in flags.flags if f.start < 60.0 and f.category != "model_risk"],
+        # video only: seconds without speech in the hook, and scene cuts in the hook
+        "dead_air": (
+            round(
+                sum(
+                    min(s.end, HOOK_S) - s.start
+                    for s in segs
+                    if s.kind == "silence" and s.start < HOOK_S
+                ),
+                1,
+            )
+            if av
+            else None
+        ),
+        "cuts": sum(c < HOOK_S for c in av.scene_cuts) if av and av.has_video else None,
     }
 
 
@@ -114,8 +134,12 @@ _PROMISE_RANK = {"kept": 3, "late": 2, "open": 1, "none": 0}
 def compare(req: ABRequest, emb: Embedder) -> ABResult:
     va = _analyse(req.script_a, req.title, req.language, emb)
     vb = _analyse(req.script_b, req.title, req.language, emb)
+    return compare_signals(va, vb, req.name_a, req.name_b, LABEL)
+
+
+def compare_signals(va: dict, vb: dict, name_a: str, name_b: str, label: str) -> ABResult:
     metrics: list[Metric] = []
-    for key, label in (
+    for key, mlabel in (
         ("r30", "Model-estimated retention at 0:30"),
         ("r60", "Model-estimated retention at 1:00"),
     ):
@@ -126,7 +150,7 @@ def compare(req: ABRequest, emb: Embedder) -> ABResult:
         metrics.append(
             Metric(
                 key=key,
-                label=label,
+                label=mlabel,
                 a=round(ra, 3),
                 b=round(rb, 3),
                 better="higher",
@@ -174,6 +198,28 @@ def compare(req: ABRequest, emb: Embedder) -> ABResult:
             winner=_cmp(_PROMISE_RANK[va["promise"]], _PROMISE_RANK[vb["promise"]], "higher"),
         )
     )
+    if va.get("dead_air") is not None and vb.get("dead_air") is not None:
+        metrics.append(
+            Metric(
+                key="dead_air",
+                label="Seconds without speech in the first 30 s",
+                a=va["dead_air"],
+                b=vb["dead_air"],
+                better="lower",
+                winner=_cmp(va["dead_air"], vb["dead_air"], "lower", 1.0),
+            )
+        )
+    if va.get("cuts") is not None and vb.get("cuts") is not None:
+        metrics.append(
+            Metric(
+                key="cuts",
+                label="Scene cuts in the first 30 s",
+                a=va["cuts"],
+                b=vb["cuts"],
+                better="higher",
+                winner=_cmp(va["cuts"], vb["cuts"], "higher"),
+            )
+        )
     na, nb = len(va["flags60"]), len(vb["flags60"])
     metrics.append(
         Metric(
@@ -190,9 +236,7 @@ def compare(req: ABRequest, emb: Embedder) -> ABResult:
     if wins_a == wins_b:
         summary = "No clear winner: the versions trade off; see each signal."
     else:
-        lead, n, other = (
-            (req.name_a, wins_a, wins_b) if wins_a > wins_b else (req.name_b, wins_b, wins_a)
-        )
+        lead, n, other = (name_a, wins_a, wins_b) if wins_a > wins_b else (name_b, wins_b, wins_a)
         summary = f"{lead} leads on {n} of {len(metrics)} signals (the other leads on {other})."
     if all(m.winner == "tie" for m in metrics[:2]):
         summary += " The predicted curves are within the model's uncertainty of each other."
@@ -206,9 +250,9 @@ def compare(req: ABRequest, emb: Embedder) -> ABResult:
         )
 
     return ABResult(
-        label=LABEL,
-        a=variant(req.name_a, va),
-        b=variant(req.name_b, vb),
+        label=label,
+        a=variant(name_a, va),
+        b=variant(name_b, vb),
         metrics=metrics,
         summary=summary,
     )
@@ -220,3 +264,9 @@ def _r(x):
 
 def _inf(x):
     return float("inf") if x is None else x
+
+
+PROJECT_LABEL = (
+    "Comparison of two analysed projects (model-estimated curves; signals measured on each "
+    "upload). Not a real A/B test with viewers."
+)
