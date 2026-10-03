@@ -104,6 +104,7 @@ def test_repetition_flag_and_payoff_exception():
     earlier, later = sp[2], sp[-3]
     f = fs.segments[later.index]
     f.repetition_similarity, f.repetition_match_segment = 0.75, earlier.index
+    f.repetition_matches = []  # segment-level fallback of the payoff rule
     res = detect(t, segs, fs, pred, _promise(1.0), cfg)
     rep = next(x for x in res.flags if x.category == "repetition" and x.start == later.start)
     assert rep.severity == "high"
@@ -212,3 +213,36 @@ def test_snap_to_pause_only_moves_points_inside_words():
     assert snap_to_pause(4.0, w, 1.5) == 4.0
     assert snap_to_pause(1.9, w, 1.5) == 2.2  # inside "a" -> pause after it
     assert snap_to_pause(2.5, w, 1.5) == 2.2  # inside "b" -> pause before it
+
+
+def test_payoff_rule_uses_matched_sentences():
+    """A repeat whose matched sentence is NOT the promise line is flagged even when the earlier
+    segment also contains the promise line."""
+    from backend.app.schemas.features import RepetitionMatch
+
+    t, segs, fs = _pipeline("en")
+    pred = predict(segs, fs, t.duration_s)
+    cfg = load_config("detection")
+    sp = [s for s in segs if s.kind == "speech"]
+    earlier, later = sp[2], sp[-3]
+    f = fs.segments[later.index]
+    f.repetition_similarity, f.repetition_match_segment = 0.75, earlier.index
+    promise_at = earlier.start + 0.1
+    other = RepetitionMatch(
+        sentence_idx=0,
+        start=later.start,
+        end=later.end,
+        matched_sentence_idx=0,
+        matched_start=earlier.start + 2.0,
+        matched_end=earlier.end,
+        similarity=0.8,
+    )
+    f.repetition_matches = [other]
+    res = detect(t, segs, fs, pred, _promise(promise_at), cfg)
+    assert [x for x in res.flags if x.category == "repetition" and x.start == later.start]
+    same = other.model_copy(
+        update={"matched_start": earlier.start, "matched_end": earlier.start + 1}
+    )
+    f.repetition_matches = [same]
+    res2 = detect(t, segs, fs, pred, _promise(promise_at), cfg)
+    assert not [x for x in res2.flags if x.category == "repetition" and x.start == later.start]

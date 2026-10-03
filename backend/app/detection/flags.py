@@ -27,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.6"
+RULES_VERSION = "rules-1.7"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -249,9 +249,16 @@ def detect(
         if fe.repetition_similarity is None or fe.repetition_similarity < rep_thr:
             continue
         m = segments[fe.repetition_match_segment]
-        # a section echoing the title promise is the payoff, not a repeat
-        if promise.first_mention_s is not None and m.start <= promise.first_mention_s < m.end:
-            continue
+        # a section echoing the title promise is the payoff, not a repeat. Judge by the matched
+        # SENTENCES when we have them: a segment that merely contains the promise line can
+        # still be repeated for other reasons (e.g. a definition right after the question).
+        fm = promise.first_mention_s
+        if fm is not None:
+            ms = fe.repetition_matches
+            if ms and all(x.matched_start <= fm < x.matched_end + 1e-6 for x in ms):
+                continue
+            if not ms and m.start <= fm < m.end:
+                continue
         cands.append((s, fe, m))
     cands = sorted(cands, key=lambda x: -x[1].repetition_similarity)[: rc["max_flags"]]
     for s, fe, m in sorted(cands, key=lambda x: x[0].start):
