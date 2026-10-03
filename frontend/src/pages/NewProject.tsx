@@ -79,7 +79,8 @@ export default function NewProject() {
           <input className={field} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="I Built an AI Agent in 24 Hours" required maxLength={300} />
         </label>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        {/* stacked: five categories do not fit beside the language picker */}
+        <div className="grid gap-4">
           <div className="space-y-1.5">
             <span className="block text-sm text-ink-2">Category</span>
             <Segmented label="Category" value={category} onChange={setCategory} options={[{ value: "tech", label: "Tech" }, { value: "education", label: "Education" }, { value: "vlog", label: "Vlog" }, { value: "music", label: "Music" }, { value: "other", label: "Other" }]} />
