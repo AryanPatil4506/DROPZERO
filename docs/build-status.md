@@ -138,3 +138,18 @@ deleted. Tests: `backend/tests/test_render.py` (plan logic + a real ffmpeg rende
 
 Also fixed: `MediaStore.iter_range` now opens the file per chunk, so a browser holding a video
 stream open no longer blocks deleting a project on Windows (regression test added).
+
+## Rewrite suggestions for weak sections (added 2026-10-03)
+
+`POST /api/projects/{id}/flags/{flag_id}/rewrite` (cached; `?refresh=true` to redo): the local
+LLM (Qwen3-1.7B) rewrites the whole sentences under a flag, tighter, in the video's language. Code:
+`backend/app/explain/rewrite.py`, settings in `config/llm.yaml` → `rewrite`. A rewrite is shown only
+if it passes every check: no numbers absent from the original, at most 80% and at least 35% of the
+original word count, same script (Devanagari for Hindi, Roman for Hinglish/English), and LaBSE
+meaning similarity >= 0.70. Otherwise the response is `source: "none"` with the reasons.
+
+Measured on the three sample scripts (12 flags): 8 rewrites accepted (similarity 0.72-0.97),
+4 refused. The similarity threshold is provisional: it was set on 7 hand-checked examples
+(garbled or meaning-losing Hindi rewrites scored 0.52-0.69). Hindi quality from the 1.7B model is
+the weakest; one accepted Hindi rewrite was still slightly awkward, so the UI asks the creator to
+read Hindi output carefully. Tests: `backend/tests/test_rewrite.py` (stub LLM and embedder).

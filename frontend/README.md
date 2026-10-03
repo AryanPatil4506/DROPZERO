@@ -48,6 +48,10 @@ segment bar and transcript) → **Simulate fix** → original vs simulated → r
   show a teleprompter of the current line instead.
 - **Transport:** restart · −10 s · play/pause · +10 s · ✂ edited preview. Clicking the video also
   toggles play/pause.
+- **Rewrite this section** ("Why would I leave?" panel): the local LLM suggests a tighter version
+  of the flagged lines in the video's language, with word counts, an estimated time saving and the
+  meaning-match score. The server refuses rewrites that change the meaning, aren't shorter, cut too
+  much, add numbers or switch script, and the panel says why. Hindi output carries an extra caution.
 - **Render edited version** (Edit plan, video projects): FFmpeg builds an edited copy of the plan
   (accepted suggestions including moves, plus your trims/cuts/speed-ups) and opens
   `/projects/:id/compare`: original and edited play side by side with shared play / pause /

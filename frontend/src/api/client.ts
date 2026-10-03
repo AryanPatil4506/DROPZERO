@@ -6,6 +6,7 @@ import {
   type Prediction,
   type Project,
   type RenderStatus,
+  type Rewrite,
   type Segment,
   type CustomEdit,
   type Explanation,
@@ -69,6 +70,8 @@ const live = {
     request<Explanation>(`/projects/${id}/flags/${flagId}/explain${refresh ? "?refresh=true" : ""}`, { method: "POST" }),
   getValidation: () => request<Validation>("/validation"),
   getScores: (id: string) => request<ScoreSet>(`/projects/${id}/scores`),
+  rewrite: (id: string, flagId: string, refresh = false) =>
+    request<Rewrite>(`/projects/${id}/flags/${flagId}/rewrite${refresh ? "?refresh=true" : ""}`, { method: "POST" }),
   render: (id: string, editIds: string[], custom: CustomEdit[] = []) =>
     request<RenderStatus>(`/projects/${id}/render`, json({ edit_ids: editIds, custom_edits: custom })),
   getRender: (id: string, renderId: string) => request<RenderStatus>(`/projects/${id}/renders/${renderId}`),

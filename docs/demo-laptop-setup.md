@@ -134,7 +134,9 @@ D:\dropzero\venv\Scripts\python scripts\export_api_samples.py
 ## 9. Later features (not started)
 
 - [x] Before/after render: done (Edit plan → *Render edited version*). Test it on a real video.
-- [ ] Script rewrite suggestions for weak sections (local LLM), in the video's language.
+- [x] Rewrite suggestions for weak sections: done ("Why would I leave?" → *Rewrite this section*).
+      Re-check the meaning threshold (`config/llm.yaml` → `rewrite.min_similarity`) on real
+      transcripts, especially Hindi.
 
 ## Note about the development machine
 

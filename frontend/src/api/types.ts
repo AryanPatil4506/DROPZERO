@@ -323,6 +323,25 @@ export interface Validation extends MockMarker {
   }[];
 }
 
+/** "Rewrite this section": the local LLM tightens the flagged lines; refused if it changes the
+ * meaning, isn't shorter, adds numbers, or uses the wrong script (source = "none"). */
+export interface Rewrite {
+  flag_id: string;
+  start: number;
+  end: number;
+  source: "llm" | "none";
+  model: string | null;
+  original: string;
+  rewrite: string | null;
+  what_changed?: string | null;
+  original_words: number;
+  rewrite_words?: number | null;
+  meaning_similarity?: number | null;
+  /** from this video's own speaking rate; an estimate */
+  est_seconds_saved?: number | null;
+  rejected: string[];
+}
+
 /** Before/after render of an edit plan (the original file is never modified). */
 export interface RenderPiece {
   start: number;

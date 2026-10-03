@@ -133,6 +133,10 @@ export const api = {
     attempt(() => {
       throw new ApiError(409, "AI explanations need the live backend (the local LLM runs there).");
     }),
+  rewrite: () =>
+    attempt(() => {
+      throw new ApiError(409, "AI rewrites need the live backend (the local LLM runs there).");
+    }),
   render: () =>
     attempt(() => {
       throw new ApiError(409, "Rendering needs the live backend and an uploaded video.");

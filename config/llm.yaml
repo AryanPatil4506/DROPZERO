@@ -6,3 +6,14 @@ max_new_tokens: 260
 do_sample: false
 excerpt_chars: 500
 retries: 1
+# "Rewrite this section": tighten flagged lines (checked: no new numbers, shorter, same script).
+rewrite:
+  max_chars: 900
+  min_words: 12          # below this there is nothing worth rewriting
+  max_ratio: 0.8         # rewrite must be at most 80% of the original word count
+  retries: 1
+  min_ratio: 0.35        # ...and at least 35% of it (over-compressed rewrites drop content)
+  # Meaning check: LaBSE cosine similarity between original and rewrite. Provisional value, set on
+  # 7 hand-checked EN/Hinglish/Hindi examples (garbled or meaning-losing rewrites scored 0.52-0.69,
+  # good ones 0.73-0.97). Re-check on real transcripts.
+  min_similarity: 0.70

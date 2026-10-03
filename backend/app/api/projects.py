@@ -12,6 +12,7 @@ from backend.app.config import load_config
 from backend.app.deps import get_services
 from backend.app.detection.scores import ScoreSet, compute_scores
 from backend.app.explain.llm import Explanation, explain_flag
+from backend.app.explain.rewrite import REWRITE_VERSION, Rewrite, rewrite_flag
 from backend.app.ingestion.probe import ToolMissing, probe
 from backend.app.ingestion.validate import (
     ValidationError,
@@ -292,6 +293,32 @@ def post_explain(
     svc.db.put_artifact(
         pid, "explanations", flags.rules_version, json.dumps(cache, ensure_ascii=False)
     )
+    return out
+
+
+@router.post("/{pid}/flags/{fid}/rewrite", response_model=Rewrite)
+def post_rewrite(
+    pid: str, fid: str, refresh: bool = False, svc: Services = Depends(get_services)
+) -> Rewrite:
+    """LLM rewrite of a flagged section's lines, tighter and in the video's language (cached).
+    Refused (source=none) if it adds numbers, isn't shorter, or uses the wrong script."""
+    p = _project(svc, pid)
+    flags = FlagsResponse.model_validate_json(_artifact(svc, pid, "flags"))
+    flag = next((f for f in flags.flags if f.id == fid), None)
+    if flag is None:
+        raise HTTPException(404, "flag not found")
+    raw = svc.db.get_artifact(pid, "rewrites")
+    cache = json.loads(raw) if raw else {}
+    key = f"{fid}:{flags.rules_version}:{REWRITE_VERSION}"
+    if key in cache and not refresh:
+        return Rewrite.model_validate(cache[key])
+    t = Transcript.model_validate_json(_artifact(svc, pid, "transcript"))
+    tf = TextFeatureSet.model_validate_json(_artifact(svc, pid, "text_features"))
+    lang = t.language_detected if t.language_detected in ("en", "hi") else p.language.value
+    wps = tf.baseline_words_per_second or 0.0
+    out = rewrite_flag(svc.llm, flag, t, lang, wps, load_config("llm")["rewrite"], svc.embedder)
+    cache[key] = out.model_dump()
+    svc.db.put_artifact(pid, "rewrites", flags.rules_version, json.dumps(cache, ensure_ascii=False))
     return out
 
 
