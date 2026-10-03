@@ -36,3 +36,37 @@ pitch:
   smooth_frames: 5         # median filter against single-frame octave jumps
   # A segment's range (p90 - p10, semitones) is measured only on this much voiced speech.
   min_voiced_s: 2.0
+
+content:
+  # What is on screen (backend/app/features/visual/content.py). CLIP zero-shot over a fixed list,
+  # local open weights. Evidence only: the retention model was trained without frames.
+  enabled: true
+  image_model: clip-ViT-B-32
+  text_model: sentence-transformers/clip-ViT-B-32-multilingual-v1
+  sample_fps: 1.0
+  size: 224
+  temperature: 100.0          # CLIP's logit scale
+  min_confidence: 0.35        # below this a frame is "unclear"
+  min_run_s: 3.0              # timeline runs shorter than this merge into the previous run
+  types:
+    - key: slide_text
+      label: Slide with text
+      prompts: ["a presentation slide with text", "a slide with bullet points", "a page of text on a screen"]
+    - key: diagram
+      label: Diagram
+      prompts: ["a diagram with boxes and arrows", "a flowchart", "a sketch on a whiteboard", "a presenter explaining a diagram drawn on a board", "a teacher drawing on a glass lightboard"]
+    - key: chart
+      label: Chart or table
+      prompts: ["a chart or graph", "a bar chart", "a table of numbers"]
+    - key: screen
+      label: Screen recording or code
+      prompts: ["computer code on a screen", "a screen recording of software", "a website on a computer screen"]
+    - key: talking_head
+      label: Person talking to camera
+      prompts: ["a person talking to the camera", "a close-up of a person speaking", "a presenter in a room"]
+    - key: broll
+      label: Footage or photo
+      prompts: ["outdoor video footage", "a photo of an object", "a product shown close up"]
+    - key: blank
+      label: Blank or title card
+      prompts: ["a plain black screen", "an empty background", "a title card with one large word"]

@@ -125,6 +125,10 @@ export interface AvFeatures {
   snr_db?: number | null;
   pitch_median_hz?: number | null;
   pitch_range_median_st?: number | null;
+  /** On-screen content (av-1.3, CLIP zero-shot; evidence only, not used by the model). */
+  visual_model?: string | null;
+  visual_types?: Record<string, string>;
+  visual_timeline?: { start: number; end: number; type: string }[];
 }
 
 export interface CurvePoint {

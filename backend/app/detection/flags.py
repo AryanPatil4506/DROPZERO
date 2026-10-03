@@ -27,7 +27,7 @@ from backend.app.schemas.prediction import Prediction
 from backend.app.schemas.segment import Segment
 from backend.app.schemas.transcript import Transcript
 
-RULES_VERSION = "rules-1.7"
+RULES_VERSION = "rules-1.8"
 
 # Only CUTs are simulated: under the exposure model, removed time removes its drop risk. MOVE,
 # SHORTEN, REWRITE and ADD_VISUAL are advice (the model has no notion of reordering or visuals).
@@ -549,6 +549,8 @@ def detect(
             )
 
     _delivery_evidence(b.flags, segments, feats, av_by, cfg["delivery"])
+    if av is not None and av.visual_types:
+        _visual_evidence(b.flags, b.edits, segments, av, cfg["delivery"])
     flags = sorted(b.flags, key=lambda f: (f.start, f.id))
     return FlagsResponse(
         project_id=t.project_id,
@@ -559,6 +561,56 @@ def detect(
         flags=flags,
         edits=b.edits,
     )
+
+
+# what to suggest instead of the picture that is on screen now
+_VISUAL_FIX = {
+    "talking_head": "Cut to a diagram, a screen recording or B-roll here",
+    "slide_text": "Change the slide, or reveal it point by point as you speak",
+    "diagram": "Animate or annotate the diagram, or cut back to camera",
+    "chart": "Highlight the number you are talking about, or zoom into the chart",
+    "screen": "Zoom into the part of the screen you are talking about",
+    "broll": "Switch the footage to match what you are saying",
+    "blank": "Put something on screen: the topic, a diagram or your face",
+}
+
+
+def _visual_evidence(flags: list[Flag], edits: list[Edit], segments, av, cfg: dict) -> None:
+    """What is on screen (CLIP, evidence only): the content type over the flag, and a weak match
+    between picture and words. Sharpens the ADD_VISUAL suggestion for static-picture flags."""
+    av_by = {a.index: a for a in av.segments}
+    names = av.visual_types
+    edit_by = {e.id: e for e in edits}
+    for f in flags:
+        inside = [
+            av_by[s.index]
+            for s in segments
+            if s.start < f.end and s.end > f.start and s.index in av_by
+        ]
+        typed = [a for a in inside if a.visual_type and a.visual_type != "unclear"]
+        if not typed:
+            continue
+        top = max(typed, key=lambda a: (a.end - a.start, -a.index))
+        if f.category in ("visual_monotony", *cfg["visual_match_categories"]):
+            f.evidence.append(
+                Evidence(
+                    label=f"On screen: {names.get(top.visual_type, top.visual_type)}",
+                    value=top.visual_type_share,
+                )
+            )
+        if f.category in cfg["visual_match_categories"]:
+            ratios = [a.speech_match_ratio for a in inside if a.speech_match_ratio is not None]
+            if ratios and min(ratios) < cfg["weak_visual_match_ratio"]:
+                f.evidence.append(
+                    Evidence(
+                        label="Picture matches your words (vs your average)", value=min(ratios)
+                    )
+                )
+        if f.category == "visual_monotony":
+            for eid in f.edit_ids:
+                e = edit_by.get(eid)
+                if e and e.action == "ADD_VISUAL" and top.visual_type in _VISUAL_FIX:
+                    e.reason = _VISUAL_FIX[top.visual_type]
 
 
 def _delivery_evidence(flags: list[Flag], segments, feats, av_by, cfg: dict) -> None:

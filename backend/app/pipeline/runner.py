@@ -14,9 +14,10 @@ from typing import Any
 from backend.app.config import load_config
 from backend.app.detection.flags import detect, promise_check
 from backend.app.detection.promises import build_ledger
-from backend.app.features.av import detect_cuts, extract_av_features
+from backend.app.features.av import add_visual_content, detect_cuts, extract_av_features
 from backend.app.features.text.embedder import Embedder, SentenceTransformerEmbedder
 from backend.app.features.text.extract import extract_text_features
+from backend.app.features.visual.content import ClipEncoder, sample_rgb_frames
 from backend.app.features.visual.frames import sample_frames
 from backend.app.ingestion.audio import audio_sha256, extract_audio, load_wav
 from backend.app.model.predict import predict
@@ -65,6 +66,7 @@ class Services:
     _asr: AsrBackend | None = None
     _embedder: Embedder | None = None
     _llm: Any = None
+    _vision: Any = None
     extra: dict[str, Any] = field(default_factory=dict)
 
     @property
@@ -80,6 +82,14 @@ class Services:
 
             self._llm = LocalLLM(load_config("llm"))
         return self._llm
+
+    @property
+    def vision(self) -> ClipEncoder:
+        if self._vision is None:
+            self._vision = ClipEncoder(
+                load_config("av_features")["content"], self.settings.embed_device
+            )
+        return self._vision
 
     @property
     def embedder(self) -> Embedder:
@@ -144,6 +154,12 @@ def _extract_media(svc: Services, p: Project, work: Path, ctx: dict) -> None:
     try:
         extract_audio(src, wav)
         frames = sample_frames(src, av_cfg["visual"]) if has_video else None
+        ctx["rgb_frames"] = None
+        if has_video and av_cfg["content"]["enabled"]:
+            try:
+                ctx["rgb_frames"] = sample_rgb_frames(src, av_cfg["content"])
+            except Exception:  # optional module: never fail the analysis over it
+                log.exception("on-screen content frames failed for %s", p.id)
     finally:
         src.unlink(missing_ok=True)
     ctx["audio"] = load_wav(wav)
@@ -236,6 +252,14 @@ def _av_features(svc: Services, p: Project, work: Path, ctx: dict) -> None:
         ctx["has_video"],
         load_config("av_features"),
     )
+    rgb = ctx.pop("rgb_frames", None)
+    if rgb is not None and len(rgb):
+        try:
+            fs = add_visual_content(
+                fs, ctx["segments"], rgb, svc.vision, load_config("av_features")["content"]
+            )
+        except Exception:  # optional module (model missing offline, GPU busy): evidence only
+            log.exception("on-screen content analysis failed for %s", p.id)
     svc.db.put_artifact(p.id, "av_features", AV_FEATURE_SCHEMA_VERSION, fs.model_dump_json())
     ctx["av_features"] = fs
 

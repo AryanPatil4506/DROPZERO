@@ -55,3 +55,27 @@ class FixtureAsr:
     def transcribe(self, audio: np.ndarray, language: str | None) -> dict[str, Any]:
         self.calls += 1
         return load_raw(self.lang)
+
+
+class FakeVisualEncoder:
+    """Stands in for CLIP in API tests (no model download): every frame and text maps to the
+    same direction, so the on-screen content code runs end to end."""
+
+    def model_id(self) -> str:
+        return "fake-clip"
+
+    def _same(self, n: int):
+        import numpy as np
+
+        v = np.zeros((n, 8), dtype=np.float32)
+        v[:, 0] = 1.0
+        return v
+
+    def embed_images(self, frames):
+        return self._same(len(frames))
+
+    def embed_labels(self, texts):
+        return self._same(len(texts))
+
+    def embed_speech(self, texts):
+        return self._same(len(texts))

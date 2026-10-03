@@ -13,9 +13,16 @@ from backend.app.features.audio.pitch import (
     voiced_mask,
     yin_f0,
 )
+from backend.app.features.visual.content import (
+    VisualEncoder,
+    classify_frames,
+    label_matrix,
+    label_runs,
+    segment_content,
+)
 from backend.app.features.visual.scenes import frame_diffs, scene_cuts, segment_visual
 from backend.app.ingestion.audio import SAMPLE_RATE
-from backend.app.schemas.av_features import AVFeatureSet, SegmentAVFeatures
+from backend.app.schemas.av_features import AVFeatureSet, SegmentAVFeatures, VisualRun
 from backend.app.schemas.segment import Segment
 from backend.app.versions import AV_FEATURE_SCHEMA_VERSION
 
@@ -103,4 +110,61 @@ def extract_av_features(
         pitch_median_hz=(round(float(np.median(f0[voiced])), 1) if voiced.any() else None),
         pitch_range_median_st=round(range_median, 3) if range_median is not None else None,
         segments=out,
+    )
+
+
+def add_visual_content(
+    fs: AVFeatureSet,
+    segments: list[Segment],
+    rgb: np.ndarray,
+    enc: VisualEncoder,
+    cfg: dict[str, Any],
+) -> AVFeatureSet:
+    """On-screen content type per frame and picture-speech match per segment (CLIP)."""
+    if len(rgb) == 0:
+        return fs
+    types = cfg["types"]
+    keys = [t["key"] for t in types]
+    img = enc.embed_images(rgb)
+    labels, _ = classify_frames(
+        img, label_matrix(enc, types), keys, cfg["temperature"], cfg["min_confidence"]
+    )
+    fps = cfg["sample_fps"]
+    speech = [s for s in segments if s.kind == "speech" and s.text.strip()]
+    sp_emb = (
+        dict(
+            zip([s.index for s in speech], enc.embed_speech([s.text for s in speech]), strict=True)
+        )
+        if speech
+        else {}
+    )
+    per = {
+        s.index: segment_content(labels, img, sp_emb.get(s.index), fps, s.start, s.end)
+        for s in segments
+    }
+    matches = [c.speech_match for c in per.values() if c.speech_match is not None]
+    med = float(np.median(matches)) if matches else None
+    segs = [
+        a.model_copy(
+            update={
+                "visual_type": per[a.index].visual_type,
+                "visual_type_share": per[a.index].visual_type_share,
+                "speech_match": per[a.index].speech_match,
+                "speech_match_ratio": (
+                    round(per[a.index].speech_match / med, 3)
+                    if per[a.index].speech_match is not None and med
+                    else None
+                ),
+            }
+        )
+        for a in fs.segments
+    ]
+    runs = label_runs(labels, fps, cfg["min_run_s"])
+    return fs.model_copy(
+        update={
+            "segments": segs,
+            "visual_model": enc.model_id(),
+            "visual_types": {t["key"]: t["label"] for t in types} | {"unclear": "Unclear"},
+            "visual_timeline": [VisualRun(start=r.start, end=r.end, type=r.label) for r in runs],
+        }
     )

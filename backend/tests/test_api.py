@@ -12,7 +12,7 @@ from backend.app.ingestion import probe as probe_mod
 from backend.app.main import app
 from backend.app.pipeline import runner
 from backend.app.schemas.project import MediaInfo
-from backend.tests.helpers import FIX, FixtureAsr, HashingEmbedder
+from backend.tests.helpers import FIX, FakeVisualEncoder, FixtureAsr, HashingEmbedder
 
 MP4_HEAD = b"\x00\x00\x00\x18ftypisom\x00\x00\x02\x00"
 
@@ -21,6 +21,7 @@ MP4_HEAD = b"\x00\x00\x00\x18ftypisom\x00\x00\x02\x00"
 def svc(settings):
     s = build_services(settings)
     s._embedder = HashingEmbedder()
+    s._vision = FakeVisualEncoder()
     s._asr = FixtureAsr("en")
     return s
 
